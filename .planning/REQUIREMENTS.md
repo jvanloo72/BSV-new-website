@@ -1,0 +1,224 @@
+# Requirements: Belcher, Smolen & Van Loo LLP — Website
+
+**Defined:** 2026-05-25
+**Core Value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
+
+## v1 Requirements
+
+Requirements for initial release. Each maps to roadmap phases.
+
+### Foundation
+
+- [ ] **FOUND-01**: Astro 6 project scaffolded with TypeScript, MDX, Vercel adapter, sitemap, and Tailwind v4 integrations
+- [ ] **FOUND-02**: Tailwind v4 configured via `@theme` in `src/styles/global.css` (no `tailwind.config.js`)
+- [ ] **FOUND-03**: Five Zod-typed Astro Content Collections exist — `attorneys`, `practiceAreas`, `blog`, `testimonials`, `disclaimers`
+- [ ] **FOUND-04**: Cross-collection `reference()` typing enforced — blog posts cannot publish with a missing author; practice areas cannot reference a missing lead attorney
+- [ ] **FOUND-05**: `BaseLayout.astro` renders site header, site footer (with footer disclaimer slot), main content slot, and `<head>` SEO + JSON-LD slots
+- [ ] **FOUND-06**: Three specialized layouts extending BaseLayout — `AttorneyLayout`, `PracticeAreaLayout`, `BlogPostLayout` — each adding its own JSON-LD and per-page disclaimer
+- [ ] **FOUND-07**: Single `<Disclaimer id="..." />` component reads from `disclaimers` content collection (one edit updates every disclaimer site-wide)
+- [ ] **FOUND-08**: URL conventions locked — `/practice-areas/[slug]`, `/attorneys/[slug]`, `/blog/[slug]`, `/about`, `/contact`. Slugs documented and never renamed post-launch
+- [ ] **FOUND-09**: Vercel preview deploy workflow verified — every PR produces a clickable preview URL before merge to `main`
+- [ ] **FOUND-10**: Astro 6 / Tailwind v4 pattern compliance — no removed `output: 'hybrid'`, no deprecated `theme()` function, `getStaticPaths()` params are strings
+
+### Design System
+
+- [ ] **DESIGN-01**: Color palette decided with Jon's input (2-3 options presented in design phase)
+- [ ] **DESIGN-02**: Tailwind `@theme` tokens defined for colors, typography scale, spacing scale — single CSS file as the source of truth
+- [ ] **DESIGN-03**: Modern sans-serif typography (no traditional law-firm serifs); large bold headlines with strong hierarchy
+- [ ] **DESIGN-04**: Reusable section components built — `Hero`, `PracticeAreaCard`, `AttorneyCard`, `TestimonialQuote`, `DealsGrid`, `FeeStructureBand`, `CtaBlock`, `FaqAccordion`
+- [ ] **DESIGN-05**: One custom abstract hero graphic (SVG) commissioned and integrated — Jon's "creative art" requirement
+- [ ] **DESIGN-06**: Stylized practice-area icon set (3 icons) commissioned and integrated via `astro-icon`
+- [ ] **DESIGN-07**: Generous whitespace and restrained imagery — no stock-photo theatrics; layered visual depth where used
+- [ ] **DESIGN-08**: Visual style premium but warmer than Norm Law — restrained foundation with selective creative graphic moments
+
+### Pages (Static)
+
+- [ ] **PAGES-01**: Homepage opens with the lead message "Team work to get good results" (not credentials)
+- [ ] **PAGES-02**: Homepage includes practice-area teaser (3 cards), attorney row (5 cards), one marquee testimonial pull-quote, Chambers Spotlight 2026 recognition strip, and a primary contact CTA
+- [ ] **PAGES-03**: About page covers firm history, both office locations (Silicon Valley + 555 California St. Suite 4925 San Francisco), and the firm's positioning
+- [ ] **PAGES-04**: Practice Areas index page lists all three practice areas with links to dedicated pages
+- [ ] **PAGES-05**: Attorneys index page lists all five attorneys (Nir Fishbien explicitly excluded)
+- [ ] **PAGES-06**: Insights (blog) index page with attorney + practice-area filters; handles empty state gracefully
+- [ ] **PAGES-07**: Branded 404 page and 5xx error page
+- [ ] **PAGES-08**: StoryBrand framing throughout — client is hero, BSV is the guide; every page CTA moves visitor toward getting in touch
+
+### Attorney Profiles
+
+- [ ] **ATTY-01**: Dynamic route `/attorneys/[slug]` generates one page per attorney from the `attorneys` content collection
+- [ ] **ATTY-02**: Aaron Belcher profile page published — bar admissions, education, focus, prior firm (Dewey & LeBoeuf), representative deals (Athelas–Commure $6B; Mode Analytics $200M; Illumina/Roche defense; Adobe, Oracle, PayPal, Dell, eBay, Coinbase as cleared)
+- [ ] **ATTY-03**: Stuart Smolen profile page published — bar admissions, USPTO registration (exact safe phrasing per Rule 7.4), education (Columbia JD; Yale M.S./M.Phil. Physics; SUNY Stony Brook), clerkship (Hon. S. Jay Plager, Fed. Cir.), focus, Corporate IP Star 2017 recognition
+- [ ] **ATTY-04**: Jon Van Loo profile page published — bar admissions (NY, CA), education (Northwestern JD magna cum laude, Duke MA, University of Chicago BA), prior firms (Linklaters, Dechert), focus (M&A tax, international, crypto/blockchain)
+- [ ] **ATTY-05**: Iris Zhang profile page published — education (Columbia JD with Parker School recognition; LSE MS; Nanjing B.Econ.), focus (securities, regulatory, compliance), prior PwC audit + NJ Bureau of Securities experience, languages (English + Mandarin)
+- [ ] **ATTY-06**: Susan Jiang profile page scaffolded with `draft: true` flag — published once Jon supplies the final bio text or URL
+- [ ] **ATTY-07**: Partner direct-contact callout visible on each partner page (email and/or phone) — differentiator that signals partner-led positioning
+- [ ] **ATTY-08**: Tasteful headshot placeholder image used until real photos are taken
+- [ ] **ATTY-09**: Each attorney page renders `Person` JSON-LD structured data
+- [ ] **ATTY-10**: Each attorney page renders the attorney-page disclaimer
+- [ ] **ATTY-11**: Nir Fishbien is NOT featured on the site (not in collections, not linked, not indexed)
+- [ ] **ATTY-12**: Jon is referred to as "Jon" on the new site (defaulting per FIRM_BRIEF.md)
+
+### Practice Areas
+
+- [ ] **PRAC-01**: Dynamic route `/practice-areas/[slug]` generates one page per practice area from the `practiceAreas` content collection
+- [ ] **PRAC-02**: Mergers & Acquisitions page published — opens with client problem, then BSV's team-driven solution, then proof (representative deals, lead partners, testimonial)
+- [ ] **PRAC-03**: Intellectual Property & Technology Transactions page published — same structure, oriented to Stuart's expertise
+- [ ] **PRAC-04**: Tax page published — same structure, oriented to Jon's M&A tax + crypto/blockchain expertise
+- [ ] **PRAC-05**: Deal-experience grid on each practice-area page lists representative deals with cleared client names and (where appropriate) anonymized $-amounts
+- [ ] **PRAC-06**: Lead-attorney callout on each practice-area page links to the relevant attorney profile(s)
+- [ ] **PRAC-07**: Each practice-area page renders the practice-area disclaimer
+- [ ] **PRAC-08**: Each practice-area page renders FAQPage JSON-LD with 3-5 plain-English FAQs for AEO/AI-search surface
+- [ ] **PRAC-09**: Fee-structure transparency band — hourly billing with estimate of total cost — visible on each practice-area page
+
+### Insights (Blog)
+
+- [ ] **BLOG-01**: Dynamic route `/blog/[slug]` generates one page per post from the `blog` content collection
+- [ ] **BLOG-02**: Every blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing
+- [ ] **BLOG-03**: Every blog post renders the blog-post legal disclaimer
+- [ ] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image)
+- [ ] **BLOG-05**: Insights index supports filtering by attorney and by practice area
+- [ ] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss`
+- [ ] **BLOG-07**: Schema requires a `reviewed_by` field on every post (editorial review gate)
+- [ ] **BLOG-08**: Editorial guidelines documented in `.planning/EDITORIAL.md` — banned terms (Rule 7.4), disclaimer placement, client-name policy, no legal advice
+- [ ] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end
+
+### Contact Form
+
+- [ ] **FORM-01**: Contact page at `/contact` with attorney-client disclaimer rendered ABOVE the submit button
+- [ ] **FORM-02**: Form fields — name (required), email (required), organization (optional), short matter description (required, character-limited to defuse 477R over-disclosure risk)
+- [ ] **FORM-03**: Server-side validation via Astro Action with Zod schema — malformed submissions rejected before any I/O
+- [ ] **FORM-04**: Honeypot field present (`name="website"`, sr-only) — submissions with a non-empty honeypot silently accepted but discarded
+- [ ] **FORM-05**: Time-trap layered on top of honeypot — submissions faster than a configurable threshold rejected
+- [ ] **FORM-06**: Rate limiting wired in from the start (Vercel WAF rule or in-Action throttle)
+- [ ] **FORM-07**: Successful submission sends an email to the firm-controlled inbox (`intake@bsvlaw.com` assumed) via Resend; no third-party storage by default
+- [ ] **FORM-08**: Email payload built via structured API (no string concatenation in subject or headers — header-injection-proof)
+- [ ] **FORM-09**: Backend extension point — if Jon confirms BSV uses a CRM (Clio, HubSpot, Salesforce, other), the Action also POSTs to the CRM webhook
+- [ ] **FORM-10**: Submission success and error states render in-place with progressive enhancement (works without JS)
+- [ ] **FORM-11**: Privacy notice on the contact page explaining what's collected, where it goes, and confirming no marketing use
+
+### SEO & Structured Data
+
+- [ ] **SEO-01**: Every page sets `<title>`, `<meta name="description">`, `<link rel="canonical">`, and Open Graph tags via a shared `<SeoHead />` component
+- [ ] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
+- [ ] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
+- [ ] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image)
+- [ ] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
+- [ ] **SEO-06**: All JSON-LD generated via `schema-dts` (typed at build time)
+- [ ] **SEO-07**: Sitemap.xml auto-generated via `@astrojs/sitemap`
+- [ ] **SEO-08**: robots.txt published with sitemap reference
+- [ ] **SEO-09**: SEO copy and meta target relevant queries — "M&A lawyer Silicon Valley / San Francisco", "technology transactions counsel", "crypto tax attorney" (without violating Rule 7.4)
+- [ ] **SEO-10**: Google Rich Results Test passes on a sample page of each type before launch
+
+### Accessibility & Performance
+
+- [ ] **A11Y-01**: WCAG 2.1 AA conformance target on every page
+- [ ] **A11Y-02**: Semantic HTML throughout — heading hierarchy correct, landmarks present, alt text on every meaningful image
+- [ ] **A11Y-03**: Keyboard navigation works on every interactive element including the FAQ accordion and contact form
+- [ ] **A11Y-04**: Color contrast meets WCAG AA — verified for the chosen palette
+- [ ] **A11Y-05**: Focus states visible and distinguishable on every interactive element
+- [ ] **A11Y-06**: axe-core check runs in CI; fails the build on violations
+- [ ] **PERF-01**: Mobile-responsive on all viewport sizes from 320px up
+- [ ] **PERF-02**: Every image committed to the repo is ≤ 200 KB; verified via pre-build check on `dist/`
+- [ ] **PERF-03**: All images use Astro's `<Image />` with lazy loading and modern formats (AVIF/WebP)
+- [ ] **PERF-04**: Lighthouse mobile scores at launch — Performance ≥ 90, Accessibility = 100, SEO ≥ 95
+- [ ] **PERF-05**: Fonts loaded with `font-display: swap`; no FOIT; CLS ≤ 0.1
+- [ ] **PERF-06**: No third-party scripts that ship cookies or session-replay
+
+### Security & Compliance
+
+- [ ] **SEC-01**: HTTP security headers configured in `vercel.json` — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- [ ] **SEC-02**: CSP runs in `Content-Security-Policy-Report-Only` mode through build phases; switched to enforce after a clean soak in Phase 7
+- [ ] **SEC-03**: All API keys and secrets stored as Vercel environment variables only — never in source files, never committed to git
+- [ ] **SEC-04**: `.env`, `.env.local`, and all variants listed in `.gitignore` from Phase 1; gitleaks pre-commit hook installed; GitHub push protection enabled
+- [ ] **SEC-05**: Server-side input validation on every form submission (Zod) — malformed submissions rejected before any I/O or storage
+- [ ] **SEC-06**: Spam protection — honeypot + time-trap + rate limiting (per FORM-04 through FORM-06)
+- [ ] **SEC-07**: Pre-launch verification confirms compiled `dist/` contains no API keys, service keys, or credentials (grep + gitleaks scan)
+- [ ] **SEC-08**: ABA Formal Opinion 477R compliance — contact form transit is TLS-only; notification email lands in a firm-controlled inbox; no third-party storage of inquiry text by default; retention policy documented
+- [ ] **SEC-09**: If any database table is added later, Row Level Security must be enabled before data writes; documented as a precondition on the relevant phase
+- [ ] **SEC-10**: Vercel preview deploys require auth or are unindexed (no `noindex` leak of staging content; sensitive preview URLs gated)
+- [ ] **SEC-11**: Pre-launch security audit via `/hc-firm-site:check` — Security section must fully pass
+- [ ] **SEC-12**: securityheaders.com grade A or higher on the production deployment
+
+### Legal Compliance (Bar Rules + Disclaimers)
+
+- [ ] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
+- [ ] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
+- [ ] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
+- [ ] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
+- [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
+- [ ] **LEGAL-06**: Testimonials carry required disclosures per California bar rules
+- [ ] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
+- [ ] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
+- [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — disclaimer + reviewed_by required
+- [ ] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
+
+### Deployment & Operations
+
+- [ ] **OPS-01**: Site deployed on Vercel; production auto-deploy on merge to `main` of `jvanloo72/BSV-new-website`
+- [ ] **OPS-02**: Custom domain configured for production (bsvlaw.com or a transition domain — confirmed with Jon during launch phase)
+- [ ] **OPS-03**: Redirect map from legacy bsvlaw.com URLs to new site URLs — preserves referral and SEO equity
+- [ ] **OPS-04**: `@vercel/analytics` (cookie-free) enabled in production
+- [ ] **OPS-05**: Vercel preview URL accessible to Jon for every PR before merge — non-technical review workflow
+- [ ] **OPS-06**: Markdown/MDX content authored in files Jon can edit via the GitHub web editor (no buried in-`.astro` content for the editable pieces)
+
+## v2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Internationalization
+
+- **I18N-01**: Mandarin-language version of key practice area and attorney pages (leveraging Iris Zhang's fluency) — revisit if international FinTech intake grows
+
+### Additional Surfaces
+
+- **V2-01**: Sector landing pages (e.g., "M&A for AI companies") — judgment call; reassess after launch traffic and inquiries
+- **V2-02**: Co-counsel / referrer hub page — highest-leverage v2 add given referrals are #1 lead source
+- **V2-03**: Searchable history of inbound inquiries (requires Supabase backend; only relevant if BSV does not use a CRM)
+
+### Engagement Aids
+
+- **V2-04**: Newsletter (opt-in via the contact page, not a popup) — only after a steady cadence of Insights posts exists
+- **V2-05**: Speaking engagement / events archive
+- **V2-06**: Practice-area-specific resources (e.g., M&A timeline templates) gated by ethics review
+
+## Out of Scope
+
+Explicitly excluded. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| Online payment / fee processing | BSV bills hourly with one-on-one estimates; a payment portal is not the right v1 surface and brings PCI scope. |
+| Client portal / matter-management system | Handled outside the marketing site. |
+| Multilingual content beyond English | English only for v1 — referral network is English-speaking. (Mandarin tracked in v2.) |
+| Full rebrand of firm name, mark, or identity | This is a modernization, not a rebrand. |
+| Featuring Nir Fishbien | Explicit instruction from intake. |
+| Generalist legal content (criminal, family, PI, etc.) | BSV's lane is M&A / IP-Tech / Tax — stay disciplined. |
+| Lead-magnet ebooks, gated content | Referral-driven boutique firms don't run on funnels; clashes with positioning. |
+| Newsletter popup / email-capture lightbox | Premium positioning clash; intrusive UX. |
+| Live chat widget | Wrong channel for a partner-access firm; ABA 477R + unauthorized practice risk. |
+| AI chatbot | ABA 477R + unauthorized practice of law risk. |
+| Animated stat counters ($X billion in transactions) | Looks gimmicky for a firm whose currency is trust. |
+| Published hourly rates | Discussed 1:1 with prospective clients; never on the site. |
+| Embedded Google Maps iframe | Heavyweight, privacy-leaky; a styled address block is sufficient. |
+| Paid-ad landing pages | Referral-only firm. |
+| Google Analytics 4 | Would force a cookie banner for no upside — Vercel Analytics (cookie-free) used instead. |
+| Session-replay tools (Hotjar, FullStory) | Direct ABA 477R conflict — they capture page content including any form inputs. |
+| CMS (Sanity, Contentful) | Markdown + GitHub web editor is the right author experience for a non-coding partner. |
+| Client-side-only form handlers | Server-side validation is non-negotiable for a law firm intake. |
+
+## Traceability
+
+Which phases cover which requirements. Updated during roadmap creation.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| (Populated by gsd-roadmapper) | | |
+
+**Coverage:**
+- v1 requirements: 91 total (count to be confirmed by roadmapper)
+- Mapped to phases: TBD
+- Unmapped: TBD
+
+---
+*Requirements defined: 2026-05-25*
+*Last updated: 2026-05-25 after initial definition*
+
