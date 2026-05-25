@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# scripts/hooks/pre-commit
+#
+# BSV Law project pre-commit hook — calls the gitleaks Go binary to scan
+# staged changes before allowing a commit. Installed into .git/hooks/pre-commit
+# by scripts/install-git-hooks.ps1 (Jon runs that once per clone).
+#
+# IMPORTANT: This hook calls the gitleaks Go binary directly. Do NOT change
+# it to invoke gitleaks through the Node package runner (npm/npx) — the npm
+# `gitleaks@1.0.0` package is a slopsquat per 01-RESEARCH.md Pitfall A1.
+#
+# The gitleaks binary is installed in Plan 06 (manual download from
+# https://github.com/gitleaks/gitleaks/releases — Windows: extract
+# gitleaks.exe to a directory on PATH).
+
+set -e
+
+echo "Running gitleaks pre-commit check..."
+gitleaks protect --staged --no-banner --redact -v
