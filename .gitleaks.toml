@@ -1,0 +1,36 @@
+# .gitleaks.toml
+#
+# BSV Law project gitleaks configuration. Two-layer secret-scanning per
+# CONTEXT.md D-17:
+#   Layer 1 (local) — this config + scripts/hooks/pre-commit running
+#                     `gitleaks protect --staged` before every commit.
+#   Layer 2 (server) — GitHub push protection on jvanloo72/BSV-new-website.
+#
+# Allowlist rationale (Claude's discretion per CONTEXT.md):
+#   - intake@bsvlaw.com is the firm's public intake email. It appears in
+#     placeholder content (attorney bios, footer disclaimer) and is meant to
+#     be exposed. Gitleaks's default rules flag email-like strings via
+#     generic-api-key heuristics; allowlist explicitly so first-time runs do
+#     not false-positive and train the user to ignore warnings.
+#   - src/content/disclaimers/disclaimers.json and the placeholder attorney
+#     MDX file are expected to contain that email plus other firm contact
+#     details (phone, addresses). Path-scope the allowlist so a real secret
+#     committed to those paths still gets caught — only the email regex is
+#     waived.
+#
+# The legitimate gitleaks binary is installed in Plan 06 (manual download
+# from github.com/gitleaks/gitleaks/releases — NOT via npm; the npm
+# `gitleaks@1.0.0` package is a slopsquat per RESEARCH.md Pitfall A1).
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "BSV Law project allowlist"
+paths = [
+  '''src/content/disclaimers/disclaimers\.json''',
+  '''src/content/attorneys/placeholder-attorney\.mdx''',
+]
+regexes = [
+  '''intake@bsvlaw\.com''',
+]
