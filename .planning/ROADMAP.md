@@ -57,9 +57,9 @@ depends on.
 Plans:
 **Wave 1**
 
-- [ ] 01-00-PLAN.md — Wave 0 test infrastructure: scaffolds for Playwright config, six test spec files (skipped), gitleaks config + pre-commit hook script + installer + negative-test shell script
+- [x] 01-00-PLAN.md — Wave 0 test infrastructure: scaffolds for Playwright config, six test spec files (skipped), gitleaks config + pre-commit hook script + installer + negative-test shell script
 - [ ] 01-01-PLAN.md — Walking Skeleton: Astro 6 + Tailwind v4 + Vercel adapter + MDX + sitemap scaffold; minimal BaseLayout + SiteHeader + SiteFooter + Disclaimer; seed disclaimers.json with all 5 ids; homepage renders; vercel.json with five security headers
-- [ ] 01-05-PLAN.md — URL Conventions doc: .planning/URL-CONVENTIONS.md (locked slug formats per D-11..D-14); empty .planning/CLIENT_DISCLOSURE_CLEARANCE.md template; seed .planning/DECISIONS.md with 7 Phase 1 entries
+- [x] 01-05-PLAN.md — URL Conventions doc: .planning/URL-CONVENTIONS.md (locked slug formats per D-11..D-14); empty .planning/CLIENT_DISCLOSURE_CLEARANCE.md template; seed .planning/DECISIONS.md with 7 Phase 1 entries
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -213,7 +213,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scaffold & Shell | 0/9 | Planned, ready to execute | - |
+| 1. Scaffold & Shell | 2/9 | In Progress|  |
 | 2. Design System & Visual Identity | 0/TBD | Not started | - |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
