@@ -41,7 +41,7 @@ created: 2026-05-25
 | 01-00-W0-01 | 00 (Wave 0) | 0 | — | — | Test framework available | infra | `npx playwright --version` | ❌ W0 | ⬜ pending |
 | 01-00-W0-02 | 00 (Wave 0) | 0 | — | — | `playwright.config.ts` exists | infra | `test -f playwright.config.ts` | ❌ W0 | ⬜ pending |
 | 01-00-W0-03 | 00 (Wave 0) | 0 | — | — | `.gitleaks.toml` exists | infra | `test -f .gitleaks.toml` | ❌ W0 | ⬜ pending |
-| 01-00-W0-04 | 00 (Wave 0) | 0 | — | — | CI workflow exists | infra | `test -f .github/workflows/ci.yml` | ❌ W0 | ⬜ pending |
+| 01-07-CI-01 | 07 (Wave 5) | 5 | — | — | CI workflow exists | infra | `test -f .github/workflows/ci.yml` | ❌ Wave 5 | ⬜ pending |
 | 01-01-01 | 01 (Scaffold) | 1 | FOUND-01 | — | Astro 6 project boots | build | `npm run build` | ❌ W0 | ⬜ pending |
 | 01-01-02 | 01 (Scaffold) | 1 | FOUND-02 | — | Tailwind v4 styles compile | build | `npm run build` | ❌ W0 | ⬜ pending |
 | 01-01-03 | 01 (Scaffold) | 1 | FOUND-10 | — | No deprecated Tailwind v3 patterns | lint | `npm run build` (would fail) | ❌ W0 | ⬜ pending |
@@ -78,7 +78,7 @@ created: 2026-05-25
 - [ ] `tests/gitleaks.spec.sh` — Shell test that tries to commit a fake AWS key and expects gitleaks to block
 - [ ] `tests/fixtures/broken-blog-post.mdx` — Intentionally broken fixture for zod-negative.spec.ts (kept on a feature branch, never merged to `main`)
 - [ ] `.gitleaks.toml` — gitleaks config with allowlist for placeholder addresses (`intake@bsvlaw.com`)
-- [ ] `.github/workflows/ci.yml` — CI workflow: install → build → test:disclaimer → gitleaks → lint:legal
+- (Moved to Plan 07 / Wave 5) — `.github/workflows/ci.yml` CI workflow lives in Plan 07, not Wave 0. Wave 0 ships only the test scaffolds and configs; the CI workflow that runs them is created later, once those tests have real bodies.
 - [ ] `scripts/install-git-hooks.ps1` — PowerShell installer that drops the gitleaks pre-commit hook into `.git/hooks/` (Windows-friendly for Jon)
 - [ ] `npm install` of Phase 1 dependencies (Playwright, Cheerio, schema-dts, astro integrations) — gated by a `checkpoint:human-verify` task per RESEARCH.md slopcheck-unavailable mitigation
 - [ ] gitleaks Go binary downloaded from `github.com/gitleaks/gitleaks/releases` (NOT the npm slopsquat) — also gated by `checkpoint:human-verify`

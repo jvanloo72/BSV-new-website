@@ -75,7 +75,7 @@ These pages exist as routes so the Playwright disclaimer-crawl test has somethin
 ### 6. `<Disclaimer />` Component
 
 - **API:** `<Disclaimer id="footer" | "contact" | "blog" | "practice-area" | "attorney" />`
-- **Behavior:** Looks up the matching record in the `disclaimers` collection. Renders the text as markdown via Astro's content rendering. Fails the build if `id` is not in the union.
+- **Behavior:** Looks up the matching record in the `disclaimers` collection (a JSON file loaded via Astro's `file()` loader). Renders `entry.data.text` as **plain text inside a `<p>` element**. Markdown rendering via Astro's `render()` is **not applicable** here — `render()` is for `.md`/`.mdx` body content; the disclaimers collection's `text` field is a string. Fails the build if `id` is not in the union (Zod string union on `id`).
 - **Visual placeholder:** Small text (size step `--text-sm`), muted color (`--color-text-muted`), top border on the footer instance. Phase 2 reskins via design tokens.
 
 ---
@@ -84,17 +84,19 @@ These pages exist as routes so the Playwright disclaimer-crawl test has somethin
 
 These tokens live in `src/styles/global.css` `@theme` and are stable across the Phase 2 palette swap.
 
-| Token | Phase 1 Placeholder | Phase 2 Status |
+**Tailwind v4 syntax note.** Values are CSS values referencing the Tailwind-provided `--color-zinc-*` variables (or a literal CSS value like `white`). The Tailwind v3 `theme()` function is **removed** in v4 and MUST NOT be used. The token table below shows v4-correct syntax:
+
+| Token | Phase 1 Placeholder (v4 syntax) | Phase 2 Status |
 |-------|---------------------|----------------|
-| `--color-text` | `theme(colors.zinc.900)` | Replaced by chosen palette |
-| `--color-text-muted` | `theme(colors.zinc.600)` | Replaced |
+| `--color-text` | `var(--color-zinc-900)` | Replaced by chosen palette |
+| `--color-text-muted` | `var(--color-zinc-600)` | Replaced |
 | `--color-bg` | `white` | Replaced |
-| `--color-bg-elevated` | `theme(colors.zinc.50)` | Replaced |
-| `--color-border` | `theme(colors.zinc.200)` | Replaced |
-| `--color-accent` | `theme(colors.zinc.900)` | Replaced |
+| `--color-bg-elevated` | `var(--color-zinc-50)` | Replaced |
+| `--color-border` | `var(--color-zinc-200)` | Replaced |
+| `--color-accent` | `var(--color-zinc-900)` | Replaced |
 | `--color-accent-fg` | `white` | Replaced |
-| `--font-sans` | `system-ui sans-serif fallback` | Replaced with chosen typeface |
-| `--text-xs`/`--text-sm`/`--text-base`/`--text-lg`/`--text-2xl`/`--text-4xl` | Tailwind defaults | Replaced if Phase 2 retunes the scale |
+| `--font-sans` | `system-ui, sans-serif` | Replaced with chosen typeface |
+| `--text-xs`/`--text-sm`/`--text-base`/`--text-lg`/`--text-2xl`/`--text-4xl` | Tailwind defaults (inherit from `@import "tailwindcss"`) | Replaced if Phase 2 retunes the scale |
 
 **Phase 2 will change values, not names.** Every component reading these tokens keeps working through the palette swap.
 
