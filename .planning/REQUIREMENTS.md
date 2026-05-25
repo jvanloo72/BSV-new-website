@@ -211,14 +211,139 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Populated by gsd-roadmapper) | | |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| FOUND-07 | Phase 1 | Pending |
+| FOUND-08 | Phase 1 | Pending |
+| FOUND-09 | Phase 1 | Pending |
+| FOUND-10 | Phase 1 | Pending |
+| DESIGN-01 | Phase 2 | Pending |
+| DESIGN-02 | Phase 2 | Pending |
+| DESIGN-03 | Phase 2 | Pending |
+| DESIGN-04 | Phase 2 | Pending |
+| DESIGN-05 | Phase 2 | Pending |
+| DESIGN-06 | Phase 2 | Pending |
+| DESIGN-07 | Phase 2 | Pending |
+| DESIGN-08 | Phase 2 | Pending |
+| PAGES-01 | Phase 3 | Pending |
+| PAGES-02 | Phase 3 | Pending |
+| PAGES-03 | Phase 3 | Pending |
+| PAGES-04 | Phase 3 | Pending |
+| PAGES-05 | Phase 3 | Pending |
+| PAGES-06 | Phase 3 | Pending |
+| PAGES-07 | Phase 3 | Pending |
+| PAGES-08 | Phase 3 | Pending |
+| ATTY-01 | Phase 4 | Pending |
+| ATTY-02 | Phase 4 | Pending |
+| ATTY-03 | Phase 4 | Pending |
+| ATTY-04 | Phase 4 | Pending |
+| ATTY-05 | Phase 4 | Pending |
+| ATTY-06 | Phase 4 | Pending |
+| ATTY-07 | Phase 4 | Pending |
+| ATTY-08 | Phase 4 | Pending |
+| ATTY-09 | Phase 4 | Pending |
+| ATTY-10 | Phase 4 | Pending |
+| ATTY-11 | Phase 4 | Pending |
+| ATTY-12 | Phase 4 | Pending |
+| PRAC-01 | Phase 4 | Pending |
+| PRAC-02 | Phase 4 | Pending |
+| PRAC-03 | Phase 4 | Pending |
+| PRAC-04 | Phase 4 | Pending |
+| PRAC-05 | Phase 4 | Pending |
+| PRAC-06 | Phase 4 | Pending |
+| PRAC-07 | Phase 4 | Pending |
+| PRAC-08 | Phase 4 | Pending |
+| PRAC-09 | Phase 4 | Pending |
+| BLOG-01 | Phase 5 | Pending |
+| BLOG-02 | Phase 5 | Pending |
+| BLOG-03 | Phase 5 | Pending |
+| BLOG-04 | Phase 5 | Pending |
+| BLOG-05 | Phase 5 | Pending |
+| BLOG-06 | Phase 5 | Pending |
+| BLOG-07 | Phase 5 | Pending |
+| BLOG-08 | Phase 5 | Pending |
+| BLOG-09 | Phase 5 | Pending |
+| FORM-01 | Phase 6 | Pending |
+| FORM-02 | Phase 6 | Pending |
+| FORM-03 | Phase 6 | Pending |
+| FORM-04 | Phase 6 | Pending |
+| FORM-05 | Phase 6 | Pending |
+| FORM-06 | Phase 6 | Pending |
+| FORM-07 | Phase 6 | Pending |
+| FORM-08 | Phase 6 | Pending |
+| FORM-09 | Phase 6 | Pending |
+| FORM-10 | Phase 6 | Pending |
+| FORM-11 | Phase 6 | Pending |
+| SEO-01 | Phase 3 | Pending |
+| SEO-02 | Phase 3 | Pending |
+| SEO-03 | Phase 4 | Pending |
+| SEO-04 | Phase 5 | Pending |
+| SEO-05 | Phase 4 | Pending |
+| SEO-06 | Phase 7 | Pending |
+| SEO-07 | Phase 3 | Pending |
+| SEO-08 | Phase 3 | Pending |
+| SEO-09 | Phase 7 | Pending |
+| SEO-10 | Phase 7 | Pending |
+| A11Y-01 | Phase 7 | Pending |
+| A11Y-02 | Phase 7 | Pending |
+| A11Y-03 | Phase 7 | Pending |
+| A11Y-04 | Phase 7 | Pending |
+| A11Y-05 | Phase 7 | Pending |
+| A11Y-06 | Phase 7 | Pending |
+| PERF-01 | Phase 7 | Pending |
+| PERF-02 | Phase 7 | Pending |
+| PERF-03 | Phase 7 | Pending |
+| PERF-04 | Phase 7 | Pending |
+| PERF-05 | Phase 7 | Pending |
+| PERF-06 | Phase 7 | Pending |
+| SEC-01 | Phase 1 | Pending |
+| SEC-02 | Phase 1 | Pending |
+| SEC-03 | Phase 1 | Pending |
+| SEC-04 | Phase 1 | Pending |
+| SEC-05 | Phase 6 | Pending |
+| SEC-06 | Phase 6 | Pending |
+| SEC-07 | Phase 7 | Pending |
+| SEC-08 | Phase 6 | Pending |
+| SEC-09 | Phase 6 | Pending |
+| SEC-10 | Phase 1 | Pending |
+| SEC-11 | Phase 7 | Pending |
+| SEC-12 | Phase 7 | Pending |
+| LEGAL-01 | Phase 1 | Pending |
+| LEGAL-02 | Phase 4 | Pending |
+| LEGAL-03 | Phase 4 | Pending |
+| LEGAL-04 | Phase 4 | Pending |
+| LEGAL-05 | Phase 7 | Pending |
+| LEGAL-06 | Phase 4 | Pending |
+| LEGAL-07 | Phase 3 | Pending |
+| LEGAL-08 | Phase 4 | Pending |
+| LEGAL-09 | Phase 5 | Pending |
+| LEGAL-10 | Phase 4 | Pending |
+| OPS-01 | Phase 7 | Pending |
+| OPS-02 | Phase 7 | Pending |
+| OPS-03 | Phase 7 | Pending |
+| OPS-04 | Phase 7 | Pending |
+| OPS-05 | Phase 1 | Pending |
+| OPS-06 | Phase 3 | Pending |
 
 **Coverage:**
-- v1 requirements: 91 total (count to be confirmed by roadmapper)
-- Mapped to phases: TBD
-- Unmapped: TBD
+- v1 requirements: 117 total (FOUND 10 + DESIGN 8 + PAGES 8 + ATTY 12 + PRAC 9 + BLOG 9 + FORM 11 + SEO 10 + A11Y 6 + PERF 6 + SEC 12 + LEGAL 10 + OPS 6)
+- Mapped to phases: 117
+- Unmapped: 0
+- Coverage: 100%
+
+**By phase:**
+- Phase 1 (Scaffold & Shell): 17 requirements
+- Phase 2 (Design System & Visual Identity): 8 requirements
+- Phase 3 (Homepage & Static Pages): 14 requirements
+- Phase 4 (Attorney & Practice Area Pages): 29 requirements
+- Phase 5 (Insights (Blog) System): 11 requirements
+- Phase 6 (Contact Form & Intake): 15 requirements
+- Phase 7 (Security Hardening, Performance & Launch): 23 requirements
 
 ---
 *Requirements defined: 2026-05-25*
-*Last updated: 2026-05-25 after initial definition*
-
+*Last updated: 2026-05-25 — Traceability populated by gsd-roadmapper*
