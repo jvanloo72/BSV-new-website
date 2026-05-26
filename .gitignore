@@ -1,0 +1,30 @@
+# Temporary .gitignore — overwritten by Task 2 Step 6 with canonical D-18 entries
+# Recovery from misparsed npm create astro@latest invocation
+
+# Astro / build
+.env
+.env.local
+.env.*.local
+.vercel
+dist
+node_modules
+.astro
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+playwright-report/
+test-results/
+
+# Recovery leftovers (will be removed manually by Jon once empty)
+_scaffold-leftover/
+
+# Scaffold-default files kept as reference
+.gitignore.astro-default
+README.md.astro-default
