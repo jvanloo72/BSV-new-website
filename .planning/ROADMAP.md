@@ -100,7 +100,21 @@ from the same building blocks and a future restyle is a single-file edit.
   4. The custom abstract hero SVG and the three stylized practice-area icons are present on disk, integrated via `astro-icon`, and visibly distinct from generic stock imagery.
   5. The look reads premium-but-warm (per the Norm Law foundation + Strix warmth direction) — Jon confirms on the preview before Phase 3 begins.
 
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+**Wave 1**
+
+- [ ] 02-00-PLAN.md — Wave 0 test infrastructure: 7 Playwright/Cheerio/filesystem spec scaffolds (contrast.spec active; the other 6 skipped with UNSKIP-WHEN markers) + package.json test scripts
+- [ ] 02-01-PLAN.md — Foundation slice: install astro-icon + sharp, self-host Hanken Grotesk (Astro Fonts API), rewrite global.css @theme (Direction-B palette + type/spacing/radius/shadow tokens + reduced-motion guard), wire fonts/icon/sitemap-filter/noindex prop, ship UI primitives + PracticeAreaCard + first practice icon on hidden /_design
+
+**Wave 2** *(depends on 02-01)*
+
+- [ ] 02-02-PLAN.md — Remaining 7 components (Hero, AttorneyCard, TestimonialQuote, DealsGrid, FeeStructureBand, CtaBlock, FaqAccordion) + converging-linework hero SVG + 2 remaining practice icons + placeholder headshots; full 8-component /_design gallery
+
+**Wave 3** *(depends on 02-01, 02-02)*
+
+- [ ] 02-03-PLAN.md — Creative identity + chrome: derived mark.svg + favicon, typographic wordmark, refined SiteHeader/SiteFooter (animated underline, focus rings), retrofit Phase 1 arbitrary-value token syntax to namespace utilities; footer Disclaimer not regressed
+
 **UI hint**: yes
 
 ### Phase 3: Homepage & Static Pages
@@ -214,7 +228,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
-| 2. Design System & Visual Identity | 0/TBD | Not started | - |
+| 2. Design System & Visual Identity | 0/4 | Planned | - |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
