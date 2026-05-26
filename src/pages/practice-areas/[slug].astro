@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import PracticeAreaLayout from '../../layouts/PracticeAreaLayout.astro';
+
+export async function getStaticPaths() {
+  const practiceAreas = await getCollection('practiceAreas', ({ data }) => !data.draft);
+  return practiceAreas.map((entry) => ({
+    params: { slug: entry.data.slug }, // STRING — Astro 6 requires (FOUND-10 / Pitfall 12)
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<PracticeAreaLayout practiceArea={entry}>
+  <Content />
+</PracticeAreaLayout>
