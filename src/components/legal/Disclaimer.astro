@@ -1,0 +1,23 @@
+---
+import { getEntry } from 'astro:content';
+
+type DisclaimerId = 'footer' | 'contact' | 'blog' | 'practice-area' | 'attorney';
+
+interface Props {
+  id: DisclaimerId;
+}
+
+const { id } = Astro.props;
+
+const entry = await getEntry('disclaimers', id);
+if (!entry) {
+  throw new Error(
+    `Disclaimer entry "${id}" not found in src/content/disclaimers/disclaimers.json. ` +
+      `Every DisclaimerId must have a matching entry — add it to the JSON file or remove the reference.`,
+  );
+}
+---
+
+<aside class={`disclaimer disclaimer--${id} text-sm text-[color:var(--color-text-muted)] leading-relaxed`} role="note">
+  <p>{entry.data.text}</p>
+</aside>

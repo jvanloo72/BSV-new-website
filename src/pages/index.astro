@@ -1,17 +1,17 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Belcher, Smolen & Van Loo LLP"
+  description="A boutique California law firm focused on Mergers & Acquisitions, Intellectual Property & Technology Transactions, and Tax for the technology, life sciences, cryptocurrency, FinTech, and AI industries."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="text-4xl font-semibold tracking-tight text-[color:var(--color-text)] md:text-5xl">
+      Belcher, Smolen &amp; Van Loo LLP
+    </h1>
+    <p class="mt-6 text-lg leading-relaxed text-[color:var(--color-text-muted)]">
+      Placeholder homepage shell — full content lands in Phase 3.
+    </p>
+  </section>
+</BaseLayout>

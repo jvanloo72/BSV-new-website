@@ -1,0 +1,19 @@
+---
+import Disclaimer from '../legal/Disclaimer.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] mt-16">
+  <div class="mx-auto max-w-6xl px-6 py-10 space-y-6">
+    <Disclaimer id="footer" />
+
+    <p class="text-sm text-[color:var(--color-text-muted)]">
+      Silicon Valley &middot; 555 California St., Suite 4925, San Francisco, CA 94104
+    </p>
+
+    <small class="block text-xs text-[color:var(--color-text-muted)]">
+      &copy; {year} Belcher, Smolen &amp; Van Loo LLP. All rights reserved.
+    </small>
+  </div>
+</footer>

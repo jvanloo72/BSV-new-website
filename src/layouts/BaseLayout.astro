@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/chrome/SiteHeader.astro';
+import SiteFooter from '../components/chrome/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const { title, description, canonical, ogImage } = Astro.props;
+
+/* D-19: every non-production deploy (including Vercel preview URLs on
+ * custom domains) gets a `noindex, nofollow` meta tag. Vercel already
+ * applies `x-robots-tag: noindex` on `*.vercel.app` URLs, but this is the
+ * belt-and-suspenders fallback for any future custom-preview domain. */
+const isPreview = !import.meta.env.PROD;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content={isPreview ? 'noindex, nofollow' : 'index, follow'} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <SiteHeader currentPath={Astro.url.pathname} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
