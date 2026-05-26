@@ -39,7 +39,7 @@ function collectCss(roots: string[]): string[] {
   return found;
 }
 
-test.describe.skip('Compiled design tokens (DESIGN-02)', () => {
+test.describe('Compiled design tokens (DESIGN-02)', () => {
   test.beforeAll(() => {
     execSync('npm run build', { stdio: 'pipe' });
   });

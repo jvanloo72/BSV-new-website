@@ -33,7 +33,7 @@ function walk(dir: string, onFile: (full: string) => void) {
   }
 }
 
-test.describe.skip('Self-hosted fonts (DESIGN-03)', () => {
+test.describe('Self-hosted fonts (DESIGN-03)', () => {
   test.beforeAll(() => {
     execSync('npm run build', { stdio: 'pipe' });
   });
@@ -52,13 +52,18 @@ test.describe.skip('Self-hosted fonts (DESIGN-03)', () => {
     expect(offenders, `Google Fonts CDN references found:\n${offenders.join('\n')}`).toEqual([]);
   });
 
-  test('@font-face + font-display present in compiled CSS', () => {
-    let cssBlob = '';
+  test('@font-face + font-display present in build output', () => {
+    // Astro's Fonts API injects the self-hosted @font-face (with font-display:
+    // swap + auto-generated size-adjust fallback metrics) into the document
+    // <head> via the <Font> component — i.e. into the emitted HTML, not the
+    // compiled CSS bundle. Scan both .css and .html so the self-host assertion
+    // holds wherever Astro chooses to emit the rule.
+    let blob = '';
     walk(DIST, (full) => {
-      if (full.endsWith('.css')) cssBlob += fs.readFileSync(full, 'utf-8');
+      if (/\.(css|html)$/i.test(full)) blob += fs.readFileSync(full, 'utf-8');
     });
-    expect(cssBlob.length, 'at least one compiled CSS file must exist').toBeGreaterThan(0);
-    expect(cssBlob, 'self-hosted font requires an @font-face rule').toContain('@font-face');
-    expect(cssBlob, 'font must declare font-display for CLS control').toContain('font-display');
+    expect(blob.length, 'at least one compiled CSS/HTML file must exist').toBeGreaterThan(0);
+    expect(blob, 'self-hosted font requires an @font-face rule').toContain('@font-face');
+    expect(blob, 'font must declare font-display for CLS control').toContain('font-display');
   });
 });
