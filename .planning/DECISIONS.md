@@ -315,6 +315,52 @@ is: `src/content/attorneys/<slug>/<slug>.mdx` plus `src/content/attorneys/<slug>
 
 ---
 
+## 2026-05-26 — Phase 2 — Visual identity locked: Direction B (near-black minimalist) + deep-rust accent, single palette (deviation from ROADMAP criterion #1)
+
+**What was decided:**
+BSV's visual identity is locked to **palette Direction B — near-black minimalist**:
+warm off-white page (`#F8F5F0`), near-black text (`#111111`), graphite muted text
+(`#52524E`), warm-grey borders (`#D9D2C5`), a near-white floating-card surface, and a
+single **deep-rust / persimmon accent (`#9A3F1A`)** on every CTA, link, the Chambers
+strip, and focus rings. Typeface: **Hanken Grotesk**, one sans for everything,
+self-hosted, dramatic big-and-bold headline hierarchy. Light mode only.
+
+Crucially, Jon chose to **lock a single palette now rather than ship 2–3 palette
+variants to a Vercel preview for side-by-side comparison.** ROADMAP success-criterion
+#1 for Phase 2 reads: "Jon reviews 2-3 color palette options on a Vercel preview and
+confirms one." We are deliberately satisfying the *intent* of that criterion through
+the A/B/C direction exploration conducted during `/gsd:discuss-phase` (Directions A
+navy-lineage, B near-black, C warm-neutral; B chosen, then refined through accent and
+foundation sub-choices) rather than by rendering three competing palettes on a live
+preview. Jon still reviews the one chosen palette rendered on a real Vercel preview
+before Phase 3 begins.
+
+**Why:**
+Presenting three fully-built palettes on a Vercel preview is meaningful when the
+client has no prior direction and needs to react to finished options. Here, the
+structured discussion already walked Jon through the three real directions with
+rendered swatches and explicit trade-offs, and he converged decisively (including a
+mid-discussion rewind from Direction C back to Direction B, which is exactly the kind
+of comparison the "2-3 options" criterion exists to enable). Building two extra
+throwaway palettes purely to satisfy the literal wording would add build time and
+review friction for a decision already made with confidence. Recording the deviation
+here — rather than silently shipping one palette — keeps the audit trail honest and
+prevents the Phase 2 verification step from flagging "only one palette" as a missing
+deliverable.
+
+**Teaching insight:**
+**A success criterion is a proxy for an outcome, not the outcome itself.** The real
+goal behind "review 2-3 options" is *"the client makes an informed, confident color
+decision and isn't surprised later."* When that goal is met by a different route, the
+right move is to (a) confirm the underlying goal is genuinely satisfied, and (b)
+document the deviation in writing so a future reviewer understands the criterion was
+met in spirit, not skipped. The wrong moves are the two extremes: blindly building
+three palettes nobody needs just to check a box, or quietly shipping one palette and
+hoping no one notices the criterion said three. Name the deviation, justify it, move
+on.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the
