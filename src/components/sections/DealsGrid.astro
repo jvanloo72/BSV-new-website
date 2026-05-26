@@ -1,0 +1,35 @@
+---
+/* DealsGrid — responsive grid of compact deal cells (floating surfaces, D-09).
+   Each cell: deal title (weight 700), optional accent $-amount, optional muted
+   context line. Only cleared / already-public placeholder deals (LEGAL-04).
+   Static cells. Token-only; data-component marker for the gallery test. */
+interface Deal {
+  title: string;
+  amount?: string;
+  context?: string;
+}
+
+interface Props {
+  deals: Deal[];
+  heading?: string;
+}
+
+const { deals, heading } = Astro.props;
+---
+
+<section data-component="DealsGrid" class="bg-bg py-section">
+  <div class="mx-auto max-w-6xl px-gutter">
+    {heading && <h2 class="mb-8 text-h2 font-bold text-text">{heading}</h2>}
+    <ul class="grid list-none gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        deals.map((deal) => (
+          <li class="rounded-card border border-border bg-bg-elevated p-6 shadow-card">
+            <h3 class="text-h3 font-bold text-text">{deal.title}</h3>
+            {deal.amount && <p class="mt-2 text-body-lg font-medium text-accent">{deal.amount}</p>}
+            {deal.context && <p class="mt-2 text-body text-text-muted">{deal.context}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

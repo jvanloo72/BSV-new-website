@@ -1,0 +1,55 @@
+---
+/* FaqAccordion — native <details>/<summary> stack. ZERO JavaScript (D-10,
+   RESEARCH Pattern 4): expand/collapse + keyboard (Enter/Space) operability come
+   from the platform, no client:* directive. Each item is a floating panel
+   (bg-bg-elevated, rounded-card, hairline border). <summary> = question
+   (H3-weight) + accent chevron rotating 180deg on open (motion-safe), padded to
+   >=44px tap target, focus-visible accent ring. Token-only; data-component marker
+   for the gallery test. */
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  items: FaqItem[];
+  heading?: string;
+}
+
+const { items, heading } = Astro.props;
+---
+
+<section data-component="FaqAccordion" class="bg-bg py-section">
+  <div class="mx-auto max-w-3xl px-gutter">
+    {heading && <h2 class="mb-8 text-h2 font-bold text-text">{heading}</h2>}
+    <div class="space-y-4">
+      {
+        items.map((item) => (
+          <details class="group rounded-card border border-border bg-bg-elevated shadow-card">
+            <summary
+              class="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-4 px-6 py-4
+                     text-h3 font-bold text-text
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                     focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            >
+              <span>{item.q}</span>
+              <svg
+                class="size-5 shrink-0 text-accent transition-transform duration-200 ease-out group-open:rotate-180 motion-safe:transition-transform"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M6 9 L12 15 L18 9" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 text-body text-text-muted">{item.a}</div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

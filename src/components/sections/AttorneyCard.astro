@@ -1,0 +1,53 @@
+---
+/* AttorneyCard — the floating-card shell (same surface system as PracticeAreaCard,
+   D-09) presenting an attorney. Astro <Image> headshot with explicit width/height
+   (no CLS); name (H3), role (small muted), one-line focus, optional "View profile".
+   Motion-safe hover-lift + focus-visible accent ring. Placeholder headshots live
+   under src/assets/headshots/ so <Image> processes them (Pitfall 7). Descriptive
+   alt (A11Y-02). The excluded former-Counsel team member (ATTY-11) is never
+   rendered. Token-only; data-component marker for the gallery test. */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  name: string;
+  role: string;
+  focus: string;
+  photo: ImageMetadata;
+  alt: string;
+  href?: string;
+}
+
+const { name, role, focus, photo, alt, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  data-component="AttorneyCard"
+  class="group block overflow-hidden rounded-card border border-border bg-bg-elevated shadow-card
+         transition-transform transition-shadow duration-200 ease-out
+         motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-card-hover
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+         focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+>
+  <Image
+    src={photo}
+    alt={alt}
+    width={400}
+    height={500}
+    class="aspect-[4/5] w-full object-cover"
+  />
+  <div class="p-6">
+    <h3 class="text-h3 font-bold text-text">{name}</h3>
+    <p class="mt-1 text-small font-medium uppercase tracking-wide text-text-muted">{role}</p>
+    <p class="mt-3 text-body text-text-muted">{focus}</p>
+    {
+      href && (
+        <span class="mt-4 inline-block text-small font-medium text-accent">
+          View profile &rarr;
+        </span>
+      )
+    }
+  </div>
+</Tag>

@@ -1,0 +1,28 @@
+---
+/* TestimonialQuote — large pull-quote (blockquote/cite semantics, A11Y-02) on bg.
+   Small accent open-quote glyph; quote at body-lg weight 500; muted attribution.
+   Optional `disclosure` slot reserved for the later California-required disclosure
+   (<Disclaimer>, LEGAL-06). max-w-3xl centered. Static, no hover. Token-only;
+   data-component marker for the gallery test. */
+interface Props {
+  quote: string;
+  attribution: string;
+  attributionDetail?: string;
+}
+
+const { quote, attribution, attributionDetail } = Astro.props;
+---
+
+<section data-component="TestimonialQuote" class="bg-bg py-section">
+  <figure class="mx-auto max-w-3xl px-gutter text-center">
+    <span class="block text-display font-extrabold leading-none text-accent" aria-hidden="true">&ldquo;</span>
+    <blockquote class="-mt-4 text-body-lg font-medium leading-relaxed text-text md:text-h3 md:leading-snug">
+      {quote}
+    </blockquote>
+    <figcaption class="mt-6 text-small text-text-muted">
+      <cite class="not-italic font-medium text-text">{attribution}</cite>
+      {attributionDetail && <span>{` — ${attributionDetail}`}</span>}
+    </figcaption>
+    <slot name="disclosure" />
+  </figure>
+</section>
