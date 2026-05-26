@@ -1,22 +1,36 @@
 // tests/disclaimer-set.spec.ts
 //
-// Wave 0 scaffold (Plan 01-00). Body skipped — Plan 02 wires it up.
-//
-// Purpose: verify that all five disclaimer ids defined in
-// `src/content/disclaimers/disclaimers.json` exist with non-empty `text`
-// and a non-empty `version` string. The five ids are locked by D-08:
-//   footer, contact, blog, practice-area, attorney.
+// Verifies the disclaimer set integrity: the five locked ids (D-08) exist
+// in src/content/disclaimers/disclaimers.json with non-empty text and a
+// dated version string. This locks the disclaimer surface against
+// accidental id drift between content edits and consuming layouts.
 
 import { test, expect } from '@playwright/test';
+import * as fs from 'node:fs';
 
-test.skip('all five disclaimer ids exist with non-empty text + version — implementation lands in Plan 02', async () => {
-  // TODO: Plan 02 implements:
-  //   1. Read `src/content/disclaimers/disclaimers.json` from disk.
-  //   2. Parse JSON.
-  //   3. For each id in ['footer','contact','blog','practice-area','attorney']:
-  //        - find the entry with `id === <id>`.
-  //        - assert entry.text is a non-empty string.
-  //        - assert entry.version is a non-empty string.
-  //   4. Assert no unexpected ids exist.
-  expect(true).toBe(true);
+type DisclaimerEntry = {
+  id: string;
+  text: string;
+  version: string;
+};
+
+test.describe('Disclaimer set integrity', () => {
+  test('all five disclaimer ids present with non-empty text + version', () => {
+    const raw = fs.readFileSync('src/content/disclaimers/disclaimers.json', 'utf-8');
+    const data = JSON.parse(raw) as DisclaimerEntry[];
+
+    expect(Array.isArray(data), 'disclaimers.json must be an array').toBe(true);
+
+    const expectedIds = ['footer', 'contact', 'blog', 'practice-area', 'attorney'].sort();
+    const actualIds = data.map((entry) => entry.id).sort();
+    expect(actualIds).toEqual(expectedIds);
+
+    for (const entry of data) {
+      expect(typeof entry.text, `Entry ${entry.id} text must be a string`).toBe('string');
+      expect(entry.text.trim().length, `Entry ${entry.id} text must be non-trivial`).toBeGreaterThan(20);
+
+      expect(typeof entry.version, `Entry ${entry.id} version must be a string`).toBe('string');
+      expect(entry.version, `Entry ${entry.id} version must start with an ISO date`).toMatch(/^\d{4}-\d{2}-\d{2}/);
+    }
+  });
 });
