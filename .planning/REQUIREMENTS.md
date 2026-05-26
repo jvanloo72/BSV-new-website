@@ -26,7 +26,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DESIGN-02**: Tailwind `@theme` tokens defined for colors, typography scale, spacing scale — single CSS file as the source of truth
 - [x] **DESIGN-03**: Modern sans-serif typography (no traditional law-firm serifs); large bold headlines with strong hierarchy
 - [x] **DESIGN-04**: Reusable section components built — `Hero`, `PracticeAreaCard`, `AttorneyCard`, `TestimonialQuote`, `DealsGrid`, `FeeStructureBand`, `CtaBlock`, `FaqAccordion`
-- [ ] **DESIGN-05**: One custom abstract hero graphic (SVG) commissioned and integrated — Jon's "creative art" requirement
+- [x] **DESIGN-05**: One custom abstract hero graphic (SVG) commissioned and integrated — Jon's "creative art" requirement
 - [x] **DESIGN-06**: Stylized practice-area icon set (3 icons) commissioned and integrated via `astro-icon`
 - [x] **DESIGN-07**: Generous whitespace and restrained imagery — no stock-photo theatrics; layered visual depth where used
 - [x] **DESIGN-08**: Visual style premium but warmer than Norm Law — restrained foundation with selective creative graphic moments
@@ -225,7 +225,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DESIGN-02 | Phase 2 | Complete |
 | DESIGN-03 | Phase 2 | Complete |
 | DESIGN-04 | Phase 2 | Complete |
-| DESIGN-05 | Phase 2 | Pending |
+| DESIGN-05 | Phase 2 | Complete |
 | DESIGN-06 | Phase 2 | Complete |
 | DESIGN-07 | Phase 2 | Complete |
 | DESIGN-08 | Phase 2 | Complete |

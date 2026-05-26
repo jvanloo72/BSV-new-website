@@ -109,7 +109,7 @@ Plans:
 
 **Wave 2** *(depends on 02-01)*
 
-- [ ] 02-02-PLAN.md — Remaining 7 components (Hero, AttorneyCard, TestimonialQuote, DealsGrid, FeeStructureBand, CtaBlock, FaqAccordion) + converging-linework hero SVG + 2 remaining practice icons + placeholder headshots; full 8-component /_design gallery
+- [x] 02-02-PLAN.md — Remaining 7 components (Hero, AttorneyCard, TestimonialQuote, DealsGrid, FeeStructureBand, CtaBlock, FaqAccordion) + converging-linework hero SVG + 2 remaining practice icons + placeholder headshots; full 8-component /design-system gallery; gallery/a11y/assets tests green
 
 **Wave 3** *(depends on 02-01, 02-02)*
 
