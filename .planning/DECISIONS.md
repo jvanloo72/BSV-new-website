@@ -361,6 +361,47 @@ on.
 
 ---
 
+## 2026-05-26 — Phase 2 — Type scale uses 7 sizes / 4 weights: a deliberate override of the UI-checker's 4-size / 2-weight guideline
+
+**What was decided:**
+The Phase 2 design-system type scale defines **7 font-size tokens** (`display`,
+`h1`, `h2`, `h3`, `body-lg`, `body`, `small`) and **4 weights** (400 / 500 / 700 /
+800). The automated UI design-contract checker flags any scale with more than 4 sizes
+or more than 2 weights as a blocking issue. We are **consciously overriding** that
+guideline for this phase and accepting the 7-size / 4-weight scale, recorded in
+`02-UI-SPEC.md` under "Documented threshold override."
+
+**Why:**
+The checker's 4-size / 2-weight cap is a good rule for a *single application screen*,
+where extra sizes and weights usually signal undisciplined "visual noise." Phase 2 is
+a different animal: it is the phase whose entire job is to define the **canonical,
+reusable type scale for a whole multi-page marketing site**. A real design system needs
+a hero display size, two-to-three heading levels, one or two body sizes, and a small/
+label size — that is six or seven steps by nature. The firm's locked design decisions
+demand it explicitly: CONTEXT.md **D-08** calls for a "dramatic, big-and-bold headline
+hierarchy … strong size jumps between heading levels," and **D-05** says "hierarchy
+comes from size + weight + spacing." Collapsing to four sizes and two weights to satisfy
+the checker would directly violate both locked decisions and produce a worse result.
+Crucially, the scale is still *disciplined*: it is a closed set (no ad-hoc sizes),
+weights are restricted to 400/500/700/800 with an explicit prohibition on 600/300, and
+body line-height stays generous — so this is a controlled system, not the noise the rule
+was written to catch.
+
+**Teaching insight:**
+**An automated quality gate encodes a heuristic, not a law — and heuristics have a
+domain where they apply.** The "4 sizes / 2 weights" rule is sound for app UI but
+category-inappropriate for the deliverable "design a type system." The right response
+to a gate firing against intent is not to silently disable the gate, and not to mangle
+the work to satisfy it — it is to (1) confirm the work is genuinely correct for its
+context, (2) write down *why* the rule doesn't apply here, citing the governing
+decisions, and (3) record the override so the next reviewer sees a justified exception,
+not an unexplained breach. This is the same move as the single-palette deviation logged
+earlier today: name it, justify it against the locked decisions, move on. A gate you can
+reason about and override with documentation is a healthy gate; a gate you either obey
+blindly or rip out is not.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the
