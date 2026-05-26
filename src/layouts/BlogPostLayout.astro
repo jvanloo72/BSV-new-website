@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Disclaimer from '../components/legal/Disclaimer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+/* BlogPostLayout — Phase 1 scaffold. Wraps BaseLayout; renders post header
+ * + body slot + blog disclaimer.
+ *
+ * Phase 5 will add <JsonLd slot="head" data={buildArticleLd(post)} /> for
+ * Article structured data — slot transfer, no BaseLayout edit. */
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const title = `${post.data.title} — BSV Insights`;
+const description = post.data.summary;
+---
+
+<BaseLayout title={title} description={description}>
+  {/* Phase 5: <JsonLd slot="head" data={buildArticleLd(post)} /> */}
+  <article>
+    <header>
+      <h1>{post.data.title}</h1>
+    </header>
+    <slot />
+  </article>
+  <Disclaimer id="blog" />
+</BaseLayout>

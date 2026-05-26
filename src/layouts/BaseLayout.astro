@@ -2,6 +2,10 @@
 import '../styles/global.css';
 import SiteHeader from '../components/chrome/SiteHeader.astro';
 import SiteFooter from '../components/chrome/SiteFooter.astro';
+import SkipToContent from '../components/chrome/SkipToContent.astro';
+import SeoHead from '../components/seo/SeoHead.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { buildLegalServiceLd } from '../lib/jsonld';
 
 interface Props {
   title: string;
@@ -26,21 +30,16 @@ const isPreview = !import.meta.env.PROD;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content={isPreview ? 'noindex, nofollow' : 'index, follow'} />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
-
-    {canonical && <link rel="canonical" href={canonical} />}
-
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <SeoHead title={title} description={description} canonical={canonical} ogImage={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <JsonLd data={buildLegalServiceLd()} />
 
     <slot name="head" />
   </head>
   <body>
+    <SkipToContent />
     <SiteHeader currentPath={Astro.url.pathname} />
     <main id="main">
       <slot />
