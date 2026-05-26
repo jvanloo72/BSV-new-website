@@ -1,15 +1,20 @@
 // playwright.config.ts
 //
-// Wave 0 scaffold. Plan 01-00 creates this file BEFORE the first `npm install`
-// runs (Playwright is installed in Plan 01 after the `checkpoint:human-verify`
-// gate). The import below is valid TypeScript regardless of whether the
-// `@playwright/test` package is installed — it only resolves at runtime.
+// Wave 0 scaffold (Plan 01-00), refined in Plan 01-06.
 //
-// Source: 01-RESEARCH.md §"Pattern 8: Playwright disclaimer-crawl test (D-25)".
-// webServer command builds the site and serves it via `astro preview` on the
-// canonical Astro default port (4321).
+// The webServer block is gated on PLAYWRIGHT_NEEDS_SERVER because Plan 01-06
+// introduced a /api/csp-report serverless route that flips the build output
+// from pure-static to a Vercel-adapted bundle. `astro preview` cannot serve
+// that bundle (no Vercel function runtime locally) so it returns 404 on /
+// and Playwright's webServer poll times out. Tests that hit the filesystem
+// only (zod-negative, disclaimer-set) do not need a server and run without
+// setting the env var. The disclaimer-crawl test (Plan 07) will set it and
+// supply a server-capable command (likely `vercel dev` or a build + static
+// serve of dist/client).
 
 import { defineConfig } from '@playwright/test';
+
+const needsServer = !!process.env.PLAYWRIGHT_NEEDS_SERVER;
 
 export default defineConfig({
   testDir: './tests',
@@ -19,10 +24,12 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:4321',
   },
-  webServer: {
-    command: 'npm run build && npx astro preview',
-    url: 'http://localhost:4321',
-    timeout: 120_000,
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: needsServer
+    ? {
+        command: 'npm run build && npx astro preview',
+        url: 'http://localhost:4321',
+        timeout: 120_000,
+        reuseExistingServer: !process.env.CI,
+      }
+    : undefined,
 });
