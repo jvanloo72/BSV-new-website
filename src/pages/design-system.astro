@@ -1,0 +1,53 @@
+---
+/* /_design — permanent hidden component gallery (D-16). noindex even in PROD
+   (BaseLayout noindex prop — single robots meta, no slotted <meta robots>) and
+   excluded from the sitemap (astro.config sitemap filter). Not in nav.
+   This first slice renders the UI primitives + PracticeAreaCard with the locked
+   M&A placeholder content (UI-SPEC §2); 02-02/02-03 add the remaining
+   components and creative art. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import Button from '../components/ui/Button.astro';
+import TextLink from '../components/ui/TextLink.astro';
+import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
+---
+
+<BaseLayout
+  title="Design System (internal)"
+  description="Internal component gallery — not for public consumption."
+  noindex
+>
+  <div class="mx-auto max-w-6xl px-gutter py-section">
+    <header class="mb-12">
+      <Eyebrow>Internal</Eyebrow>
+      <h1 class="mt-2 text-display font-extrabold text-text">Design System</h1>
+      <p class="mt-4 max-w-3xl text-body-lg text-text-muted">
+        Living style guide. Renders the locked tokens, font, and components from
+        the single source of truth in <code>src/styles/global.css</code>.
+      </p>
+    </header>
+
+    <section class="mb-section">
+      <h2 class="text-h2 font-bold text-text">UI primitives</h2>
+      <div class="mt-6 flex flex-wrap items-center gap-6">
+        <Button variant="primary" href="/contact" label="Start a conversation" />
+        <Button variant="secondary" href="/practice-areas" label="See our work" />
+        <p class="text-body text-text">
+          Read more on our <TextLink href="/about">team approach</TextLink>.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-section">
+      <h2 class="mb-6 text-h2 font-bold text-text">PracticeAreaCard</h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <PracticeAreaCard
+          icon="practice-mergers-acquisitions"
+          title="Mergers & Acquisitions"
+          blurb="Domestic and cross-border M&A for acquirers, PE firms, and venture-backed targets — from $6B mergers to founder exits."
+          href="/practice-areas/mergers-acquisitions"
+        />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <!-- Two forms (left + right workstreams) converging into one closed deal at center.
+       Thin-line, currentColor — themed by text-accent. Decorative (aria-hidden at call site). -->
+  <path d="M6 14 H18 V34 H6 Z" />
+  <path d="M30 14 H42 V34 H30 Z" />
+  <path d="M18 24 C22 24 22 24 24 24" />
+  <path d="M30 24 C26 24 26 24 24 24" />
+  <circle cx="24" cy="24" r="3.5" />
+  <path d="M24 6 V13" />
+  <path d="M24 35 V42" />
+</svg>

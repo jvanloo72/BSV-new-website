@@ -1,51 +1,49 @@
 @import "tailwindcss";
 
-/* BSV brand design tokens — the SINGLE source of truth (DESIGN-02).
+/* BSV brand design tokens -- the SINGLE source of truth (DESIGN-02).
    Token NAMES are stable across Phases 1-2 (D-22); Phase 2 swaps the
    placeholder VALUES for the locked Direction-B palette (D-01) and ADDS the
    fluid type scale (D-08), spacing rhythm (DESIGN-07), and radius/shadow
    tokens (D-09). Tailwind v4 auto-generates utilities by namespace, so a
    future restyle is a single-file edit:
-     --color-* -> text-*/bg-*/border-*/ring-*/fill-*
-     --text-*  -> text-* (font-size)
-     --spacing-* -> p-*/py-*/gap-*/mt-*
-     --radius-* -> rounded-*
-     --shadow-* -> shadow-* */
+     --color-* -> text/bg/border/ring/fill
+     --text-*  -> text (font-size)
+     --spacing-* -> p/py/gap/mt
+     --radius-* -> rounded
+     --shadow-* -> shadow */
 @theme {
-  /* Colors — D-01 (Direction B, light mode only D-04). Names UNCHANGED. */
-  --color-text: #111111;          /* near-black body + headings */
-  --color-text-muted: #52524e;    /* graphite — secondary copy, labels */
-  --color-bg: #f8f5f0;            /* warm off-white page ground (~60%) */
-  --color-bg-elevated: #fdfcfa;   /* near-white floating surface (~30%, D-09) */
-  --color-border: #d9d2c5;        /* warm-grey hairline trim */
-  --color-accent: #9a3f1a;        /* deep rust — CTA/links/focus (~10%, D-02) */
-  --color-accent-fg: #f8f5f0;     /* foreground on the rust fill */
+  /* Colors -- D-01 (Direction B, light mode only D-04). Names UNCHANGED. */
+  --color-text: #111111;
+  --color-text-muted: #52524e;
+  --color-bg: #f8f5f0;
+  --color-bg-elevated: #fdfcfa;
+  --color-border: #d9d2c5;
+  --color-accent: #9a3f1a;
+  --color-accent-fg: #f8f5f0;
 
-  /* Font (D-05/D-06) — Hanken Grotesk (self-hosted via the Fonts API
-     cssVariable --font-hanken) leads the existing fallback stack so every
-     component using `font-sans` adopts it automatically. */
+  /* Font (D-05/D-06) -- self-hosted Hanken Grotesk leads the fallback stack
+     via the Fonts API cssVariable, so every `font-sans` consumer adopts it. */
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
-  /* Fluid type scale (D-08) — exact clamp stops locked in UI-SPEC §Typography. */
-  --text-display: clamp(2.75rem, 1.6rem + 5.75vw, 5rem);      /* 44 -> 80px, 800 */
-  --text-h1: clamp(2.25rem, 1.6rem + 3.25vw, 3.5rem);         /* 36 -> 56px, 700 */
-  --text-h2: clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem);         /* 28 -> 40px, 700 */
-  --text-h3: clamp(1.3125rem, 1.15rem + 0.8vw, 1.625rem);     /* 21 -> 26px, 700 */
-  --text-body-lg: 1.1875rem;                                  /* 19px lead */
-  --text-body: 1.0625rem;                                     /* 17px default */
-  --text-small: 0.875rem;                                     /* 14px labels */
+  /* Fluid type scale (D-08) -- exact clamp stops locked in UI-SPEC. */
+  --text-display: clamp(2.75rem, 1.6rem + 5.75vw, 5rem);
+  --text-h1: clamp(2.25rem, 1.6rem + 3.25vw, 3.5rem);
+  --text-h2: clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem);
+  --text-h3: clamp(1.3125rem, 1.15rem + 0.8vw, 1.625rem);
+  --text-body-lg: 1.1875rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.875rem;
 
-  /* Named fluid spacing rhythm (DESIGN-07) — UI-SPEC §Spacing. */
-  --spacing-section: clamp(4rem, 2.5rem + 7vw, 8rem);   /* 64 -> 128px section padding */
-  --spacing-gutter: clamp(1.25rem, 0.75rem + 2vw, 2rem); /* 20 -> 32px page gutters */
+  /* Named fluid spacing rhythm (DESIGN-07). */
+  --spacing-section: clamp(4rem, 2.5rem + 7vw, 8rem);
+  --spacing-gutter: clamp(1.25rem, 0.75rem + 2vw, 2rem);
 
-  /* Radius (D-09) — UI-SPEC §"Radius & Shadow tokens". */
-  --radius-card: 0.75rem;   /* 12px cards/panels */
-  --radius-button: 0.5rem;  /* 8px buttons */
+  /* Radius (D-09). */
+  --radius-card: 0.75rem;
+  --radius-button: 0.5rem;
 
-  /* Soft, warm-tinted floating shadow (D-09) — rust-black, low opacity, so it
-     reads "premium boutique" on the warm ground, not "generic dashboard". */
+  /* Soft warm-tinted floating shadow (D-09) -- rust-black, low opacity. */
   --shadow-card: 0 1px 2px rgba(60, 30, 15, 0.04),
     0 8px 24px -4px rgba(60, 30, 15, 0.06);
   --shadow-card-hover: 0 2px 4px rgba(60, 30, 15, 0.05),
@@ -73,7 +71,7 @@
   }
 }
 
-/* Reduced-motion backstop (D-10 / A11Y) — disables all animation, transition,
+/* Reduced-motion backstop (D-10 / A11Y) -- disables all animation, transition,
    and smooth-scroll for users who request reduced motion. Component-level
    `motion-safe:` utilities are the primary gate; this is the global guard for
    any hand-authored keyframes. Focus rings are NOT motion (never disabled). */

@@ -1,0 +1,23 @@
+---
+/* TextLink primitive — inline accent link with an animated underline (D-10).
+   The underline is ALWAYS visible at rest (base affordance for reduced-motion
+   users); the left-to-right grow is motion-safe only. focus-visible accent
+   ring (A11Y-05). Token-only — no hardcoded hex. */
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="relative inline text-accent underline decoration-1 underline-offset-2
+         after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent
+         motion-safe:after:transition-[width] motion-safe:after:duration-200
+         hover:after:w-full
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+         focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded-xs"
+>
+  <slot />
+</a>

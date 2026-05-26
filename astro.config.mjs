@@ -37,10 +37,12 @@ export default defineConfig({
     },
   ],
 
-  // D-16: exclude the internal /_design gallery route from the sitemap.
+  // D-16: exclude the internal /design-system gallery route from the sitemap.
+  // (Astro ignores leading-underscore page filenames in src/pages/, so the
+  //  planned /_design route became /design-system — see RESEARCH A2 / 02-01 summary.)
   integrations: [
     mdx(),
-    sitemap({ filter: (page) => page !== 'https://bsvlaw.com/_design' }),
+    sitemap({ filter: (page) => page !== 'https://bsvlaw.com/design-system' }),
     icon(),
   ],
 

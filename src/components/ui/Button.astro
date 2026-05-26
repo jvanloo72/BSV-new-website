@@ -1,0 +1,41 @@
+---
+/* Button primitive — token-only styled (D-22; no hardcoded hex).
+   Polymorphic: renders <a href> when `href` is set, otherwise <button>.
+   Variants: primary (rust fill) / secondary (outline). Min 44px hit area via
+   padding (WCAG 2.5.5). focus-visible accent ring (A11Y-05, never motion-gated).
+   Hover deepen via transition-colors + motion-safe opacity shift (D-10). */
+interface Props {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  label?: string;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const { variant = 'primary', href, label, type = 'button' } = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center rounded-button px-6 py-3 text-body font-medium ' +
+  'transition-colors duration-150 ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ' +
+  'focus-visible:ring-offset-2 focus-visible:ring-offset-bg';
+
+const variants = {
+  primary: 'bg-accent text-accent-fg motion-safe:hover:bg-accent/90',
+  secondary:
+    'border border-text text-text bg-transparent motion-safe:hover:bg-text/[0.04]',
+};
+---
+
+{
+  href ? (
+    <a href={href} class:list={[base, variants[variant]]}>
+      {label}
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class:list={[base, variants[variant]]}>
+      {label}
+      <slot />
+    </button>
+  )
+}

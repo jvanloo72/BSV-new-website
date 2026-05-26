@@ -1,18 +1,18 @@
 // tests/design-route-hidden.spec.ts
 //
-// D-16: the internal /_design gallery must NOT be discoverable by search
+// D-16: the internal /design-system gallery must NOT be discoverable by search
 // engines. Two independent guards:
 //   - it is ABSENT from the generated sitemap (sitemap filter in astro.config),
 //   - its rendered HTML carries a `noindex` robots directive.
 //
 // Idiom A (analog: tests/disclaimer-crawl.spec.ts) — build first, then read the
-// sitemap + the /_design HTML from disk. We reuse the same sitemap-on-disk read
-// pattern as the disclaimer crawl (the Vercel adapter writes the sitemap under
-// dist/client/sitemap-0.xml).
+// sitemap + the /design-system HTML from disk. We reuse the same sitemap-on-disk
+// read pattern as the disclaimer crawl (the Vercel adapter writes the sitemap
+// under dist/client/sitemap-0.xml).
 //
-// SKIPPED today because /_design and the sitemap filter do not exist yet.
-//
-// UNSKIP WHEN: /_design route + sitemap filter live — 02-01
+// NOTE: the gallery was planned as /_design, but Astro ignores leading-underscore
+// page filenames in src/pages/, so the route is /design-system (RESEARCH A2 /
+// 02-01 summary). The sitemap-exclusion + noindex contract is unchanged.
 
 import { test, expect } from '@playwright/test';
 import { execSync } from 'node:child_process';
@@ -20,7 +20,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const DIST_CLIENT = 'dist/client';
-const DESIGN_HTML = path.join(DIST_CLIENT, '_design', 'index.html');
+const DESIGN_HTML = path.join(DIST_CLIENT, 'design-system', 'index.html');
 const SITEMAP_CANDIDATES = ['sitemap-0.xml', 'sitemap-index.xml', 'sitemap.xml'];
 
 function readAllSitemapXml(): string {
@@ -42,19 +42,21 @@ function readAllSitemapXml(): string {
   return combined;
 }
 
-test.describe.skip('Hidden /_design route (D-16)', () => {
+test.describe('Hidden /design-system route (D-16)', () => {
   test.beforeAll(() => {
     execSync('npm run build', { stdio: 'pipe' });
   });
 
-  test('/_design is absent from the sitemap', () => {
+  test('/design-system is absent from the sitemap', () => {
     const xml = readAllSitemapXml();
     expect(xml.length, 'a sitemap must exist').toBeGreaterThan(0);
-    expect(xml.includes('_design'), 'sitemap must not reference /_design').toBe(false);
+    expect(xml.includes('design-system'), 'sitemap must not reference /design-system').toBe(
+      false,
+    );
   });
 
-  test('/_design HTML carries a noindex robots directive', () => {
+  test('/design-system HTML carries a noindex robots directive', () => {
     const html = fs.readFileSync(DESIGN_HTML, 'utf-8');
-    expect(html, '/_design must declare noindex').toContain('noindex');
+    expect(html, '/design-system must declare noindex').toContain('noindex');
   });
 });

@@ -1,0 +1,32 @@
+---
+/* PracticeAreaCard — the first vertical-slice section component.
+   Whole-card <a> link to a floating elevated surface (D-09): rounded-card,
+   bg-bg-elevated, soft warm shadow-card, hairline border. Practice-area icon
+   (text-accent via currentColor), H3 title, muted blurb. Motion-safe hover-lift
+   + shadow deepen (D-10); focus-visible accent ring on the whole card.
+   Token-only — no hardcoded hex. data-component marker for the gallery test. */
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  blurb: string;
+  icon: string;
+  href: string;
+}
+
+const { title, blurb, icon, href } = Astro.props;
+---
+
+<a
+  href={href}
+  data-component="PracticeAreaCard"
+  class="group block rounded-card bg-bg-elevated p-8 shadow-card border border-border
+         transition-transform transition-shadow duration-200 ease-out
+         motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-card-hover
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+         focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+>
+  <Icon name={icon} class="size-10 text-accent" aria-hidden="true" />
+  <h3 class="mt-4 text-h3 font-bold text-text">{title}</h3>
+  <p class="mt-2 text-body text-text-muted">{blurb}</p>
+</a>
