@@ -9,16 +9,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Astro 6 project scaffolded with TypeScript, MDX, Vercel adapter, sitemap, and Tailwind v4 integrations
-- [ ] **FOUND-02**: Tailwind v4 configured via `@theme` in `src/styles/global.css` (no `tailwind.config.js`)
-- [ ] **FOUND-03**: Five Zod-typed Astro Content Collections exist — `attorneys`, `practiceAreas`, `blog`, `testimonials`, `disclaimers`
-- [ ] **FOUND-04**: Cross-collection `reference()` typing enforced — blog posts cannot publish with a missing author; practice areas cannot reference a missing lead attorney
-- [ ] **FOUND-05**: `BaseLayout.astro` renders site header, site footer (with footer disclaimer slot), main content slot, and `<head>` SEO + JSON-LD slots
-- [ ] **FOUND-06**: Three specialized layouts extending BaseLayout — `AttorneyLayout`, `PracticeAreaLayout`, `BlogPostLayout` — each adding its own JSON-LD and per-page disclaimer
-- [ ] **FOUND-07**: Single `<Disclaimer id="..." />` component reads from `disclaimers` content collection (one edit updates every disclaimer site-wide)
-- [ ] **FOUND-08**: URL conventions locked — `/practice-areas/[slug]`, `/attorneys/[slug]`, `/blog/[slug]`, `/about`, `/contact`. Slugs documented and never renamed post-launch
-- [ ] **FOUND-09**: Vercel preview deploy workflow verified — every PR produces a clickable preview URL before merge to `main`
-- [ ] **FOUND-10**: Astro 6 / Tailwind v4 pattern compliance — no removed `output: 'hybrid'`, no deprecated `theme()` function, `getStaticPaths()` params are strings
+- [x] **FOUND-01**: Astro 6 project scaffolded with TypeScript, MDX, Vercel adapter, sitemap, and Tailwind v4 integrations
+- [x] **FOUND-02**: Tailwind v4 configured via `@theme` in `src/styles/global.css` (no `tailwind.config.js`)
+- [x] **FOUND-03**: Five Zod-typed Astro Content Collections exist — `attorneys`, `practiceAreas`, `blog`, `testimonials`, `disclaimers`
+- [x] **FOUND-04**: Cross-collection `reference()` typing enforced — blog posts cannot publish with a missing author; practice areas cannot reference a missing lead attorney
+- [x] **FOUND-05**: `BaseLayout.astro` renders site header, site footer (with footer disclaimer slot), main content slot, and `<head>` SEO + JSON-LD slots
+- [x] **FOUND-06**: Three specialized layouts extending BaseLayout — `AttorneyLayout`, `PracticeAreaLayout`, `BlogPostLayout` — each adding its own JSON-LD and per-page disclaimer
+- [x] **FOUND-07**: Single `<Disclaimer id="..." />` component reads from `disclaimers` content collection (one edit updates every disclaimer site-wide)
+- [x] **FOUND-08**: URL conventions locked — `/practice-areas/[slug]`, `/attorneys/[slug]`, `/blog/[slug]`, `/about`, `/contact`. Slugs documented and never renamed post-launch
+- [x] **FOUND-09**: Vercel preview deploy workflow verified — every PR produces a clickable preview URL before merge to `main`
+- [x] **FOUND-10**: Astro 6 / Tailwind v4 pattern compliance — no removed `output: 'hybrid'`, no deprecated `theme()` function, `getStaticPaths()` params are strings
 
 ### Design System
 
@@ -125,22 +125,22 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Security & Compliance
 
-- [ ] **SEC-01**: HTTP security headers configured in `vercel.json` — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
-- [ ] **SEC-02**: CSP runs in `Content-Security-Policy-Report-Only` mode through build phases; switched to enforce after a clean soak in Phase 7
-- [ ] **SEC-03**: All API keys and secrets stored as Vercel environment variables only — never in source files, never committed to git
-- [ ] **SEC-04**: `.env`, `.env.local`, and all variants listed in `.gitignore` from Phase 1; gitleaks pre-commit hook installed; GitHub push protection enabled
+- [x] **SEC-01**: HTTP security headers configured in `vercel.json` — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
+- [x] **SEC-02**: CSP runs in `Content-Security-Policy-Report-Only` mode through build phases; switched to enforce after a clean soak in Phase 7
+- [x] **SEC-03**: All API keys and secrets stored as Vercel environment variables only — never in source files, never committed to git
+- [x] **SEC-04**: `.env`, `.env.local`, and all variants listed in `.gitignore` from Phase 1; gitleaks pre-commit hook installed; GitHub push protection enabled *(local pre-commit hook deferred per DECISIONS.md 2026-05-26; GitHub push protection + CI gitleaks-action provide the two active layers)*
 - [ ] **SEC-05**: Server-side input validation on every form submission (Zod) — malformed submissions rejected before any I/O or storage
 - [ ] **SEC-06**: Spam protection — honeypot + time-trap + rate limiting (per FORM-04 through FORM-06)
 - [ ] **SEC-07**: Pre-launch verification confirms compiled `dist/` contains no API keys, service keys, or credentials (grep + gitleaks scan)
 - [ ] **SEC-08**: ABA Formal Opinion 477R compliance — contact form transit is TLS-only; notification email lands in a firm-controlled inbox; no third-party storage of inquiry text by default; retention policy documented
 - [ ] **SEC-09**: If any database table is added later, Row Level Security must be enabled before data writes; documented as a precondition on the relevant phase
-- [ ] **SEC-10**: Vercel preview deploys require auth or are unindexed (no `noindex` leak of staging content; sensitive preview URLs gated)
+- [x] **SEC-10**: Vercel preview deploys require auth or are unindexed (no `noindex` leak of staging content; sensitive preview URLs gated)
 - [ ] **SEC-11**: Pre-launch security audit via `/hc-firm-site:check` — Security section must fully pass
 - [ ] **SEC-12**: securityheaders.com grade A or higher on the production deployment
 
 ### Legal Compliance (Bar Rules + Disclaimers)
 
-- [ ] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
+- [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
 - [ ] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
 - [ ] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
 - [ ] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
@@ -157,7 +157,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **OPS-02**: Custom domain configured for production (bsvlaw.com or a transition domain — confirmed with Jon during launch phase)
 - [ ] **OPS-03**: Redirect map from legacy bsvlaw.com URLs to new site URLs — preserves referral and SEO equity
 - [ ] **OPS-04**: `@vercel/analytics` (cookie-free) enabled in production
-- [ ] **OPS-05**: Vercel preview URL accessible to Jon for every PR before merge — non-technical review workflow
+- [x] **OPS-05**: Vercel preview URL accessible to Jon for every PR before merge — non-technical review workflow
 - [ ] **OPS-06**: Markdown/MDX content authored in files Jon can edit via the GitHub web editor (no buried in-`.astro` content for the editable pieces)
 
 ## v2 Requirements
@@ -211,16 +211,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
-| FOUND-08 | Phase 1 | Pending |
-| FOUND-09 | Phase 1 | Pending |
-| FOUND-10 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Validated |
+| FOUND-02 | Phase 1 | Validated |
+| FOUND-03 | Phase 1 | Validated |
+| FOUND-04 | Phase 1 | Validated |
+| FOUND-05 | Phase 1 | Validated |
+| FOUND-06 | Phase 1 | Validated |
+| FOUND-07 | Phase 1 | Validated |
+| FOUND-08 | Phase 1 | Validated |
+| FOUND-09 | Phase 1 | Validated |
+| FOUND-10 | Phase 1 | Validated |
 | DESIGN-01 | Phase 2 | Pending |
 | DESIGN-02 | Phase 2 | Pending |
 | DESIGN-03 | Phase 2 | Pending |
@@ -300,19 +300,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PERF-04 | Phase 7 | Pending |
 | PERF-05 | Phase 7 | Pending |
 | PERF-06 | Phase 7 | Pending |
-| SEC-01 | Phase 1 | Pending |
-| SEC-02 | Phase 1 | Pending |
-| SEC-03 | Phase 1 | Pending |
-| SEC-04 | Phase 1 | Pending |
+| SEC-01 | Phase 1 | Validated |
+| SEC-02 | Phase 1 | Validated |
+| SEC-03 | Phase 1 | Validated |
+| SEC-04 | Phase 1 | Validated |
 | SEC-05 | Phase 6 | Pending |
 | SEC-06 | Phase 6 | Pending |
 | SEC-07 | Phase 7 | Pending |
 | SEC-08 | Phase 6 | Pending |
 | SEC-09 | Phase 6 | Pending |
-| SEC-10 | Phase 1 | Pending |
+| SEC-10 | Phase 1 | Validated |
 | SEC-11 | Phase 7 | Pending |
 | SEC-12 | Phase 7 | Pending |
-| LEGAL-01 | Phase 1 | Pending |
+| LEGAL-01 | Phase 1 | Validated |
 | LEGAL-02 | Phase 4 | Pending |
 | LEGAL-03 | Phase 4 | Pending |
 | LEGAL-04 | Phase 4 | Pending |
@@ -326,7 +326,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OPS-02 | Phase 7 | Pending |
 | OPS-03 | Phase 7 | Pending |
 | OPS-04 | Phase 7 | Pending |
-| OPS-05 | Phase 1 | Pending |
+| OPS-05 | Phase 1 | Validated |
 | OPS-06 | Phase 3 | Pending |
 
 **Coverage:**

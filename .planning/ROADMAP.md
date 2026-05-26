@@ -26,7 +26,7 @@ accessibility gates close, and the site launches (Phase 7).
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Scaffold & Shell** - Astro 6 project, content collections, BaseLayout with disclaimer plumbing, security baseline, preview-deploy workflow verified
+- [x] **Phase 1: Scaffold & Shell** - Astro 6 project, content collections, BaseLayout with disclaimer plumbing, security baseline, preview-deploy workflow verified
 - [ ] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set
 - [ ] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell
 - [ ] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint
@@ -213,7 +213,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scaffold & Shell | 5/9 | In Progress|  |
+| 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 0/TBD | Not started | - |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |

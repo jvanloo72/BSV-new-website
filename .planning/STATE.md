@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 1 Wave 2 complete (Content Collections + CSP report endpoint); Wave 3 (01-03 Layouts + JSON-LD) next
-last_updated: "2026-05-26T10:25:00Z"
-last_activity: 2026-05-26 -- Phase 01 Wave 2 complete (Plan 01-02 + 01-06 done; SEC-04 local gitleaks layer deferred at Jon's decision)
+status: in-progress
+stopped_at: Phase 1 complete; ready to plan Phase 2 (Design System & Visual Identity)
+last_updated: "2026-05-26T18:30:00Z"
+last_activity: 2026-05-26 -- Phase 1 sign-off PR merged to main; branch protection enabled; production auto-deploy live; all 17 Phase 1 requirement IDs Validated
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 9
-  completed_plans: 5
-  percent: 56
+  completed_plans: 9
+  percent: 14
 ---
 
 # Project State
@@ -21,33 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 01 — scaffold-shell
+**Current focus:** Phase 02 — design-system (ready to plan)
 
 ## Current Position
 
-Phase: 01 (scaffold-shell) — EXECUTING
-Plan: 5 of 9 complete (01-00, 01-01, 01-02, 01-05, 01-06)
-Status: Wave 2 complete; Wave 3 (Plan 01-03) is next
-Last activity: 2026-05-26 -- Wave 2 complete: content collections + CSP report endpoint + GitHub push protection. Local gitleaks layer deferred per Jon's call (see DECISIONS.md 2026-05-26).
+Phase: 2 of 7 (Design System & Visual Identity) — NOT STARTED
+Plan: 0 of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-05-26 -- Phase 1 sign-off PR merged to main; branch protection on main enabled; production Vercel auto-deploy live; 17 Phase 1 requirements Validated.
 
-Progress: [██████░░░░] 56%
+Progress: [█░░░░░░░░░] 14% (1 of 7 phases complete)
 
-Resume: `/gsd-execute-phase 1`
-Next wave: Wave 3 — Plan 01-03 (site.ts + jsonld.ts schema-dts builders; JsonLd + SeoHead + SkipToContent components; extend BaseLayout with site-wide LegalService JSON-LD injection; AttorneyLayout + PracticeAreaLayout + BlogPostLayout; jsonld-legalservice test). Fully autonomous — no human checkpoints.
+Resume: `/gsd:plan-phase 2`
+Next phase: Phase 2 — Design System & Visual Identity. Requires Jon's color palette decision (2-3 options will be presented). UI hint: yes. Depends on Phase 1 (complete).
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 9 (Phase 1)
 - Average duration: —
-- Total execution time: 0.0 hours
+- Total execution time: —
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Scaffold & Shell | 9/9 | — | — |
 
 **Recent Trend:**
 
@@ -60,9 +60,12 @@ Next wave: Wave 3 — Plan 01-03 (site.ts + jsonld.ts schema-dts builders; JsonL
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
+Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-26: Local gitleaks pre-commit hook deferred; GitHub push protection + CI gitleaks-action are the two active secret-scanning layers (DECISIONS.md)
+- 2026-05-26: Content-collection image() assets must live under src/ (not /public) for Astro's asset-pipeline validation (DECISIONS.md)
+- 2026-05-25: Five Zod-typed content collections with cross-collection reference() typing (DECISIONS.md)
 - Pre-init: Tech stack locked — Astro 6 + Tailwind CSS v4 + GitHub + Vercel
 - Pre-init: Lead message "Team work to get good results" — not credentials
 - Pre-init: Nir Fishbien excluded from the new site
@@ -92,6 +95,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-25T22:32:04.977Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-scaffold-shell/01-CONTEXT.md
+Last session: 2026-05-26T18:30:00Z
+Stopped at: Phase 1 closed out — PR merged, branch protection live, requirements validated
+Resume file: .planning/phases/01-scaffold-shell/01-08-SUMMARY.md (for Phase 1 close-out details); next step `/gsd:plan-phase 2`
