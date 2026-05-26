@@ -1,0 +1,22 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <!-- BSV derived mark (D-14): a compact convergence glyph distilled from the
+       converging-linework hero motif (hero-deal-flow.svg). Three thin lines
+       sweep in from separate origins and resolve at a single closed knot just
+       right of centre, with one outbound line carrying the resolved deal
+       forward. Same thin-line system as the hero + practice icons (stroke 1.25,
+       round caps/joins, currentColor only) so text-accent themes it. Simplified
+       to read cleanly at 16-32px. Decorative -> aria-hidden at call site. -->
+
+  <!-- Converging workstreams (upper, lower, counterparty) -->
+  <path d="M6 12 C 16 16, 22 20, 27 24" />
+  <path d="M6 36 C 16 32, 22 28, 27 24" />
+  <path d="M16 42 C 21 34, 24 29, 27 25" />
+
+  <!-- The closed deal: the knot where every line resolves -->
+  <circle cx="28" cy="24" r="4.5" />
+  <circle cx="28" cy="24" r="1.75" fill="currentColor" stroke="none" />
+
+  <!-- The resolved deal moving forward -->
+  <path d="M33 24 H42" />
+  <path d="M38 20 L 42 24 L 38 28" />
+</svg>
