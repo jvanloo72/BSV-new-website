@@ -496,21 +496,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 | A3 | Astro's `<Font>` default `font-display` is `swap` and it auto-generates `size-adjust` fallback metrics from `fallbacks` | Pattern 2 / Pitfall 2 | LOW-MED — docs confirm auto fallbacks; exact `font-display` default should be confirmed and `swap` set explicitly if configurable (PERF-05 requires swap). Verify in Phase 2 build output. |
 | A4 | Exact AA contrast ratios for the locked palette pairings not independently re-measured here | Pitfall 3 | MED — Jon cited ~6.8:1 for accent; planner MUST compute all five pairings and record them (A11Y-04). If a pairing fails, the discretion hexes (`bg-elevated`, possibly `text-muted`) are the tuning levers, not the locked D-01 values. |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Does the slotted `<meta name="robots">` on `/_design` override or duplicate BaseLayout's existing robots tag?**
    - What we know: BaseLayout emits one robots meta based on `isPreview`.
    - What's unclear: two `<meta name="robots">` tags = ambiguous; crawlers may honor the most restrictive, but it's untidy.
-   - Recommendation: add an optional `noindex?: boolean` prop to BaseLayout (cleanest); `/_design` passes `noindex`. Decide during planning.
+   - **RESOLVED:** add an optional `noindex?: boolean` prop to BaseLayout (cleanest); `/_design` passes `noindex`. Implemented in plan 02-01 Task 1.
 
 2. **Which Hanken Grotesk weights to commit (200 KB-per-asset budget)?**
    - What we know: D-08 wants dramatic headlines (needs a heavy weight, 700/800); body needs 400/500.
    - What's unclear: whether to ship a variable woff2 (one file, all weights) or static instances.
-   - Recommendation: a single **variable** Hanken Grotesk woff2 is usually < 100 KB and covers all weights — preferred for the 200 KB budget and fewer files. Confirm file size after download; fall back to static instances if the variable file is unexpectedly large.
+   - **RESOLVED:** ship a single **variable** Hanken Grotesk woff2 (covers all weights, typically < 100 KB, fits the budget); fall back to static instances only if the variable file is unexpectedly large. Implemented in plan 02-01 Task 1.
 
 3. **Wordmark "small derived mark" (D-14) — exact form.**
    - What we know: derived from the converging-lines hero motif; used at favicon/avatar size.
-   - Recommendation: author as a tiny standalone SVG in `src/icons/mark.svg` (themeable via currentColor) and a separate `public/favicon.svg`; design must read at 16–32 px. Pure design discretion (D-14 + discretion list).
+   - **RESOLVED:** author as a tiny standalone SVG in `src/icons/mark.svg` (themeable via currentColor) plus a separate `public/favicon.svg`; must read at 16–32 px. Implemented in plan 02-03 Task 1.
 
 ## Environment Availability
 
