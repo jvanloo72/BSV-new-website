@@ -22,9 +22,11 @@ import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as cheerio from 'cheerio';
 
-const DESIGN_HTML = 'dist/client/_design/index.html';
+// Route is /design-system (Astro ignores leading-underscore page filenames, so the
+// planned /_design became /design-system in 02-01 — see design-route-hidden.spec.ts).
+const DESIGN_HTML = 'dist/client/design-system/index.html';
 
-test.describe.skip('A11y interactions (A11Y-03 / D-10)', () => {
+test.describe('A11y interactions (A11Y-03 / D-10)', () => {
   test.beforeAll(() => {
     execSync('npm run build', { stdio: 'pipe' });
   });

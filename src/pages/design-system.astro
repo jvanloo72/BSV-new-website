@@ -1,15 +1,98 @@
 ---
-/* /_design — permanent hidden component gallery (D-16). noindex even in PROD
-   (BaseLayout noindex prop — single robots meta, no slotted <meta robots>) and
-   excluded from the sitemap (astro.config sitemap filter). Not in nav.
-   This first slice renders the UI primitives + PracticeAreaCard with the locked
-   M&A placeholder content (UI-SPEC §2); 02-02/02-03 add the remaining
-   components and creative art. */
+/* /design-system — permanent hidden component gallery (D-16). noindex even in
+   PROD (BaseLayout noindex prop — single robots meta, no slotted <meta robots>)
+   and excluded from the sitemap (astro.config sitemap filter). Not in nav.
+   Route is /design-system (Astro ignores leading-underscore page filenames, so
+   the planned /_design became /design-system in 02-01).
+   Renders all 8 locked section components with realistic FIRM_BRIEF placeholder
+   content (UI-SPEC Component Inventory): the Athelas-Commure testimonial, the 5
+   attorneys, the 3 practice areas, the fee band, the FAQs. */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Eyebrow from '../components/ui/Eyebrow.astro';
 import Button from '../components/ui/Button.astro';
 import TextLink from '../components/ui/TextLink.astro';
+import Hero from '../components/sections/Hero.astro';
 import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
+import AttorneyCard from '../components/sections/AttorneyCard.astro';
+import TestimonialQuote from '../components/sections/TestimonialQuote.astro';
+import DealsGrid from '../components/sections/DealsGrid.astro';
+import FeeStructureBand from '../components/sections/FeeStructureBand.astro';
+import CtaBlock from '../components/sections/CtaBlock.astro';
+import FaqAccordion from '../components/sections/FaqAccordion.astro';
+
+// Placeholder headshots (ATTY-08: monograms, no real photos) — processed by <Image>.
+import photoBelcher from '../assets/headshots/placeholder-belcher.svg';
+import photoSmolen from '../assets/headshots/placeholder-smolen.svg';
+import photoVanLoo from '../assets/headshots/placeholder-vanloo.svg';
+import photoZhang from '../assets/headshots/placeholder-zhang.svg';
+import photoJiang from '../assets/headshots/placeholder-jiang.svg';
+
+// FIRM_BRIEF placeholder data (UI-SPEC Component Inventory).
+const attorneys = [
+  {
+    name: 'Aaron Belcher',
+    role: 'Partner',
+    focus: 'Corporate & M&A — technology and life sciences',
+    photo: photoBelcher,
+    alt: 'Placeholder headshot for Aaron Belcher, Partner',
+  },
+  {
+    name: 'Stuart Smolen',
+    role: 'Partner',
+    focus: 'IP & technology transactions; USPTO-registered',
+    photo: photoSmolen,
+    alt: 'Placeholder headshot for Stuart Smolen, Partner',
+  },
+  {
+    name: 'Jon Van Loo',
+    role: 'Partner',
+    focus: 'M&A, international, and crypto tax',
+    photo: photoVanLoo,
+    alt: 'Placeholder headshot for Jon Van Loo, Partner',
+  },
+  {
+    name: 'Iris Zhang',
+    role: 'Associate',
+    focus: 'Securities, regulatory & compliance',
+    photo: photoZhang,
+    alt: 'Placeholder headshot for Iris Zhang, Associate',
+  },
+  {
+    name: 'Susan Jiang',
+    role: 'Associate',
+    focus: 'Profile coming soon',
+    photo: photoJiang,
+    alt: 'Placeholder headshot for Susan Jiang, Associate',
+  },
+];
+
+const deals = [
+  { title: 'Athelas / Commure', amount: '$6B merger', context: 'Cross-border technology M&A.' },
+  { title: 'Mode Analytics', amount: '$200M sale', context: 'Venture-backed software exit.' },
+  {
+    title: 'Illumina',
+    context: "Defense against Roche's $6.4B hostile bid.",
+  },
+  {
+    title: 'Representative parties',
+    context: 'Adobe · Oracle · PayPal · Dell · eBay · Coinbase',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do we work directly with a partner?',
+    a: 'Yes. Every BSV matter is partner-led — you work with the named attorneys on the team, not a rotating cast of junior associates.',
+  },
+  {
+    q: 'How do you bill?',
+    a: 'Hourly, paired with an up-front estimate of total cost for your engagement, so there are no billing surprises.',
+  },
+  {
+    q: 'Do you handle cross-border deals?',
+    a: 'Routinely — including domestic and cross-border M&A and the international tax structuring that goes with it.',
+  },
+];
 ---
 
 <BaseLayout
@@ -20,10 +103,10 @@ import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
   <div class="mx-auto max-w-6xl px-gutter py-section">
     <header class="mb-12">
       <Eyebrow>Internal</Eyebrow>
-      <h1 class="mt-2 text-display font-extrabold text-text">Design System</h1>
+      <h1 class="mt-2 text-h1 font-bold text-text">Design System</h1>
       <p class="mt-4 max-w-3xl text-body-lg text-text-muted">
-        Living style guide. Renders the locked tokens, font, and components from
-        the single source of truth in <code>src/styles/global.css</code>.
+        Living style guide. Renders the locked tokens, font, and all eight section
+        components from the single source of truth in <code>src/styles/global.css</code>.
       </p>
     </header>
 
@@ -37,9 +120,23 @@ import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
         </p>
       </div>
     </section>
+  </div>
 
-    <section class="mb-section">
-      <h2 class="mb-6 text-h2 font-bold text-text">PracticeAreaCard</h2>
+  <!-- 1. Hero -->
+  <Hero
+    eyebrow="Belcher, Smolen & Van Loo LLP"
+    headline="Team work to get good results."
+    subhead="A boutique M&A, technology, and tax practice for the companies building what's next — partner-led, fast-moving, and built around your transaction."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+    secondaryLabel="See our work"
+    secondaryHref="/practice-areas"
+  />
+
+  <!-- 2. PracticeAreaCard (x3) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <h2 class="mb-8 text-h2 font-bold text-text">Practice areas</h2>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <PracticeAreaCard
           icon="practice-mergers-acquisitions"
@@ -47,7 +144,67 @@ import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
           blurb="Domestic and cross-border M&A for acquirers, PE firms, and venture-backed targets — from $6B mergers to founder exits."
           href="/practice-areas/mergers-acquisitions"
         />
+        <PracticeAreaCard
+          icon="practice-ip-tech"
+          title="Intellectual Property & Technology Transactions"
+          blurb="Patent strategy, licensing, open-source and data-security counsel for companies whose IP is the deal."
+          href="/practice-areas/intellectual-property-technology-transactions"
+        />
+        <PracticeAreaCard
+          icon="practice-tax"
+          title="Tax"
+          blurb="M&A tax, cross-border structuring, and crypto/blockchain taxation — the structuring that makes the deal work."
+          href="/practice-areas/tax"
+        />
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
+
+  <!-- 3. AttorneyCard (x5) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <h2 class="mb-8 text-h2 font-bold text-text">The team</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {
+          attorneys.map((a) => (
+            <AttorneyCard
+              name={a.name}
+              role={a.role}
+              focus={a.focus}
+              photo={a.photo}
+              alt={a.alt}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TestimonialQuote -->
+  <TestimonialQuote
+    quote="BSV was my rock throughout the $6 billion merger between Athelas and Commure."
+    attribution="Daniel Brian"
+    attributionDetail="GC, Commure, Inc."
+  />
+
+  <!-- 5. DealsGrid -->
+  <DealsGrid heading="Representative work" deals={deals} />
+
+  <!-- 6. FeeStructureBand -->
+  <FeeStructureBand
+    heading="How we bill"
+    body="We bill hourly and give you an estimate of total cost up front — so you're never guessing what a matter will run."
+    note="We discuss specific rates one-on-one for your engagement."
+  />
+
+  <!-- 7. CtaBlock -->
+  <CtaBlock
+    heading="Have a transaction in motion?"
+    body="Tell us about your deal. We'll tell you how we'd approach it — and what it'll cost."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+  />
+
+  <!-- 8. FaqAccordion -->
+  <FaqAccordion heading="Common questions" items={faqs} />
 </BaseLayout>

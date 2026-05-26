@@ -56,7 +56,7 @@ function collectAssets(roots: string[]): string[] {
   return found;
 }
 
-test.describe.skip('Asset budget + existence (DESIGN-05/06, PERF-02)', () => {
+test.describe('Asset budget + existence (DESIGN-05/06, PERF-02)', () => {
   test('every committed image/font asset is ≤ 200 KB', () => {
     const assets = collectAssets(ASSET_DIRS);
     const overBudget: string[] = [];

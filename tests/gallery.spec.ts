@@ -20,7 +20,9 @@ import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as cheerio from 'cheerio';
 
-const DESIGN_HTML = 'dist/client/_design/index.html';
+// Route is /design-system (Astro ignores leading-underscore page filenames, so the
+// planned /_design became /design-system in 02-01 — see design-route-hidden.spec.ts).
+const DESIGN_HTML = 'dist/client/design-system/index.html';
 
 // The 8 design-system component names (UI-SPEC §Component Inventory).
 const COMPONENTS = [
@@ -34,12 +36,12 @@ const COMPONENTS = [
   'FaqAccordion',
 ];
 
-test.describe.skip('Design gallery (DESIGN-04/06)', () => {
+test.describe('Design gallery (DESIGN-04/06)', () => {
   test.beforeAll(() => {
     execSync('npm run build', { stdio: 'pipe' });
   });
 
-  test('every named component appears at least once on /_design', () => {
+  test('every named component appears at least once on /design-system', () => {
     const html = fs.readFileSync(DESIGN_HTML, 'utf-8');
     const $ = cheerio.load(html);
 
