@@ -21,7 +21,7 @@ and reaches out via the contact form or referral path.
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Design system & visual identity (Phase 2): locked `@theme` palette/type/spacing tokens, 8 reusable section components, self-hosted Hanken Grotesk, custom hero SVG + 3 practice-area icons, wordmark/mark, and a hidden `/design-system` gallery — Jon-approved 2026-05-26
 
 ### Active
 
@@ -127,7 +127,8 @@ absolutely necessary.
 | Visual reference: Norm Law foundation + selective creative graphics; warmer than Norm | BSV serves both founders and large public acquirers — pure cold institutional won't fit; pure illustrated won't read premium enough. | — Pending |
 | Nir Fishbien excluded from new site | Explicit intake instruction. | — Pending |
 | Contact form backend deferred to form phase | Backend choice depends on BSV's existing intake workflow, which Jon will surface during that phase. | — Pending |
-| Color direction deferred to design phase | Current site is navy+white; design phase will propose options before locking. | — Pending |
+| Color direction deferred to design phase | Current site is navy+white; design phase will propose options before locking. | ✓ Resolved (Phase 2): Direction B — near-black minimalist, warm off-white #F8F5F0 + near-black #111111 + single deep-rust accent #9A3F1A; Hanken Grotesk single sans; light mode only. Jon-approved 2026-05-26. |
+| Single locked palette instead of 2-3 Vercel variants (Phase 2 D-03) | Structured A/B/C discussion let Jon converge confidently; building throwaway variants added friction for no benefit. | ✓ Documented deviation from ROADMAP criterion #1 (DECISIONS.md). |
 | English only for v1 | Boutique firm; English-speaking referral network is the primary inbound channel. Mandarin reconsidered later if international FinTech intake grows. | — Pending |
 | Auto mode (yolo) + Quality model profile + Standard granularity + Parallel execution | Jon is non-technical and wants the build to proceed without manual approval gates; Quality models (Opus) justify the higher cost for a visible client-facing site. | — Pending |
 
@@ -149,4 +150,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-25 after initialization*
+*Last updated: 2026-05-26 after Phase 2 (Design System & Visual Identity) completion*
