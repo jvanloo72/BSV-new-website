@@ -17,6 +17,9 @@
     "test:zod-negative": "playwright test tests/zod-negative.spec.ts",
     "test:jsonld": "playwright test tests/jsonld-legalservice.spec.ts",
     "test:baselayout": "playwright test tests/baselayout.spec.ts",
+    "test:contrast": "playwright test tests/contrast.spec.ts",
+    "test:assets-budget": "playwright test tests/assets-budget.spec.ts",
+    "test:design-tokens": "playwright test tests/design-tokens.spec.ts",
     "test": "playwright test",
     "lint:legal": "echo 'lint:legal — Phase 1 placeholder; real rules land in Phase 4'",
     "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
