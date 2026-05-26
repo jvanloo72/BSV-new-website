@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Something went wrong — BSV Law"
+  description="An unexpected error occurred."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Something went wrong</h1>
+    <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
+      An unexpected error occurred. Please try again, or email
+      <a href={`mailto:${SITE.email}`} class="underline">{SITE.email}</a>.
+    </p>
+  </section>
+</BaseLayout>

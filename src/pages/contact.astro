@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Contact BSV Law"
+  description="Get in touch with the BSV Law team."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Contact</h1>
+    <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
+      To get in touch with the firm, email
+      <a href={`mailto:${SITE.email}`} class="underline">{SITE.email}</a>. A full
+      contact form arrives in Phase 6 of the build.
+    </p>
+  </section>
+</BaseLayout>
