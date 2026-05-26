@@ -27,7 +27,7 @@ accessibility gates close, and the site launches (Phase 7).
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Scaffold & Shell** - Astro 6 project, content collections, BaseLayout with disclaimer plumbing, security baseline, preview-deploy workflow verified
-- [ ] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set
+- [x] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set (completed 2026-05-26)
 - [ ] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell
 - [ ] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint
 - [ ] **Phase 5: Insights (Blog) System** - Dynamic blog routes, attorney/practice-area filtering, RSS feed, Article JSON-LD, editorial review gate, one seed post live
@@ -113,7 +113,7 @@ Plans:
 
 **Wave 3** *(depends on 02-01, 02-02)*
 
-- [ ] 02-03-PLAN.md — Creative identity + chrome: derived mark.svg + favicon, typographic wordmark, refined SiteHeader/SiteFooter (animated underline, focus rings), retrofit Phase 1 arbitrary-value token syntax to namespace utilities; footer Disclaimer not regressed
+- [x] 02-03-PLAN.md — Creative identity + chrome: derived mark.svg + favicon, typographic wordmark, refined SiteHeader/SiteFooter (animated underline, focus rings), retrofit Phase 1 arbitrary-value token syntax to namespace utilities; footer Disclaimer not regressed
 
 **UI hint**: yes
 
@@ -228,7 +228,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
-| 2. Design System & Visual Identity | 2/4 | In Progress|  |
+| 2. Design System & Visual Identity | 4/4 | Complete   | 2026-05-26 |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |

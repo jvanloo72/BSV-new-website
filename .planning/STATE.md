@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-02-PLAN.md (remaining 7 components + creative art + full gallery)
-last_updated: "2026-05-26T22:51:30.000Z"
-last_activity: 2026-05-26 -- Completed Phase 2 Plan 02 (7 components + hero SVG + 2 icons + headshots + full /design-system gallery)
+status: verifying
+stopped_at: Completed 02-03-PLAN.md (creative identity + chrome refinement); Phase 2 complete (4/4)
+last_updated: "2026-05-26T23:00:31.866Z"
+last_activity: 2026-05-26 -- Completed Phase 2 Plan 03 (derived mark.svg + favicon, typographic wordmark, refined SiteHeader/SiteFooter, namespace-utility retrofit)
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 13
-  completed_plans: 12
-  percent: 14
+  completed_plans: 13
+  percent: 29
 ---
 
 # Project State
@@ -25,15 +25,15 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 
 ## Current Position
 
-Phase: 2 (Design System & Visual Identity) — EXECUTING
-Plan: 4 of 4
-Status: Executing Phase 2 (02-00 scaffolds + 02-01 foundation + 02-02 full component library complete)
-Last activity: 2026-05-26 -- Completed Phase 2 Plan 02 (remaining 7 components + creative art + full gallery)
+Phase: 2 (Design System & Visual Identity) — COMPLETE (ready for verification)
+Plan: 4 of 4 (all complete)
+Status: Phase 2 complete — ready for verification
+Last activity: 2026-05-26 -- Completed Phase 2 Plan 03 (creative identity + chrome refinement)
 
-Progress: [█░░░░░░░░░] 14% (1 of 7 phases complete)
+Progress: [███░░░░░░░] 29% (2 of 7 phases complete)
 
-Resume: `/gsd:execute-phase 2` (next plan: 02-03)
-Next plan: 02-03 — creative identity + chrome: derived mark.svg + favicon, typographic wordmark, refined SiteHeader/SiteFooter (animated underline, focus rings), retrofit Phase 1 arbitrary-value token syntax to namespace utilities; footer Disclaimer not regressed.
+Resume: Phase 2 verification, then `/gsd:execute-phase 3`
+Next plan: Phase 3 — Homepage & Static Pages (plans TBD).
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Next plan: 02-03 — creative identity + chrome: derived mark.svg + favicon, typ
 *Updated after each plan completion*
 | Phase 2 P1 | 50m | 3 tasks | 15 files |
 | Phase 2 P2 | 7m | 3 tasks | 19 files |
+| Phase 2 P3 | 7m | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,8 @@ Next plan: 02-03 — creative identity + chrome: derived mark.svg + favicon, typ
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-26: BSV mark derived as a 3-line convergence-to-knot glyph distilled from the hero motif (modernization, not rebrand, D-14) so it reads at 16-32px; favicon carries explicit accent rust (standalone, not theme-following) while the in-app mark uses currentColor
+- 2026-05-26: Whole codebase standardized on Tailwind v4 namespace utilities — Phase 1 chrome retrofitted from the arbitrary-value form (text-[color:var(...)]) to text-text/border-border/bg-bg; token names unchanged (D-22)
 - 2026-05-26: Local gitleaks pre-commit hook deferred; GitHub push protection + CI gitleaks-action are the two active secret-scanning layers (DECISIONS.md)
 - 2026-05-26: Content-collection image() assets must live under src/ (not /public) for Astro's asset-pipeline validation (DECISIONS.md)
 - 2026-05-25: Five Zod-typed content collections with cross-collection reference() typing (DECISIONS.md)
@@ -97,6 +100,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-26T22:51:30.000Z
+Last session: 2026-05-26T23:00:31.859Z
 Stopped at: Completed 02-02-PLAN.md (remaining 7 components + creative art + full /design-system gallery)
 Resume file: None
