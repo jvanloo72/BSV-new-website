@@ -104,7 +104,7 @@ from the same building blocks and a future restyle is a single-file edit.
 Plans:
 **Wave 1**
 
-- [ ] 02-00-PLAN.md — Wave 0 test infrastructure: 7 Playwright/Cheerio/filesystem spec scaffolds (contrast.spec active; the other 6 skipped with UNSKIP-WHEN markers) + package.json test scripts
+- [x] 02-00-PLAN.md — Wave 0 test infrastructure: 7 Playwright/Cheerio/filesystem spec scaffolds (contrast.spec active; the other 6 skipped with UNSKIP-WHEN markers) + package.json test scripts
 - [ ] 02-01-PLAN.md — Foundation slice: install astro-icon + sharp, self-host Hanken Grotesk (Astro Fonts API), rewrite global.css @theme (Direction-B palette + type/spacing/radius/shadow tokens + reduced-motion guard), wire fonts/icon/sitemap-filter/noindex prop, ship UI primitives + PracticeAreaCard + first practice icon on hidden /_design
 
 **Wave 2** *(depends on 02-01)*
@@ -228,7 +228,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
-| 2. Design System & Visual Identity | 0/4 | Planned | - |
+| 2. Design System & Visual Identity | 1/4 | In progress | - |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
