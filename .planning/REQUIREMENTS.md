@@ -22,14 +22,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design System
 
-- [ ] **DESIGN-01**: Color palette decided with Jon's input (2-3 options presented in design phase)
-- [ ] **DESIGN-02**: Tailwind `@theme` tokens defined for colors, typography scale, spacing scale — single CSS file as the source of truth
-- [ ] **DESIGN-03**: Modern sans-serif typography (no traditional law-firm serifs); large bold headlines with strong hierarchy
-- [ ] **DESIGN-04**: Reusable section components built — `Hero`, `PracticeAreaCard`, `AttorneyCard`, `TestimonialQuote`, `DealsGrid`, `FeeStructureBand`, `CtaBlock`, `FaqAccordion`
+- [x] **DESIGN-01**: Color palette decided with Jon's input (2-3 options presented in design phase)
+- [x] **DESIGN-02**: Tailwind `@theme` tokens defined for colors, typography scale, spacing scale — single CSS file as the source of truth
+- [x] **DESIGN-03**: Modern sans-serif typography (no traditional law-firm serifs); large bold headlines with strong hierarchy
+- [x] **DESIGN-04**: Reusable section components built — `Hero`, `PracticeAreaCard`, `AttorneyCard`, `TestimonialQuote`, `DealsGrid`, `FeeStructureBand`, `CtaBlock`, `FaqAccordion`
 - [ ] **DESIGN-05**: One custom abstract hero graphic (SVG) commissioned and integrated — Jon's "creative art" requirement
-- [ ] **DESIGN-06**: Stylized practice-area icon set (3 icons) commissioned and integrated via `astro-icon`
-- [ ] **DESIGN-07**: Generous whitespace and restrained imagery — no stock-photo theatrics; layered visual depth where used
-- [ ] **DESIGN-08**: Visual style premium but warmer than Norm Law — restrained foundation with selective creative graphic moments
+- [x] **DESIGN-06**: Stylized practice-area icon set (3 icons) commissioned and integrated via `astro-icon`
+- [x] **DESIGN-07**: Generous whitespace and restrained imagery — no stock-photo theatrics; layered visual depth where used
+- [x] **DESIGN-08**: Visual style premium but warmer than Norm Law — restrained foundation with selective creative graphic moments
 
 ### Pages (Static)
 
@@ -221,14 +221,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-08 | Phase 1 | Validated |
 | FOUND-09 | Phase 1 | Validated |
 | FOUND-10 | Phase 1 | Validated |
-| DESIGN-01 | Phase 2 | Pending |
-| DESIGN-02 | Phase 2 | Pending |
-| DESIGN-03 | Phase 2 | Pending |
-| DESIGN-04 | Phase 2 | Pending |
+| DESIGN-01 | Phase 2 | Complete |
+| DESIGN-02 | Phase 2 | Complete |
+| DESIGN-03 | Phase 2 | Complete |
+| DESIGN-04 | Phase 2 | Complete |
 | DESIGN-05 | Phase 2 | Pending |
-| DESIGN-06 | Phase 2 | Pending |
-| DESIGN-07 | Phase 2 | Pending |
-| DESIGN-08 | Phase 2 | Pending |
+| DESIGN-06 | Phase 2 | Complete |
+| DESIGN-07 | Phase 2 | Complete |
+| DESIGN-08 | Phase 2 | Complete |
 | PAGES-01 | Phase 3 | Pending |
 | PAGES-02 | Phase 3 | Pending |
 | PAGES-03 | Phase 3 | Pending |
@@ -330,12 +330,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OPS-06 | Phase 3 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 117 total (FOUND 10 + DESIGN 8 + PAGES 8 + ATTY 12 + PRAC 9 + BLOG 9 + FORM 11 + SEO 10 + A11Y 6 + PERF 6 + SEC 12 + LEGAL 10 + OPS 6)
 - Mapped to phases: 117
 - Unmapped: 0
 - Coverage: 100%
 
 **By phase:**
+
 - Phase 1 (Scaffold & Shell): 17 requirements
 - Phase 2 (Design System & Visual Identity): 8 requirements
 - Phase 3 (Homepage & Static Pages): 14 requirements
