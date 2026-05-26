@@ -13,6 +13,11 @@
     "astro": "astro",
     "check": "astro check",
     "test:disclaimer": "playwright test tests/disclaimer-crawl.spec.ts",
+    "test:disclaimer-set": "playwright test tests/disclaimer-set.spec.ts",
+    "test:zod-negative": "playwright test tests/zod-negative.spec.ts",
+    "test:jsonld": "playwright test tests/jsonld-legalservice.spec.ts",
+    "test:baselayout": "playwright test tests/baselayout.spec.ts",
+    "test": "playwright test",
     "lint:legal": "echo 'lint:legal — Phase 1 placeholder; real rules land in Phase 4'",
     "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
   },

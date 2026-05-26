@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const attorneys = await getCollection('attorneys', ({ data }) => !data.draft);
+---
+
+<BaseLayout
+  title="Attorneys — BSV Law"
+  description="The BSV Law team — Aaron Belcher, Stuart Smolen, Jon Van Loo, Iris Zhang, Susan Jiang."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Attorneys</h1>
+    {attorneys.length === 0 ? (
+      <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
+        Attorney profiles arrive in Phase 4 of the build.
+      </p>
+    ) : (
+      <ul class="mt-6 space-y-3">
+        {attorneys.map((entry) => (
+          <li>
+            <a
+              href={`/attorneys/${entry.data.slug}`}
+              class="text-[color:var(--color-text)] underline"
+            >
+              {entry.data.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

@@ -1,18 +1,31 @@
 // tests/baselayout.spec.ts
 //
-// Wave 0 scaffold (Plan 01-00). Body skipped — Plan 07 wires it up.
-//
-// Purpose: verify the BaseLayout component renders the firm name in the
-// header and the footer disclaimer in the footer. Confirms FOUND-05.
+// Focused BaseLayout sanity check — complements the broader disclaimer crawl.
+// Reads dist/client/index.html directly (same filesystem approach used by
+// disclaimer-crawl + jsonld-legalservice tests to avoid the
+// astro-preview-vs-Vercel-adapter incompatibility introduced by Plan 01-06).
 
 import { test, expect } from '@playwright/test';
+import { execSync } from 'node:child_process';
+import * as fs from 'node:fs';
+import * as cheerio from 'cheerio';
 
-test.skip('BaseLayout renders firm name in header and disclaimer in footer — implementation lands in Plan 07', async ({ page }) => {
-  // TODO: Plan 07 implements:
-  //   1. await page.goto('/');
-  //   2. Assert header text contains 'Belcher, Smolen & Van Loo LLP' or 'BSV Law'.
-  //   3. Assert footer text contains the FOOTER_DISCLAIMER_FRAGMENT defined in
-  //      `tests/disclaimer-crawl.spec.ts` ('The information on this website is
-  //      for general informational purposes only').
-  expect(true).toBe(true);
+const FOOTER_DISCLAIMER_FRAGMENT =
+  'The information on this website is for general informational purposes only';
+
+test.beforeAll(() => {
+  execSync('npm run build', { stdio: 'pipe' });
+});
+
+test.describe('BaseLayout integration', () => {
+  test('homepage renders firm name in header and disclaimer in footer', () => {
+    const html = fs.readFileSync('dist/client/index.html', 'utf-8');
+    const $ = cheerio.load(html);
+
+    const headerText = $('header').text();
+    expect(headerText, 'header must contain firm name or BSV Law short form').toMatch(/Belcher.*Smolen.*Van Loo|BSV Law/);
+
+    const footerText = $('footer').text();
+    expect(footerText, 'footer must contain the canonical disclaimer fragment').toContain(FOOTER_DISCLAIMER_FRAGMENT);
+  });
 });

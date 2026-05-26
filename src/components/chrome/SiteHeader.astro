@@ -3,7 +3,7 @@ interface Props {
   currentPath?: string;
 }
 
-const { currentPath } = Astro.props;
+const { currentPath = '/' } = Astro.props;
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -16,11 +16,14 @@ const navLinks = [
 ---
 
 <header class="border-b border-[color:var(--color-border)] bg-[color:var(--color-bg)]">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="text-lg font-semibold tracking-tight text-[color:var(--color-text)]">
+  <nav class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 md:flex-row md:items-center md:justify-between">
+    <a
+      href="/"
+      class="text-lg font-semibold tracking-tight text-[color:var(--color-text)]"
+    >
       Belcher, Smolen &amp; Van Loo LLP
     </a>
-    <ul class="hidden gap-6 text-sm md:flex">
+    <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
       {
         navLinks.map((link) => (
           <li>
@@ -29,7 +32,7 @@ const navLinks = [
               class:list={[
                 'hover:text-[color:var(--color-text)]',
                 currentPath === link.href
-                  ? 'text-[color:var(--color-text)] font-medium'
+                  ? 'text-[color:var(--color-text)] font-medium underline'
                   : 'text-[color:var(--color-text-muted)]',
               ]}
               aria-current={currentPath === link.href ? 'page' : undefined}

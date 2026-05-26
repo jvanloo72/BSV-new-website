@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+---
+
+<BaseLayout
+  title="Insights — BSV Law"
+  description="BSV Law Insights — analysis from the firm's attorneys on M&A, IP, and tax."
+>
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Insights</h1>
+    {posts.length === 0 ? (
+      <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
+        The Insights blog arrives in Phase 5 of the build.
+      </p>
+    ) : (
+      <ul class="mt-6 space-y-3">
+        {posts.map((entry) => (
+          <li>
+            <a
+              href={`/blog/${entry.data.slug}`}
+              class="text-[color:var(--color-text)] underline"
+            >
+              {entry.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

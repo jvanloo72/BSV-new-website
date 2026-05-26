@@ -1,0 +1,23 @@
+---
+/* Generic JSON-LD render component (D-29).
+ *
+ * Input contract: `data` MUST be a compile-time-typed object produced by a
+ * builder in src/lib/jsonld.ts (currently buildLegalServiceLd; Phases 4
+ * and 5 add buildPersonLd + buildArticleLd). No runtime user input flows
+ * into this component in Phase 1 — the contact form in Phase 6 uses a
+ * separate code path (Astro Action → email/CRM webhook) that never feeds
+ * JsonLd.
+ *
+ * JSON.stringify escapes <, >, & and the U+2028/U+2029 separators per the
+ * ECMAScript spec when given a plain object, so the inlined <script>
+ * cannot be closed prematurely by a stray "</script>" in a string field
+ * unless one is deliberately introduced via build-time code review.
+ */
+
+interface Props {
+  data: object;
+}
+
+const { data } = Astro.props;
+---
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

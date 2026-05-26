@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Disclaimer from '../components/legal/Disclaimer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+/* PracticeAreaLayout — Phase 1 scaffold. Wraps BaseLayout; renders the
+ * practice area header + body slot + practice-area disclaimer.
+ *
+ * Phase 4 will add <JsonLd slot="head" data={buildFaqPageLd(practiceArea.data.faqs)} />
+ * for FAQPage structured data — slot transfer, no BaseLayout edit. */
+
+interface Props {
+  practiceArea: CollectionEntry<'practiceAreas'>;
+}
+
+const { practiceArea } = Astro.props;
+const title = `${practiceArea.data.name} — BSV Law`;
+const description = practiceArea.data.summary;
+---
+
+<BaseLayout title={title} description={description}>
+  {/* Phase 4: <JsonLd slot="head" data={buildFaqPageLd(practiceArea.data.faqs)} /> */}
+  <article>
+    <header>
+      <h1>{practiceArea.data.name}</h1>
+    </header>
+    <slot />
+  </article>
+  <Disclaimer id="practice-area" />
+</BaseLayout>

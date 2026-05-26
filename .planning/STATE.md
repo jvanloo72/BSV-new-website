@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 Wave 1 (Walking Skeleton) complete; paused before Wave 2 (Plans 02 + 06)
-last_updated: "2026-05-26T00:58:40.374Z"
-last_activity: 2026-05-25 -- Phase 01 Wave 1 complete (Walking Skeleton merged to main)
+stopped_at: Phase 1 Wave 2 complete (Content Collections + CSP report endpoint); Wave 3 (01-03 Layouts + JSON-LD) next
+last_updated: "2026-05-26T10:25:00Z"
+last_activity: 2026-05-26 -- Phase 01 Wave 2 complete (Plan 01-02 + 01-06 done; SEC-04 local gitleaks layer deferred at Jon's decision)
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 9
-  completed_plans: 3
-  percent: 33
+  completed_plans: 5
+  percent: 56
 ---
 
 # Project State
@@ -25,15 +25,15 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 
 ## Current Position
 
-Phase: 01 (scaffold-shell) — EXECUTING (paused mid-phase)
-Plan: 3 of 9 complete (01-00, 01-01, 01-05)
-Status: Paused — Wave 1 complete (Walking Skeleton merged); Wave 2 (Plans 02 + 06) is next
-Last activity: 2026-05-25 -- Wave 1 complete (Walking Skeleton merged to main); Vercel preview confirmed
+Phase: 01 (scaffold-shell) — EXECUTING
+Plan: 5 of 9 complete (01-00, 01-01, 01-02, 01-05, 01-06)
+Status: Wave 2 complete; Wave 3 (Plan 01-03) is next
+Last activity: 2026-05-26 -- Wave 2 complete: content collections + CSP report endpoint + GitHub push protection. Local gitleaks layer deferred per Jon's call (see DECISIONS.md 2026-05-26).
 
-Progress: [███░░░░░░░] 33%
+Progress: [██████░░░░] 56%
 
 Resume: `/gsd-execute-phase 1`
-Next wave: Wave 2 — Plan 01-02 (4 more content collections + zod-negative wiring) + Plan 01-06 (gitleaks + GitHub push protection + /api/csp-report endpoint). 01-06 has a human checkpoint for enabling push protection in the GitHub repo settings UI.
+Next wave: Wave 3 — Plan 01-03 (site.ts + jsonld.ts schema-dts builders; JsonLd + SeoHead + SkipToContent components; extend BaseLayout with site-wide LegalService JSON-LD injection; AttorneyLayout + PracticeAreaLayout + BlogPostLayout; jsonld-legalservice test). Fully autonomous — no human checkpoints.
 
 ## Performance Metrics
 

@@ -1,0 +1,33 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Disclaimer from '../components/legal/Disclaimer.astro';
+import type { CollectionEntry } from 'astro:content';
+
+/* AttorneyLayout — Phase 1 scaffold. Wraps BaseLayout, renders an attorney
+ * page header + slot for body content, then the attorney disclaimer.
+ *
+ * Phase 4 will add <JsonLd slot="head" data={buildPersonLd(attorney)} />
+ * just inside the BaseLayout open tag to inject per-attorney Person JSON-LD
+ * via slot transfer — no BaseLayout edit required. The slot is reserved by
+ * the contract; this layout deliberately does not implement it yet. */
+
+interface Props {
+  attorney: CollectionEntry<'attorneys'>;
+}
+
+const { attorney } = Astro.props;
+const title = `${attorney.data.name} — BSV Law`;
+const description = attorney.data.focus;
+---
+
+<BaseLayout title={title} description={description}>
+  {/* Phase 4: <JsonLd slot="head" data={buildPersonLd(attorney)} /> */}
+  <article>
+    <header>
+      <h1>{attorney.data.name}</h1>
+      <p>{attorney.data.title}</p>
+    </header>
+    <slot />
+  </article>
+  <Disclaimer id="attorney" />
+</BaseLayout>
