@@ -61,10 +61,10 @@ Plans:
 - [x] 01-01-PLAN.md — Walking Skeleton: Astro 6 + Tailwind v4 + Vercel adapter + MDX + sitemap scaffold; minimal BaseLayout + SiteHeader + SiteFooter + Disclaimer; seed disclaimers.json with all 5 ids; homepage renders; vercel.json with five security headers
 - [x] 01-05-PLAN.md — URL Conventions doc: .planning/URL-CONVENTIONS.md (locked slug formats per D-11..D-14); empty .planning/CLIENT_DISCLOSURE_CLEARANCE.md template; seed .planning/DECISIONS.md with 7 Phase 1 entries
 
-**Wave 2** *(blocked on Wave 1 completion)*
+**Wave 2** *(complete)*
 
-- [ ] 01-02-PLAN.md — Content Collections: extend src/content.config.ts to all 5 collections (attorneys, practiceAreas, blog, testimonials, disclaimers); one placeholder MDX per collection (draft: true); implement zod-negative + disclaimer-set tests
-- [ ] 01-06-PLAN.md — Security headers refinement + gitleaks install + CSP report endpoint: /api/csp-report endpoint (8 KB cap, console.warn logging); checkpoint:human-action to install gitleaks Go binary + run scripts/install-git-hooks.ps1; checkpoint:human-action to enable GitHub push protection; verify both layers block AKIAIOSFODNN7EXAMPLE
+- [x] 01-02-PLAN.md — Content Collections: extend src/content.config.ts to all 5 collections (attorneys, practiceAreas, blog, testimonials, disclaimers); one placeholder MDX per collection (draft: true); implement zod-negative + disclaimer-set tests
+- [x] 01-06-PLAN.md — Security headers refinement + gitleaks install + CSP report endpoint: /api/csp-report endpoint (8 KB cap, console.warn logging); checkpoint:human-action to install gitleaks Go binary + run scripts/install-git-hooks.ps1 (DEFERRED at Jon's decision — see DECISIONS.md 2026-05-26); checkpoint:human-action to enable GitHub push protection (DONE)
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -213,7 +213,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Scaffold & Shell | 3/9 | In Progress|  |
+| 1. Scaffold & Shell | 5/9 | In Progress|  |
 | 2. Design System & Visual Identity | 0/TBD | Not started | - |
 | 3. Homepage & Static Pages | 0/TBD | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
