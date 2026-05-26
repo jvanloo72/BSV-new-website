@@ -240,6 +240,81 @@ let the build enforce that every consumer sees the same version.
 
 ---
 
+## 2026-05-26 — Phase 1 — Local gitleaks pre-commit hook deferred; GitHub push protection is the sole secret-scanning layer (deviation from SEC-04 / D-17)
+
+**What was decided:**
+Skip the **local** gitleaks pre-commit hook for now. Keep GitHub server-side
+push protection enabled on `jvanloo72/BSV-new-website` — that is the sole
+secret-scanning layer through the rest of Phase 1 build-out. The local hook
+can be added back in Phase 7 hardening if a real incident motivates it.
+
+**Why:**
+At the Wave 2 / Plan 01-06 Task 2 checkpoint Jon chose to defer the local
+gitleaks install. The original SEC-04 / D-17 design called for two layers
+(local pre-commit + server-side push protection) on a defence-in-depth
+principle: local catches mistakes instantly with no round-trip to GitHub;
+push protection catches anything the local hook missed (a fresh clone, a
+`--no-verify` bypass, a different developer). Deferring the local layer
+removes the "fail fast at commit time" feedback, but the more important
+guarantee — that a real secret cannot reach the public repository — is
+preserved by the server-side push protection layer, which cannot be
+bypassed from the developer side. The trade-off is friction (an error
+surfaces seconds later, on push, instead of on commit) rather than safety
+loss. The Plan 00 hook scaffolding (`scripts/install-git-hooks.ps1`,
+`scripts/hooks/pre-commit`, `.gitleaks.toml`) remains in the repo so a
+future install is one command (`npm run install:hooks` after installing
+the binary).
+
+**Teaching insight:**
+**Security controls have two job descriptions: catch the failure, and tell
+you the failure happened fast.** Defence in depth usually pairs a fast
+detector (the local pre-commit hook) with a strict gatekeeper (GitHub push
+protection). If you have to drop one, drop the fast detector — the
+gatekeeper is what actually stops the bad outcome (a secret on a public
+GitHub repo). Be honest in writing about the trade-off and what you give
+up; document the path back, so reinstating the dropped layer later is a
+known operation, not a research project. For a non-technical reader: the
+analogy is a building with both a guard at the door and an alarm at the
+gate. The alarm is the loud one, but the guard is what physically stops
+the intruder.
+
+---
+
+## 2026-05-26 — Phase 1 — Content collection asset paths use co-located src/content/ files, NOT /public absolute URLs (deviation from Plan 01-02 spec)
+
+**What was decided:**
+Placeholder content assets validated by Astro's `image()` schema helper
+(currently just `placeholder-attorney-headshot.svg`) are **co-located**
+with the content entry — i.e., `src/content/attorneys/placeholder-attorney-headshot.svg`,
+referenced from the MDX frontmatter as `headshot: "./placeholder-attorney-headshot.svg"`.
+Plan 01-02's spec had asked for the file at `public/headshots/placeholder.svg`
+referenced as `/headshots/placeholder.svg`. Astro's `image()` helper rejects
+`/public` absolute URLs with `ImageNotFound` because those paths bypass the
+Vite asset pipeline. The `/public` copy is retained for any future
+static-URL use.
+
+**Why:**
+The first `npm run build` after wiring the attorneys schema failed with
+`Could not find requested image '/headshots/placeholder.svg'`. The
+`image()` helper's job is to validate the file exists, compute width/height
+for CLS prevention, and emit an optimized derivative (WebP/AVIF) at build
+time. Files under `/public/` are served as-is and never enter Astro's asset
+pipeline, so `image()` cannot see them. Co-locating the asset (or putting
+it under `src/assets/`) puts it in the pipeline and the validation passes.
+
+**Teaching insight:**
+**Where a file lives in an Astro project changes what the framework can do
+with it.** `public/` is "serve this raw URL exactly as-is, no
+optimisation." Everything under `src/` is "treat this as a source asset
+that Astro will optimise and validate." For images referenced inside
+content-collection frontmatter using the `image()` schema helper, you MUST
+put the file under `src/` (either co-located with the content entry or in
+`src/assets/`). For attorney headshots in Phase 4, the canonical pattern
+is: `src/content/attorneys/<slug>/<slug>.mdx` plus `src/content/attorneys/<slug>/headshot.jpg`
+(or .png), with `headshot: "./headshot.jpg"` in the frontmatter.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the
