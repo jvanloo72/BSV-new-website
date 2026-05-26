@@ -1,0 +1,26 @@
+---
+/* CtaBlock — the recurring "move toward contact" moment (PAGES-08, StoryBrand).
+   Centered H2 + optional supporting line + primary Button. Composes the Button
+   primitive (do not re-author buttons inline). Token-only; data-component marker
+   for the gallery test. */
+import Button from '../ui/Button.astro';
+
+interface Props {
+  heading: string;
+  body?: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { heading, body, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section data-component="CtaBlock" class="bg-bg py-section">
+  <div class="mx-auto max-w-3xl px-gutter text-center">
+    <h2 class="text-h2 font-bold text-text">{heading}</h2>
+    {body && <p class="mx-auto mt-4 max-w-2xl text-body-lg text-text-muted">{body}</p>}
+    <div class="mt-8 flex justify-center">
+      <Button variant="primary" href={ctaHref} label={ctaLabel} />
+    </div>
+  </div>
+</section>

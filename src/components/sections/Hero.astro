@@ -1,0 +1,61 @@
+---
+/* Hero — the one "big and bold" moment (D-08). Left column carries the real H1
+   (text-display, weight 800 — the ONLY --text-display usage) + subhead + the
+   primary/optional-secondary Button primitives. Right column inlines the
+   converging-linework hero SVG (decorative, aria-hidden, themed via currentColor
+   -> text-accent). Two-column >=md, single column on mobile. Token-only;
+   data-component marker for the gallery test. */
+import Button from '../ui/Button.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+// Inline the one-off illustration directly (NOT astro-icon) per UI-SPEC.
+import heroArt from '../../assets/illustrations/hero-deal-flow.svg?raw';
+
+interface Props {
+  headline: string;
+  subhead?: string;
+  eyebrow?: string;
+  ctaLabel: string;
+  ctaHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const { headline, subhead, eyebrow, ctaLabel, ctaHref, secondaryLabel, secondaryHref } =
+  Astro.props;
+---
+
+<section
+  data-component="Hero"
+  class="bg-bg py-section"
+>
+  <div
+    class="mx-auto grid max-w-6xl items-center gap-12 px-gutter md:grid-cols-2 md:gap-16"
+  >
+    <div>
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      <h1 class="mt-3 text-display font-extrabold tracking-tight text-text">
+        {headline}
+      </h1>
+      {
+        subhead && (
+          <p class="mt-6 max-w-xl text-body-lg text-text-muted">{subhead}</p>
+        )
+      }
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <Button variant="primary" href={ctaHref} label={ctaLabel} />
+        {
+          secondaryLabel && secondaryHref && (
+            <Button variant="secondary" href={secondaryHref} label={secondaryLabel} />
+          )
+        }
+      </div>
+    </div>
+
+    <div
+      class="order-first text-accent md:order-none"
+      aria-hidden="true"
+      set:html={heroArt}
+    >
+    </div>
+  </div>
+</section>

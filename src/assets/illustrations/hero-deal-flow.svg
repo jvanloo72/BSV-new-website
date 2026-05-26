@@ -1,0 +1,33 @@
+<svg viewBox="0 0 320 320" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
+  <!-- Converging linework ("deal flow", D-12): fine lines originating at several
+       points along the edges, sweeping inward and converging to a single closed
+       knot at the right-of-centre. Separate parties / workstreams becoming one
+       closed deal. Thin-line, currentColor only (themed by text-accent). NOT a
+       network-of-nodes graph. Decorative -> aria-hidden. -->
+
+  <!-- Origin cluster A (upper-left workstream) -->
+  <path d="M8 40 C 90 70, 150 120, 208 156" />
+  <path d="M8 64 C 92 92, 150 130, 208 160" />
+  <path d="M8 88 C 94 112, 152 142, 208 164" />
+
+  <!-- Origin cluster B (lower-left workstream) -->
+  <path d="M8 280 C 90 250, 150 200, 208 168" />
+  <path d="M8 256 C 92 228, 150 192, 208 164" />
+  <path d="M8 232 C 94 208, 152 184, 208 160" />
+
+  <!-- Origin cluster C (lower / counterparty workstream) -->
+  <path d="M120 312 C 150 250, 180 200, 207 170" />
+  <path d="M156 312 C 176 252, 196 202, 209 172" />
+
+  <!-- Origin cluster D (upper / advisor workstream) -->
+  <path d="M150 8 C 168 60, 190 116, 207 154" />
+  <path d="M186 8 C 196 60, 204 114, 210 152" />
+
+  <!-- The closed deal: a small knot where every line resolves -->
+  <circle cx="208" cy="162" r="9" />
+  <circle cx="208" cy="162" r="3.5" fill="currentColor" stroke="none" />
+
+  <!-- A single outbound line: the resolved deal moving forward -->
+  <path d="M217 162 C 256 162, 288 156, 312 150" />
+  <path d="M300 142 L 312 150 L 300 158" />
+</svg>

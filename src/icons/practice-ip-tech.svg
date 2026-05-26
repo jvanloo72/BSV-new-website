@@ -1,0 +1,16 @@
+<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <!-- IP & Technology Transactions: a protected/keyed mark -- a shield-like ring
+       guarding an interlocking key/circuit node. Same thin-line language as the
+       hero + the M&A icon. currentColor only; decorative (aria-hidden at call site). -->
+  <!-- Protective ring (the "protected" idea) -->
+  <circle cx="20" cy="20" r="11" />
+  <!-- Keyed node at the centre -->
+  <circle cx="20" cy="20" r="3.5" />
+  <!-- Key shaft + teeth extending out to the technology / transaction side -->
+  <path d="M23.5 20 H42" />
+  <path d="M34 20 V25" />
+  <path d="M38 20 V24" />
+  <!-- Two interlocking leads (the licensing / transaction handoff) -->
+  <path d="M20 9 V13" />
+  <path d="M11.5 28.5 L9 31" />
+</svg>
