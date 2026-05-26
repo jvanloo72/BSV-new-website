@@ -1,0 +1,16 @@
+---
+/* WCAG 2.1 SC 2.4.1 — Bypass Blocks. The first focusable element on every
+ * page; visually hidden until focused, then absolutely positioned at the
+ * top of the viewport. Target #main is the id on BaseLayout's <main>.
+ *
+ * The Tailwind sr-only utility hides the link from sighted users without
+ * removing it from the accessibility tree. The focus: variants make it
+ * visible when a keyboard user tabs into the page.
+ */
+---
+<a
+  href="#main"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded focus:shadow-md"
+>
+  Skip to main content
+</a>
