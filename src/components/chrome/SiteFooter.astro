@@ -13,6 +13,21 @@ import Disclaimer from '../legal/Disclaimer.astro';
 import { SITE } from '../../lib/site';
 
 const year = new Date().getFullYear();
+
+/* Render each office as its own line from SITE.offices (single source of truth),
+   omitting any "TBD" street address / postal code so a not-yet-confirmed office
+   reads as "Silicon Valley, CA" rather than a malformed address. Prevents the two
+   offices from being conflated into one misleading address string (code review WR-04). */
+const officeLines = SITE.offices.map((o) => {
+  const segs: string[] = [];
+  if (o.streetAddress && o.streetAddress !== 'TBD') segs.push(o.streetAddress);
+  segs.push(o.addressLocality);
+  const region = [o.addressRegion, o.postalCode && o.postalCode !== 'TBD' ? o.postalCode : null]
+    .filter(Boolean)
+    .join(' ');
+  if (region) segs.push(region);
+  return segs.join(', ');
+});
 ---
 
 <footer class="mt-16 border-t border-border bg-bg-elevated">
@@ -33,9 +48,9 @@ const year = new Date().getFullYear();
 
     <Disclaimer id="footer" />
 
-    <p>
-      Silicon Valley &middot; 555 California St., Suite 4925, San Francisco, CA 94104
-    </p>
+    <address class="not-italic space-y-0.5">
+      {officeLines.map((line) => <span class="block">{line}</span>)}
+    </address>
 
     <p>
       New client intake:
