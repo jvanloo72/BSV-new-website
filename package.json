@@ -10,9 +10,24 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "test:disclaimer": "playwright test tests/disclaimer-crawl.spec.ts",
+    "lint:legal": "echo 'lint:legal — Phase 1 placeholder; real rules land in Phase 4'",
+    "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
   },
   "dependencies": {
-    "astro": "^6.3.7"
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/vercel": "^10.0.7",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.7",
+    "schema-dts": "^2.0.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@playwright/test": "^1.60.0",
+    "cheerio": "^1.2.0"
   }
 }
