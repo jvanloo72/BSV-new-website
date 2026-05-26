@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import SiteHeader from '../components/chrome/SiteHeader.astro';
 import SiteFooter from '../components/chrome/SiteFooter.astro';
 import SkipToContent from '../components/chrome/SkipToContent.astro';
@@ -12,15 +13,21 @@ interface Props {
   description: string;
   canonical?: string;
   ogImage?: string;
+  /* D-16 / RESEARCH Open Q1: force `noindex` even in PROD (the /_design
+   * gallery passes this) — folded into the single robots meta below so we
+   * never emit two conflicting <meta name="robots"> tags. */
+  noindex?: boolean;
 }
 
-const { title, description, canonical, ogImage } = Astro.props;
+const { title, description, canonical, ogImage, noindex = false } = Astro.props;
 
 /* D-19: every non-production deploy (including Vercel preview URLs on
  * custom domains) gets a `noindex, nofollow` meta tag. Vercel already
  * applies `x-robots-tag: noindex` on `*.vercel.app` URLs, but this is the
- * belt-and-suspenders fallback for any future custom-preview domain. */
+ * belt-and-suspenders fallback for any future custom-preview domain.
+ * `noindex` (a per-page prop) forces the same directive even in PROD. */
 const isPreview = !import.meta.env.PROD;
+const robots = isPreview || noindex ? 'noindex, nofollow' : 'index, follow';
 ---
 
 <!doctype html>
@@ -28,7 +35,9 @@ const isPreview = !import.meta.env.PROD;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content={isPreview ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="robots" content={robots} />
+
+    <Font cssVariable="--font-hanken" preload />
 
     <SeoHead title={title} description={description} canonical={canonical} ogImage={ogImage} />
 
