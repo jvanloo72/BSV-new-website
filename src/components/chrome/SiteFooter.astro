@@ -1,12 +1,36 @@
 ---
+/* SiteFooter -- refined chrome (D-14 / D-28). Adds the derived wordmark mark +
+   typographic firm name on the elevated footer surface; token syntax retrofitted
+   from the Phase 1 arbitrary-value form to the Tailwind v4 namespace utilities
+   (border-border, bg-bg-elevated, text-text-muted).
+   CRITICAL (LEGAL-01, do NOT regress): the site-wide <Disclaimer id="footer" />
+   MUST keep rendering on every route -- the disclaimer-crawl test asserts the
+   footer disclaimer fragment on every sitemap page. The import, the render, both
+   office strings, the SITE.email intake mailto, the copyright, and the
+   `mx-auto max-w-6xl px-6` locked content-width container are all preserved. */
+import { Icon } from 'astro-icon/components';
 import Disclaimer from '../legal/Disclaimer.astro';
 import { SITE } from '../../lib/site';
 
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-[color:var(--color-border)] bg-[color:var(--color-bg-elevated)] mt-16">
-  <div class="mx-auto max-w-6xl px-6 py-10 space-y-6 text-sm text-[color:var(--color-text-muted)]">
+<footer class="mt-16 border-t border-border bg-bg-elevated">
+  <div class="mx-auto max-w-6xl px-6 py-10 space-y-6 text-sm text-text-muted">
+    <a
+      href="/"
+      class="group inline-flex items-center gap-2.5 rounded-xs text-text
+             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+             focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
+      aria-label="Belcher, Smolen & Van Loo LLP — home"
+    >
+      <Icon name="mark" class="size-7 shrink-0 text-accent" aria-hidden="true" />
+      <span class="text-base font-extrabold tracking-tight">
+        Belcher, Smolen &amp; Van Loo
+        <span class="font-bold tracking-normal text-text-muted">LLP</span>
+      </span>
+    </a>
+
     <Disclaimer id="footer" />
 
     <p>
@@ -15,7 +39,14 @@ const year = new Date().getFullYear();
 
     <p>
       New client intake:
-      <a href={`mailto:${SITE.email}`} class="underline">{SITE.email}</a>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="relative inline text-accent underline decoration-1 underline-offset-2
+               after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-accent
+               motion-safe:after:transition-[width] motion-safe:after:duration-200 hover:after:w-full
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+               focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated rounded-xs"
+      >{SITE.email}</a>
     </p>
 
     <small class="block text-xs">

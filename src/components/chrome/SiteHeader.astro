@@ -1,4 +1,16 @@
 ---
+/* SiteHeader -- refined chrome (D-14 / D-27). The plain text firm name is
+   replaced by the typographic Hanken wordmark (weight 700/800, tracked) led by
+   the small derived <Icon name="mark"> at compact sizes. Nav links go
+   text-text-muted -> text-text on hover with an animated accent underline
+   (motion-safe), an active-link accent indicator + aria-current, and a
+   focus-visible accent ring (A11Y-05, never motion-gated). Token syntax is the
+   Tailwind v4 namespace form (border-border, bg-bg, text-text, text-text-muted)
+   -- the Phase 1 arbitrary-value form (text-[color:var(...)]) was retrofitted
+   here (UI-SPEC token-standardization). The navLinks array, .map() render, and
+   aria-current logic are preserved. */
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   currentPath?: string;
 }
@@ -15,25 +27,36 @@ const navLinks = [
 ];
 ---
 
-<header class="border-b border-[color:var(--color-border)] bg-[color:var(--color-bg)]">
+<header class="border-b border-border bg-bg">
   <nav class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-4 md:flex-row md:items-center md:justify-between">
     <a
       href="/"
-      class="text-lg font-semibold tracking-tight text-[color:var(--color-text)]"
+      class="group inline-flex items-center gap-2.5 rounded-xs text-text
+             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+             focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      aria-label="Belcher, Smolen & Van Loo LLP — home"
     >
-      Belcher, Smolen &amp; Van Loo LLP
+      <Icon name="mark" class="size-7 shrink-0 text-accent" aria-hidden="true" />
+      <span class="text-lg font-extrabold tracking-tight">
+        Belcher, Smolen &amp; Van Loo
+        <span class="font-bold tracking-normal text-text-muted">LLP</span>
+      </span>
     </a>
-    <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+    <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
       {
         navLinks.map((link) => (
           <li>
             <a
               href={link.href}
               class:list={[
-                'hover:text-[color:var(--color-text)]',
+                'relative inline-block py-1 transition-colors',
+                'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-accent',
+                'motion-safe:after:transition-[width] motion-safe:after:duration-200',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent',
+                'focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded-xs',
                 currentPath === link.href
-                  ? 'text-[color:var(--color-text)] font-medium underline'
-                  : 'text-[color:var(--color-text-muted)]',
+                  ? 'text-text font-medium after:w-full'
+                  : 'text-text-muted after:w-0 hover:text-text hover:after:w-full',
               ]}
               aria-current={currentPath === link.href ? 'page' : undefined}
             >
