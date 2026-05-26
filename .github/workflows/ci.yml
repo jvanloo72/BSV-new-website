@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0   # gitleaks needs full history
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript + content schema check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run disclaimer crawl test
+        run: npm run test:disclaimer
+
+      - name: Run BaseLayout test
+        run: npm run test:baselayout
+
+      - name: Run zod-negative test
+        run: npm run test:zod-negative
+
+      - name: Run disclaimer-set test
+        run: npm run test:disclaimer-set
+
+      - name: Run JSON-LD test
+        run: npm run test:jsonld
+
+      - name: Lint legal content
+        run: npm run lint:legal
+
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
