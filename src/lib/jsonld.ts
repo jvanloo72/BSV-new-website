@@ -7,7 +7,14 @@
  * yet.
  */
 
-import type { Article, LegalService, Person, WithContext } from 'schema-dts';
+import type { CollectionEntry } from 'astro:content';
+import type {
+  Article,
+  FAQPage,
+  LegalService,
+  Person,
+  WithContext,
+} from 'schema-dts';
 import { SITE } from './site';
 
 export function buildLegalServiceLd(): WithContext<LegalService> {
@@ -45,12 +52,60 @@ export function buildLegalServiceLd(): WithContext<LegalService> {
   };
 }
 
-/* Phase 4 implements: takes an attorney CollectionEntry, returns a
+/* Phase 4 (ATTY-09 / SEO-03): takes an attorney CollectionEntry, returns a
  * WithContext<Person>. Slot-transferred into AttorneyLayout's BaseLayout
  * via <JsonLd slot="head" data={buildPersonLd(attorney)} />.
+ *
+ * D-02 (no fabrication): MUST NOT emit `sameAs`. Profile/social URLs are only
+ * added once Jon supplies verified URLs at review — never invented here.
  */
-export function buildPersonLd(_attorney: unknown): WithContext<Person> {
-  throw new Error('buildPersonLd not implemented until Phase 4');
+export function buildPersonLd(
+  attorney: CollectionEntry<'attorneys'>,
+): WithContext<Person> {
+  const d = attorney.data;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: d.name,
+    jobTitle: d.title, // 'Partner' | 'Associate' | 'Counsel'
+    url: `${SITE.baseUrl}/attorneys/${d.slug}`,
+    worksFor: {
+      '@type': 'Organization' as const,
+      name: SITE.name,
+      url: SITE.baseUrl,
+    },
+    alumniOf: d.education.map((e) => ({
+      '@type': 'EducationalOrganization' as const,
+      name: e.school,
+    })),
+    knowsAbout: d.focus
+      .split(/[;,]/)
+      .map((s) => s.trim())
+      .filter(Boolean),
+    email: d.email, // mailto-safe; D-08 email-only
+    // NB: no `sameAs` — D-02 forbids fabricating profile URLs.
+  };
+}
+
+/* Phase 4 (PRAC-08 / SEO-05): takes the practiceAreas.faqs shape and returns a
+ * WithContext<FAQPage> for AEO/AI-search surfaces. Safe on empty input — the
+ * layout decides whether to emit the block (guards on faqs.length === 0).
+ */
+export function buildFaqPageLd(
+  faqs: { question: string; answer: string }[],
+): WithContext<FAQPage> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question' as const,
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer' as const,
+        text: f.answer,
+      },
+    })),
+  };
 }
 
 /* Phase 5 implements: takes a blog post CollectionEntry, returns a
