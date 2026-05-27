@@ -59,15 +59,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Practice Areas
 
-- [ ] **PRAC-01**: Dynamic route `/practice-areas/[slug]` generates one page per practice area from the `practiceAreas` content collection
-- [ ] **PRAC-02**: Mergers & Acquisitions page published — opens with client problem, then BSV's team-driven solution, then proof (representative deals, lead partners, testimonial)
-- [ ] **PRAC-03**: Intellectual Property & Technology Transactions page published — same structure, oriented to Stuart's expertise
-- [ ] **PRAC-04**: Tax page published — same structure, oriented to Jon's M&A tax + crypto/blockchain expertise
-- [ ] **PRAC-05**: Deal-experience grid on each practice-area page lists representative deals with cleared client names and (where appropriate) anonymized $-amounts
-- [ ] **PRAC-06**: Lead-attorney callout on each practice-area page links to the relevant attorney profile(s)
-- [ ] **PRAC-07**: Each practice-area page renders the practice-area disclaimer
-- [ ] **PRAC-08**: Each practice-area page renders FAQPage JSON-LD with 3-5 plain-English FAQs for AEO/AI-search surface
-- [ ] **PRAC-09**: Fee-structure transparency band — hourly billing with estimate of total cost — visible on each practice-area page
+- [x] **PRAC-01**: Dynamic route `/practice-areas/[slug]` generates one page per practice area from the `practiceAreas` content collection
+- [x] **PRAC-02**: Mergers & Acquisitions page published — opens with client problem, then BSV's team-driven solution, then proof (representative deals, lead partners, testimonial)
+- [x] **PRAC-03**: Intellectual Property & Technology Transactions page published — same structure, oriented to Stuart's expertise
+- [x] **PRAC-04**: Tax page published — same structure, oriented to Jon's M&A tax + crypto/blockchain expertise
+- [x] **PRAC-05**: Deal-experience grid on each practice-area page lists representative deals with cleared client names and (where appropriate) anonymized $-amounts *(M&A grid uses register-cleared names; IP & Tax carry no grid per D-10 — no cleared deals there yet)*
+- [x] **PRAC-06**: Lead-attorney callout on each practice-area page links to the relevant attorney profile(s)
+- [x] **PRAC-07**: Each practice-area page renders the practice-area disclaimer
+- [ ] **PRAC-08**: Each practice-area page renders FAQPage JSON-LD with 3-5 plain-English FAQs for AEO/AI-search surface *(layout wired + guarded; FAQs drafted to FAQ-DRAFT.md, emission pending Jon's D-13 approval in Plan 04-04)*
+- [x] **PRAC-09**: Fee-structure transparency band — hourly billing with estimate of total cost — visible on each practice-area page
 
 ### Insights (Blog)
 
@@ -145,7 +145,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
 - [x] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
 - [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
-- [ ] **LEGAL-06**: Testimonials carry required disclosures per California bar rules
+- [x] **LEGAL-06**: Testimonials carry required disclosures per California bar rules *(Daniel Brian testimonial renders the CA disclosure via the TestimonialQuote disclosure slot; final wording confirmed by Jon at review per D-18)*
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
 - [ ] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
 - [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — disclaimer + reviewed_by required
@@ -249,15 +249,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ATTY-10 | Phase 4 | Complete (04-02) |
 | ATTY-11 | Phase 4 | Complete (04-02) |
 | ATTY-12 | Phase 4 | Complete (04-02) |
-| PRAC-01 | Phase 4 | Pending |
-| PRAC-02 | Phase 4 | Pending |
-| PRAC-03 | Phase 4 | Pending |
-| PRAC-04 | Phase 4 | Pending |
-| PRAC-05 | Phase 4 | Pending |
-| PRAC-06 | Phase 4 | Pending |
-| PRAC-07 | Phase 4 | Pending |
-| PRAC-08 | Phase 4 | Pending |
-| PRAC-09 | Phase 4 | Pending |
+| PRAC-01 | Phase 4 | Complete (04-03) |
+| PRAC-02 | Phase 4 | Complete (04-03) |
+| PRAC-03 | Phase 4 | Complete (04-03) |
+| PRAC-04 | Phase 4 | Complete (04-03) |
+| PRAC-05 | Phase 4 | Complete (04-03) |
+| PRAC-06 | Phase 4 | Complete (04-03) |
+| PRAC-07 | Phase 4 | Complete (04-03) |
+| PRAC-08 | Phase 4 | Pending (04-04 — FAQ approval gate) |
+| PRAC-09 | Phase 4 | Complete (04-03) |
 | BLOG-01 | Phase 5 | Pending |
 | BLOG-02 | Phase 5 | Pending |
 | BLOG-03 | Phase 5 | Pending |
@@ -282,7 +282,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEO-02 | Phase 3 | Complete |
 | SEO-03 | Phase 4 | Complete (04-02) |
 | SEO-04 | Phase 5 | Pending |
-| SEO-05 | Phase 4 | Pending |
+| SEO-05 | Phase 4 | Pending (04-04 — JSON-LD wired + guarded in 04-03; emits once FAQs land) |
 | SEO-06 | Phase 7 | Pending |
 | SEO-07 | Phase 3 | Complete |
 | SEO-08 | Phase 3 | Complete |
@@ -317,7 +317,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEGAL-03 | Phase 4 | Complete (04-01) |
 | LEGAL-04 | Phase 4 | Complete (04-01) |
 | LEGAL-05 | Phase 7 | Pending |
-| LEGAL-06 | Phase 4 | Pending |
+| LEGAL-06 | Phase 4 | Complete (04-03) |
 | LEGAL-07 | Phase 3 | Complete |
 | LEGAL-08 | Phase 4 | Pending |
 | LEGAL-09 | Phase 5 | Pending |

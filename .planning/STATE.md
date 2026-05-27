@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-05-27T22:10:00Z"
-last_activity: 2026-05-27 -- Completed Phase 4 Plan 02 (attorney profiles)
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-05-27T22:56:00Z"
+last_activity: 2026-05-27 -- Completed Phase 4 Plan 03 (practice-area pages)
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 20
-  completed_plans: 18
-  percent: 49
+  completed_plans: 19
+  percent: 51
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 ## Current Position
 
 Phase: 4 (Attorney & Practice Area Pages) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Executing Phase 4
-Last activity: 2026-05-27 -- Completed Phase 4 Plan 02 (attorney profiles)
+Last activity: 2026-05-27 -- Completed Phase 4 Plan 03 (practice-area pages)
 
-Progress: [████▉░░░░░] 49% (3 of 7 phases complete; Phase 4: 2 of 4 plans)
+Progress: [█████░░░░░] 51% (3 of 7 phases complete; Phase 4: 3 of 4 plans)
 
-Resume: `/gsd:execute-phase 4` — Phase 4 Plan 03 (practice-area pages) is next.
-Next phase: Phase 4 Plan 03 — three practice-area MDX + PracticeAreaLayout render-out (FAQ drafts gated for Jon).
+Resume: `/gsd:execute-phase 4` — Phase 4 Plan 04 (commit Jon-approved FAQ copy) is next.
+Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit the FAQs into the practice MDX faqs: arrays and un-guard FAQPage/FaqAccordion.
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Next phase: Phase 4 Plan 03 — three practice-area MDX + PracticeAreaLayout ren
 | Phase 3 P2 | 6m | 2 tasks | 3 files |
 | Phase 4 P1 | 50m | 3 tasks | 14 files |
 | Phase 4 P2 | 22m | 2 tasks | 11 files |
+| Phase 4 P3 | 41m | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,7 @@ Next phase: Phase 4 Plan 03 — three practice-area MDX + PracticeAreaLayout ren
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-27: Three practice-area pages shipped — M&A keeps a curated 10-deal cleared grid + the Daniel Brian testimonial with the CA disclosure rendered in the TestimonialQuote disclosure slot (D-09/D-18); IP & Tech and Tax have NO deal grid and NO testimonial (D-10); lead-partner callouts resolve leadAttorneys via getEntries and link to /attorneys/<slug> (D-11). FAQs drafted to FAQ-DRAFT.md only and left out of the MDX faqs: arrays pending Jon's D-13 approval; FAQPage JSON-LD + FaqAccordion are wired but guarded on empty faqs (04-03)
 - 2026-05-27: Attorney bios replicated verbatim from the live bsvlaw.com pages (re-fetched at build, D-01/D-03); Aaron's full 64-deal list mapped 1:1 from CONTEXT <specifics> all cleared:true (D-04/D-15); Iris + Susan barAdmissions use a non-committal "Bar admission details to be confirmed" placeholder to satisfy the min-1 schema without inventing a jurisdiction (D-05); email-only mailto callout, phone field left unset everywhere (D-08) (04-02)
 - 2026-05-27: lint:legal is a real Node 22 scanner (scripts/lint-legal.mjs) over src/content **.mdx, wired as a prebuild gate; "expertise" is banned-by-default with an empty allowlist pending Jon's compliance call (A1); Aaron Belcher's complete deal list cleared en masse via the bsvlaw.com URL basis rather than enumerating ~60 counterparties (D-15/A5) (04-01)
 - 2026-05-27: robots.txt generated via an Astro static endpoint (src/pages/robots.txt.ts) rather than installing astro-robots-txt — @astrojs/sitemap does not emit robots.txt; the endpoint adds zero new dependency, references sitemap-index.xml, and omits /design-system so it cannot advertise the hidden gallery (03-03)
@@ -110,6 +112,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-27T22:10:00Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-05-27T22:56:00Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: None

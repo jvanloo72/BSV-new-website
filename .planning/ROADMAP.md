@@ -174,7 +174,7 @@ Plans:
 **Wave 2** *(blocked on Wave 1 completion)*
 
 - [x] 04-02-PLAN.md — Attorney slice: 5 attorney MDX (Susan draft) + AttorneyLayout render-out (Person JSON-LD, email-only callout, Aaron deal grid, disclaimer) (completed 2026-05-27)
-- [ ] 04-03-PLAN.md — Practice slice: 3 practiceArea MDX + Daniel Brian testimonial + PracticeAreaLayout (problem→solution→lead-partner→M&A grid/testimonial→fee band, guarded FAQPage); FAQ drafts staged
+- [x] 04-03-PLAN.md — Practice slice: 3 practiceArea MDX + Daniel Brian testimonial + PracticeAreaLayout (problem→solution→lead-partner→M&A grid/testimonial→fee band, guarded FAQPage); FAQ drafts staged to FAQ-DRAFT.md (D-13 gate) (completed 2026-05-27)
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -254,7 +254,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
-| 4. Attorney & Practice Area Pages | 2/4 | In progress | - |
+| 4. Attorney & Practice Area Pages | 3/4 | In progress | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |
