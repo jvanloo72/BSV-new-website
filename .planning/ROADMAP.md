@@ -135,7 +135,17 @@ indexes from anywhere.
   4. From the homepage, a visitor can reach the Practice Areas index, the Attorneys index, and the Insights index in one click each; the Insights index handles the empty-state gracefully.
   5. A user who navigates to a nonexistent URL or triggers a server error sees branded 404 / 5xx pages (not generic Vercel pages); `sitemap.xml` and `robots.txt` are live; `LegalService` JSON-LD is present site-wide via BaseLayout.
 
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+**Wave 1**
+
+- [ ] 03-01-PLAN.md — Clearance gate + homepage slice: populate CLIENT_DISCLOSURE_CLEARANCE.md with the D-04 cleared deals, create ApproachBand + ChambersStrip, compose the public homepage in D-01 order (PAGES-01/02/08, LEGAL-07)
+- [ ] 03-03-PLAN.md — Section indexes + branded error pages + SEO baseline: real-looking Practice Areas/Attorneys indexes, graceful Insights empty-state, branded 404/500, verify sitemap.xml/robots.txt/LegalService JSON-LD/SeoHead meta (PAGES-04/05/06/07, SEO-01/02/07/08)
+
+**Wave 2** *(depends on 03-01)*
+
+- [ ] 03-02-PLAN.md — About page slice: extract formatOffice helper, client-first StoryBrand About with two-office block + closing CTA, token retrofit (PAGES-03/08, OPS-06)
+
 **UI hint**: yes
 
 ### Phase 4: Attorney & Practice Area Pages
@@ -229,7 +239,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
-| 3. Homepage & Static Pages | 0/TBD | Not started | - |
+| 3. Homepage & Static Pages | 0/3 | Not started | - |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
