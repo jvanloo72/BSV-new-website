@@ -402,6 +402,42 @@ blindly or rip out is not.
 
 ---
 
+## 2026-05-26 — Phase 3 — Homepage named deals cleared for publication via the disclosure register (D-04)
+
+**What was decided:**
+The homepage's named client-deal copy is cleared for public publication and
+recorded in `.planning/CLIENT_DISCLOSURE_CLEARANCE.md`, attributed to **Jon Van
+Loo (approving partner) on 2026-05-26**. The cleared items are: the
+Athelas–Commure merger ($6B), the Mode Analytics sale ($200M), the Illumina
+defense against Roche's $6.4B hostile bid (Roche recorded as a cleared
+counterparty), the representative-parties list (Adobe, Oracle, PayPal, Dell,
+eBay, Coinbase), and the Daniel Brian (GC, Commure, Inc.) testimonial with its
+verbatim quote. Each row constrains the contexts in which the name may appear.
+This clearance also **unblocks the Phase 4 clearance gate** for these same items.
+
+**Why:**
+Under California Rules of Professional Conduct 1.6 (confidentiality) and 7.4
+(communication of fields of practice), no client name, counterparty name, or
+identifying deal detail may appear on the public site unless an approving partner
+has signed off. Most of these deals are already public record (closed mergers,
+SEC filings, a public hostile-bid defense), and the testimonial was given for
+publication — but the controlling rule is not "is it public?" alone; it is
+"has the firm recorded a partner's authorization to use it?" Recording the
+sign-off in the register *before* the homepage task publishes the names makes
+the gate structural rather than a matter of memory.
+
+**Teaching insight:**
+**A confidentiality control only works if it sits in the path of the action it
+governs.** The clearance register is sequenced ahead of the homepage-composition
+task on purpose: a name cannot ship until its row exists with a named partner and
+a date. This turns "remember to check whether we're allowed to say this" — a
+human step that eventually gets skipped under deadline — into a structural gate a
+reviewer can verify in seconds by opening one file. For any rule that carries
+professional or legal consequence, build the check into the workflow's order of
+operations, not into someone's diligence.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the
