@@ -1,16 +1,18 @@
 ---
-/* ChambersStrip — prominent recognition strip (Phase 3 LEGAL-07).
-   D-35: placed high on the homepage (right after the BSV Approach band) so the
-   recognition is clearly visible near the top. D-34: shows the real Chambers
-   USA Spotlight 2026 badge (the firm's own asset from the prior site).
-   Uses a plain <img> served raw from /public/chambers-2026.png (NOT the
-   astro:assets optimizer) for maximum reliability — the optimizer pipeline
-   was intermittently failing in this environment. Non-linked. Static, no
-   props. data-component marker for tests. */
+/* ChambersStrip — prominent recognition band (Phase 3 LEGAL-07, D-35).
+   The firm's real Chambers USA Spotlight 2026 badge (from the prior site) is
+   WHITE artwork on a transparent background — it was designed to sit on a dark
+   surface. On the new white page it would be invisible, so it is displayed on
+   a near-black band (bg-text = #0A0A0A). This doubles as a deliberate dark
+   accent breaking up the white page. Plain <img> served raw from
+   /public/chambers-2026.png (no astro:assets optimizer). Non-linked. */
 ---
 
-<section data-component="ChambersStrip" class="bg-bg py-section">
+<section data-component="ChambersStrip" class="bg-text py-section">
   <div class="mx-auto max-w-6xl px-gutter">
+    <p class="mb-6 text-center text-xs font-semibold uppercase tracking-[0.2em] text-bg/70">
+      Recognized by
+    </p>
     <div class="flex justify-center">
       <img
         src="/chambers-2026.png"
