@@ -5,14 +5,16 @@
    is shown directly on the normal white page (bg-bg) — D-38 dropped the earlier
    near-black band. A muted "Recognized by" kicker sits above the ~240px centered
    badge. Plain <img> served raw from /public (no astro:assets optimizer).
-   Non-linked. */
+   Non-linked. D-40: the "Recognized by" kicker uses the shared Eyebrow so it
+   matches every other grey uppercase label site-wide. */
+import Eyebrow from '../ui/Eyebrow.astro';
 ---
 
 <section data-component="ChambersStrip" class="bg-bg py-section">
   <div class="mx-auto max-w-6xl px-gutter">
-    <p class="mb-6 text-center text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-      Recognized by
-    </p>
+    <div class="mb-6 text-center">
+      <Eyebrow>Recognized by</Eyebrow>
+    </div>
     <div class="flex justify-center">
       <img
         src="/chambers-2026-dark.png"

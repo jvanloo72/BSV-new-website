@@ -1,14 +1,14 @@
 ---
-/* Eyebrow primitive — small uppercase kicker label placed above section
-   headings (UI-SPEC §"UI primitives"). Token-only — muted color, uppercase.
-   The font size defaults to text-small but can be overridden per-instance via
-   the `textClass` prop (single font-size class only — avoids a dual size
-   conflict) so one eyebrow can be enlarged without affecting the rest. */
+/* Eyebrow primitive — uppercase kicker label placed above section headings
+   (UI-SPEC §"UI primitives"). Token-only — muted color, uppercase. D-40: the
+   default size is text-xl so every site-wide eyebrow/kicker matches. Can still
+   be overridden per-instance via the `textClass` prop (single font-size class
+   only — avoids a dual size conflict). */
 interface Props {
   textClass?: string;
 }
 
-const { textClass = 'text-small' } = Astro.props;
+const { textClass = 'text-xl' } = Astro.props;
 ---
 
 <p class:list={[textClass, 'uppercase tracking-wide text-text-muted']}>
