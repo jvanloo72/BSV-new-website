@@ -42,8 +42,9 @@
   --text-body: 1.0625rem;
   --text-small: 0.875rem;
 
-  /* Named fluid spacing rhythm (DESIGN-07). */
-  --spacing-section: clamp(4rem, 2.5rem + 7vw, 8rem);
+  /* Named fluid spacing rhythm (DESIGN-07). D-39: tightened ~1/3 (every stop
+     ×0.667) so sections sit closer together across the homepage + About. */
+  --spacing-section: clamp(2.67rem, 1.67rem + 4.67vw, 5.33rem);
   --spacing-gutter: clamp(1.25rem, 0.75rem + 2vw, 2rem);
 
   /* Radius (D-09). */
