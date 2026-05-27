@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md (homepage + clearance gate)
-last_updated: "2026-05-27T02:06:23.000Z"
-last_activity: 2026-05-27 -- Completed Phase 03 Plan 01 (homepage)
+stopped_at: Completed 03-03-PLAN.md (section indexes + branded error pages + SEO baseline)
+last_updated: "2026-05-27T19:20:00.000Z"
+last_activity: 2026-05-27 -- Completed Phase 03 Plan 03 (section indexes + error pages + SEO)
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 16
-  completed_plans: 14
-  percent: 32
+  completed_plans: 15
+  percent: 34
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 ## Current Position
 
 Phase: 03 (homepage-static-pages) — EXECUTING
-Plan: 2 of 3
-Status: Executing Phase 03 — Plan 01 complete
-Last activity: 2026-05-27 -- Completed Phase 03 Plan 01 (homepage + clearance gate)
+Plan: 3 of 3
+Status: Executing Phase 03 — Plans 01 + 03 complete
+Last activity: 2026-05-27 -- Completed Phase 03 Plan 03 (section indexes + error pages + SEO)
 
-Progress: [███░░░░░░░] 32% (2 of 7 phases complete; Phase 3: 1 of 3 plans)
+Progress: [███░░░░░░░] 34% (2 of 7 phases complete; Phase 3: 2 of 3 plans)
 
-Resume: `/gsd:execute-phase 3` — next is 03-03 (section indexes + branded error pages + SEO) then 03-02 (About).
-Next plan: 03-03-PLAN.md (Wave 1, parallel with 03-01) / 03-02-PLAN.md (Wave 2, depends on 03-01).
+Resume: `/gsd:execute-phase 3` — only 03-02 (About page) remains.
+Next plan: 03-02-PLAN.md (Wave 2, depends on 03-01 — reuses ApproachBand framing).
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Next plan: 03-03-PLAN.md (Wave 1, parallel with 03-01) / 03-02-PLAN.md (Wave 2, 
 | Phase 2 P2 | 7m | 3 tasks | 19 files |
 | Phase 2 P3 | 7m | 2 tasks | 5 files |
 | Phase 3 P1 | 3m | 3 tasks | 5 files |
+| Phase 3 P3 | 12m | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,7 @@ Next plan: 03-03-PLAN.md (Wave 1, parallel with 03-01) / 03-02-PLAN.md (Wave 2, 
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-27: robots.txt generated via an Astro static endpoint (src/pages/robots.txt.ts) rather than installing astro-robots-txt — @astrojs/sitemap does not emit robots.txt; the endpoint adds zero new dependency, references sitemap-index.xml, and omits /design-system so it cannot advertise the hidden gallery (03-03)
 - 2026-05-26: D-04 homepage named deals (Athelas/Commure $6B, Mode Analytics $200M, Illumina/Roche defense, representative-parties list, Daniel Brian testimonial) cleared by Jon Van Loo and recorded in CLIENT_DISCLOSURE_CLEARANCE.md before publish — the Rule 1.6/7.4 gate; also unblocks the Phase 4 clearance gate for these same items (DECISIONS.md)
 - 2026-05-26: BSV mark derived as a 3-line convergence-to-knot glyph distilled from the hero motif (modernization, not rebrand, D-14) so it reads at 16-32px; favicon carries explicit accent rust (standalone, not theme-following) while the in-app mark uses currentColor
 - 2026-05-26: Whole codebase standardized on Tailwind v4 namespace utilities — Phase 1 chrome retrofitted from the arbitrary-value form (text-[color:var(...)]) to text-text/border-border/bg-bg; token names unchanged (D-22)
@@ -103,6 +105,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-27T02:06:23.000Z
-Stopped at: Completed 03-01-PLAN.md (homepage + clearance gate)
-Resume file: .planning/phases/03-homepage-static-pages/03-01-SUMMARY.md
+Last session: 2026-05-27T19:20:00.000Z
+Stopped at: Completed 03-03-PLAN.md (section indexes + branded error pages + SEO baseline)
+Resume file: .planning/phases/03-homepage-static-pages/03-03-SUMMARY.md

@@ -36,10 +36,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PAGES-01**: Homepage opens with the lead message "Team work to get good results" (not credentials)
 - [x] **PAGES-02**: Homepage includes practice-area teaser (3 cards), attorney row (5 cards), one marquee testimonial pull-quote, Chambers Spotlight 2026 recognition strip, and a primary contact CTA
 - [ ] **PAGES-03**: About page covers firm history, both office locations (Silicon Valley + 555 California St. Suite 4925 San Francisco), and the firm's positioning
-- [ ] **PAGES-04**: Practice Areas index page lists all three practice areas with links to dedicated pages
-- [ ] **PAGES-05**: Attorneys index page lists all five attorneys (Nir Fishbien explicitly excluded)
-- [ ] **PAGES-06**: Insights (blog) index page with attorney + practice-area filters; handles empty state gracefully
-- [ ] **PAGES-07**: Branded 404 page and 5xx error page
+- [x] **PAGES-04**: Practice Areas index page lists all three practice areas with links to dedicated pages
+- [x] **PAGES-05**: Attorneys index page lists all five attorneys (Nir Fishbien explicitly excluded)
+- [~] **PAGES-06**: Insights (blog) index page with attorney + practice-area filters; handles empty state gracefully *(empty-state shell delivered in 03-03; attorney/practice-area filters land in Phase 5 with the first posts)*
+- [x] **PAGES-07**: Branded 404 page and 5xx error page
 - [x] **PAGES-08**: StoryBrand framing throughout — client is hero, BSV is the guide; every page CTA moves visitor toward getting in touch *(homepage delivered in 03-01; reinforced on remaining static pages)*
 
 ### Attorney Profiles
@@ -97,14 +97,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### SEO & Structured Data
 
-- [ ] **SEO-01**: Every page sets `<title>`, `<meta name="description">`, `<link rel="canonical">`, and Open Graph tags via a shared `<SeoHead />` component
-- [ ] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
+- [x] **SEO-01**: Every page sets `<title>`, `<meta name="description">`, `<link rel="canonical">`, and Open Graph tags via a shared `<SeoHead />` component
+- [x] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
 - [ ] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
 - [ ] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image)
 - [ ] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
 - [ ] **SEO-06**: All JSON-LD generated via `schema-dts` (typed at build time)
-- [ ] **SEO-07**: Sitemap.xml auto-generated via `@astrojs/sitemap`
-- [ ] **SEO-08**: robots.txt published with sitemap reference
+- [x] **SEO-07**: Sitemap.xml auto-generated via `@astrojs/sitemap`
+- [x] **SEO-08**: robots.txt published with sitemap reference
 - [ ] **SEO-09**: SEO copy and meta target relevant queries — "M&A lawyer Silicon Valley / San Francisco", "technology transactions counsel", "crypto tax attorney" (without violating Rule 7.4)
 - [ ] **SEO-10**: Google Rich Results Test passes on a sample page of each type before launch
 
@@ -232,10 +232,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PAGES-01 | Phase 3 | Complete |
 | PAGES-02 | Phase 3 | Complete |
 | PAGES-03 | Phase 3 | Pending |
-| PAGES-04 | Phase 3 | Pending |
-| PAGES-05 | Phase 3 | Pending |
-| PAGES-06 | Phase 3 | Pending |
-| PAGES-07 | Phase 3 | Pending |
+| PAGES-04 | Phase 3 | Complete |
+| PAGES-05 | Phase 3 | Complete |
+| PAGES-06 | Phase 3 | Partial (empty-state shell; filters in Phase 5) |
+| PAGES-07 | Phase 3 | Complete |
 | PAGES-08 | Phase 3 | Complete |
 | ATTY-01 | Phase 4 | Pending |
 | ATTY-02 | Phase 4 | Pending |
@@ -278,14 +278,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORM-09 | Phase 6 | Pending |
 | FORM-10 | Phase 6 | Pending |
 | FORM-11 | Phase 6 | Pending |
-| SEO-01 | Phase 3 | Pending |
-| SEO-02 | Phase 3 | Pending |
+| SEO-01 | Phase 3 | Complete |
+| SEO-02 | Phase 3 | Complete |
 | SEO-03 | Phase 4 | Pending |
 | SEO-04 | Phase 5 | Pending |
 | SEO-05 | Phase 4 | Pending |
 | SEO-06 | Phase 7 | Pending |
-| SEO-07 | Phase 3 | Pending |
-| SEO-08 | Phase 3 | Pending |
+| SEO-07 | Phase 3 | Complete |
+| SEO-08 | Phase 3 | Complete |
 | SEO-09 | Phase 7 | Pending |
 | SEO-10 | Phase 7 | Pending |
 | A11Y-01 | Phase 7 | Pending |
