@@ -35,7 +35,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **PAGES-01**: Homepage opens with the lead message "Team work to get good results" (not credentials)
 - [x] **PAGES-02**: Homepage includes practice-area teaser (3 cards), attorney row (5 cards), one marquee testimonial pull-quote, Chambers Spotlight 2026 recognition strip, and a primary contact CTA
-- [ ] **PAGES-03**: About page covers firm history, both office locations (Silicon Valley + 555 California St. Suite 4925 San Francisco), and the firm's positioning
+- [x] **PAGES-03**: About page covers firm history, both office locations (Silicon Valley + 555 California St. Suite 4925 San Francisco), and the firm's positioning *(delivered in 03-02; per D-06, no founding-year/origin narrative was invented — positioning + verifiable substance stand in for "firm history" until Jon supplies a real origin story; both offices render from SITE.offices)*
 - [x] **PAGES-04**: Practice Areas index page lists all three practice areas with links to dedicated pages
 - [x] **PAGES-05**: Attorneys index page lists all five attorneys (Nir Fishbien explicitly excluded)
 - [~] **PAGES-06**: Insights (blog) index page with attorney + practice-area filters; handles empty state gracefully *(empty-state shell delivered in 03-03; attorney/practice-area filters land in Phase 5 with the first posts)*
@@ -158,7 +158,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **OPS-03**: Redirect map from legacy bsvlaw.com URLs to new site URLs — preserves referral and SEO equity
 - [ ] **OPS-04**: `@vercel/analytics` (cookie-free) enabled in production
 - [x] **OPS-05**: Vercel preview URL accessible to Jon for every PR before merge — non-technical review workflow
-- [ ] **OPS-06**: Markdown/MDX content authored in files Jon can edit via the GitHub web editor (no buried in-`.astro` content for the editable pieces)
+- [x] **OPS-06**: Markdown/MDX content authored in files Jon can edit via the GitHub web editor (no buried in-`.astro` content for the editable pieces) *(03-02: the About prose lives in plainly separated, clearly-labeled paragraphs in about.astro that Jon can edit directly via the GitHub web editor)*
 
 ## v2 Requirements
 
@@ -231,7 +231,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DESIGN-08 | Phase 2 | Complete |
 | PAGES-01 | Phase 3 | Complete |
 | PAGES-02 | Phase 3 | Complete |
-| PAGES-03 | Phase 3 | Pending |
+| PAGES-03 | Phase 3 | Complete |
 | PAGES-04 | Phase 3 | Complete |
 | PAGES-05 | Phase 3 | Complete |
 | PAGES-06 | Phase 3 | Partial (empty-state shell; filters in Phase 5) |
@@ -327,7 +327,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | OPS-03 | Phase 7 | Pending |
 | OPS-04 | Phase 7 | Pending |
 | OPS-05 | Phase 1 | Validated |
-| OPS-06 | Phase 3 | Pending |
+| OPS-06 | Phase 3 | Complete |
 
 **Coverage:**
 

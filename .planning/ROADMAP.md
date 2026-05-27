@@ -28,7 +28,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Scaffold & Shell** - Astro 6 project, content collections, BaseLayout with disclaimer plumbing, security baseline, preview-deploy workflow verified
 - [x] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set (completed 2026-05-26)
-- [ ] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell
+- [x] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell (completed 2026-05-27)
 - [ ] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint
 - [ ] **Phase 5: Insights (Blog) System** - Dynamic blog routes, attorney/practice-area filtering, RSS feed, Article JSON-LD, editorial review gate, one seed post live
 - [ ] **Phase 6: Contact Form & Intake** - Contact page with ABA 477R-compliant intake, Astro Action with Zod validation, honeypot + time-trap + rate limiting, Resend email dispatch
@@ -144,7 +144,7 @@ Plans:
 
 **Wave 2** *(depends on 03-01)*
 
-- [ ] 03-02-PLAN.md — About page slice: extract formatOffice helper, client-first StoryBrand About with two-office block + closing CTA, token retrofit (PAGES-03/08, OPS-06)
+- [x] 03-02-PLAN.md — About page slice: extract formatOffice helper, client-first StoryBrand About with two-office block + closing CTA, token retrofit (PAGES-03/08, OPS-06)
 
 **UI hint**: yes
 
@@ -239,7 +239,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 |-------|----------------|--------|-----------|
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
-| 3. Homepage & Static Pages | 2/3 | In progress | - |
+| 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
