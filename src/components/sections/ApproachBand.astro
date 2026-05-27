@@ -1,0 +1,45 @@
+---
+/* ApproachBand — the StoryBrand "guide with a plan" beat directly below the
+   hero (Phase 3 D-02). One situational lead line naming the client's world,
+   then three tight points that map explicitly to the three FIRM_BRIEF client
+   fears: competence (partner-led teams), experience (deep transaction
+   experience), responsiveness (moves at your deal's pace). Restrained/premium —
+   a compact band, not a heavy section. Takes no props (fixed homepage content;
+   About reuses it in Plan 02). Token-only; data-component marker for tests. */
+import Eyebrow from '../ui/Eyebrow.astro';
+
+const points = [
+  {
+    title: 'Partner-led teams',
+    body: 'Senior attorneys do the work — you get partner-level judgment on every issue, not a rotating cast of associates.',
+  },
+  {
+    title: 'Deep transaction experience',
+    body: 'From $6B mergers to founder exits, we have closed the kind of deal you are running, on both the buy and sell side.',
+  },
+  {
+    title: 'Moves at your deal&rsquo;s pace',
+    body: 'Transactions have momentum. We staff lean and respond fast so legal is never the reason a deal slows down.',
+  },
+];
+---
+
+<section data-component="ApproachBand" class="bg-bg py-section">
+  <div class="mx-auto max-w-6xl px-gutter">
+    <Eyebrow>How we work</Eyebrow>
+    <p class="mt-3 max-w-3xl text-h3 font-bold text-text">
+      A complex transaction deserves a team that treats it like their only one.
+    </p>
+    <div class="mt-10 grid gap-8 sm:grid-cols-1 lg:grid-cols-3">
+      {
+        points.map((point) => (
+          <div>
+            <span class="block h-1 w-10 rounded-full bg-accent" aria-hidden="true" />
+            <h3 class="mt-4 text-h3 font-bold text-text" set:html={point.title} />
+            <p class="mt-3 text-body text-text-muted" set:html={point.body} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
