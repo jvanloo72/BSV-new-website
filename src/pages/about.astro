@@ -1,15 +1,165 @@
 ---
+/* About — client-first StoryBrand page (Phase 3 Plan 02, PAGES-03/PAGES-08/OPS-06).
+   Spine (D-05): the client's world + the fear of the wrong counsel → BSV as the
+   guide with a plan (team approach, partner access, transaction focus) → firm
+   substance as proof ("why a boutique" — M&A/IP/Tax focus, senior pedigrees,
+   Chambers) → both offices from the SITE source of truth (D-07) → a closing CTA
+   toward /contact with onward links to /attorneys and /practice-areas.
+
+   Constraints honored:
+   - D-06: verifiable facts only — NO invented founding year or origin narrative.
+     Every substance claim below traces to FIRM_BRIEF.md.
+   - D-07: offices render text-only from SITE.offices via formatOffice (no map embed);
+     "Silicon Valley, CA" (TBD street omitted) + the full San Francisco address.
+   - Token-only Tailwind v4 namespace utilities (text-text / bg-bg / text-accent) —
+     no arbitrary-value color form, no hardcoded hex.
+   - OPS-06: the prose lives in plain, clearly separated paragraphs so a non-coding
+     author (Jon) can edit the copy directly via the GitHub web editor. */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import TextLink from '../components/ui/TextLink.astro';
+import CtaBlock from '../components/sections/CtaBlock.astro';
+import { SITE, formatOffice } from '../lib/site';
+
+const officeLines = SITE.offices.map(formatOffice);
+
+/* The "guide with a plan" beat — the three FIRM_BRIEF client fears, mapped to how
+   BSV answers each. Competence → partner-led teams; experience → deep transaction
+   record; responsiveness → moves at the deal's pace. */
+const plan = [
+  {
+    title: 'Partner-led teams',
+    body: 'Senior attorneys do the work. You get partner-level judgment on every issue — not a matter handed down to a rotating cast of junior associates.',
+  },
+  {
+    title: 'Deep transaction experience',
+    body: 'We focus on M&A, IP and technology transactions, and tax — and we have closed the kind of deal you are running, on both the buy and sell side.',
+  },
+  {
+    title: 'Moves at your deal’s pace',
+    body: 'Transactions have momentum. We staff lean and respond fast, so legal is never the reason a deal slows down.',
+  },
+];
 ---
 
 <BaseLayout
   title="About BSV Law"
-  description="Belcher, Smolen & Van Loo LLP — a boutique California law firm focused on M&A, IP & technology transactions, and tax."
+  description="Belcher, Smolen & Van Loo LLP — a boutique California law firm focused on M&A, IP & technology transactions, and tax for the companies building what's next."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">About</h1>
-    <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
-      Coming soon. Full About content arrives in Phase 3 of the build.
-    </p>
+  <!-- 1. The client's world + the fear of the wrong counsel (StoryBrand opening) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-3xl px-gutter">
+      <Eyebrow>About the firm</Eyebrow>
+      <h1 class="mt-3 text-h1 font-bold text-text">
+        A complex transaction deserves a team that treats it like their only one.
+      </h1>
+      <p class="mt-6 text-body-lg text-text-muted">
+        When you are running an acquisition, a financing, a licensing deal, or a
+        cross-border tax matter, the hardest decision often comes first: who do you
+        trust to handle it? The wrong counsel is slow, learns on your dime, or hands
+        your matter to whoever is free that week.
+      </p>
+      <p class="mt-4 text-body-lg text-text-muted">
+        Belcher, Smolen &amp; Van Loo is a boutique built to be the opposite of that.
+        We are a small group of senior, transaction-focused attorneys, and we give
+        every matter the priority of a firm where the partners do the work themselves.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. BSV as the guide with a plan -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <Eyebrow>How we work</Eyebrow>
+      <h2 class="mt-3 max-w-3xl text-h2 font-bold text-text">
+        Team work to get good results.
+      </h2>
+      <p class="mt-4 max-w-3xl text-body-lg text-text-muted">
+        Our advantage is structural. A boutique gives every client the attention and
+        priority a large firm reserves for its biggest accounts — and unlike a
+        generalist boutique, we concentrate on the transactions we know best.
+      </p>
+      <div class="mt-10 grid gap-8 sm:grid-cols-1 lg:grid-cols-3">
+        {
+          plan.map((point) => (
+            <div>
+              <span class="block h-1 w-10 rounded-full bg-accent" aria-hidden="true" />
+              <h3 class="mt-4 text-h3 font-bold text-text" set:html={point.title} />
+              <p class="mt-3 text-body text-text-muted">{point.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Firm substance as proof — "why a boutique" (verifiable facts only, D-06) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-3xl px-gutter">
+      <Eyebrow>Why a boutique</Eyebrow>
+      <h2 class="mt-3 text-h2 font-bold text-text">
+        Specialists, not generalists.
+      </h2>
+      <p class="mt-6 text-body-lg text-text-muted">
+        Our practice is disciplined around three areas: mergers and acquisitions,
+        intellectual property and technology transactions, and tax. We serve technology,
+        life sciences, cryptocurrency, FinTech, and AI companies — and their investors,
+        acquirers, and counterparties.
+      </p>
+      <p class="mt-4 text-body-lg text-text-muted">
+        That focus is backed by senior pedigrees. Our partners advise on complex M&amp;A
+        for public and private acquirers, private equity firms, and venture-backed
+        companies; on patent strategy, licensing, open-source, and data-security matters;
+        and on M&amp;A, international, and cryptocurrency tax — including tax-free
+        reorganizations and token sales. Among us we have practiced at Linklaters,
+        Dechert, and Dewey &amp; LeBoeuf, clerked on the Federal Circuit, and built a
+        crypto-tax practice since 2017.
+      </p>
+      <p class="mt-4 text-body-lg text-text-muted">
+        When a matter calls for expertise outside our lane — antitrust, for example — we
+        assemble a team of elite specialists rather than over-claim. And we are clear
+        about cost: we bill hourly, paired with an estimate of the total cost for each
+        engagement, so you are never left guessing.
+      </p>
+      <p class="mt-4 text-body-lg text-text-muted">
+        Our work has been recognized in the Chambers USA Spotlight 2026 as a leading firm
+        ranked in Mergers &amp; Acquisitions — but the proof clients value most is the
+        deals we have closed and the partners who answer the phone.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Both offices, text-only from the SITE source of truth (D-07) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <Eyebrow>Where we work</Eyebrow>
+      <h2 class="mt-3 text-h2 font-bold text-text">Two California offices</h2>
+      <address class="mt-8 grid gap-8 not-italic sm:grid-cols-2">
+        {
+          officeLines.map((line) => (
+            <div>
+              <span class="block text-body text-text">{line}</span>
+            </div>
+          ))
+        }
+      </address>
+    </div>
+  </section>
+
+  <!-- 5. Closing CTA + onward links (StoryBrand loop close, D-07) -->
+  <CtaBlock
+    heading="Let’s talk about your transaction."
+    body="Tell us what you are working on, and we will tell you straight whether we are the right team for it."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+  />
+
+  <section class="bg-bg pb-section">
+    <div class="mx-auto max-w-3xl px-gutter text-center">
+      <p class="text-body text-text-muted">
+        Or meet <TextLink href="/attorneys">the team</TextLink> and explore our
+        <TextLink href="/practice-areas">practice areas</TextLink>.
+      </p>
+    </div>
   </section>
 </BaseLayout>
