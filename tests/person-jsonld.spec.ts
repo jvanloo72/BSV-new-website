@@ -34,8 +34,7 @@ function readPersonLd(slug: string): Record<string, unknown> | null {
 }
 
 test.describe('Person JSON-LD (ATTY-09 / SEO-03)', () => {
-  // UNSKIP-WHEN: attorney pages exist. Remove .fixme and the early return.
-  test.fixme('every published attorney page has valid Person JSON-LD', () => {
+  test('every published attorney page has valid Person JSON-LD', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const missing: string[] = [];
     for (const slug of PUBLISHED_SLUGS) {

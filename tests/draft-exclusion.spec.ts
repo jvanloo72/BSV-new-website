@@ -15,8 +15,7 @@ const DIST_CLIENT = 'dist/client';
 const DRAFT_SLUG = 'susan-jiang';
 
 test.describe('Draft attorney exclusion (ATTY-06 / D-07)', () => {
-  // UNSKIP-WHEN: susan-jiang.mdx (draft:true) exists.
-  test.fixme('no susan-jiang route built and slug absent from sitemap', () => {
+  test('no susan-jiang route built and slug absent from sitemap', () => {
     execSync('npm run build', { stdio: 'pipe' });
 
     const routeFile = path.join(DIST_CLIENT, 'attorneys', DRAFT_SLUG, 'index.html');

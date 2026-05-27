@@ -6,6 +6,7 @@
 // fixme block below.
 
 import { test, expect } from '@playwright/test';
+import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -34,11 +35,16 @@ test.describe('Fishbien / Nir absent (ATTY-11)', () => {
     expect(hits, `Files mentioning the forbidden name:\n${hits.join('\n')}`).toEqual([]);
   });
 
-  // UNSKIP-WHEN: Phase 4 content + build exist (this plan ships only the
-  // scaffold; Plan 02/03/04 add the attorney/practice pages). Then assert the
-  // name is absent from dist/client/**/*.html and the sitemap too.
-  test.fixme('forbidden name absent from built HTML + sitemap', () => {
-    // execSync('npm run build'); walk dist/client/**/*.html + sitemap, assert
-    // FORBIDDEN matches zero rendered pages and zero sitemap <loc> entries.
+  // Active as of Plan 02 — attorney pages now build. Assert the forbidden name
+  // is absent from every rendered page and from the sitemap.
+  test('forbidden name absent from built HTML + sitemap', () => {
+    execSync('npm run build', { stdio: 'pipe' });
+    const htmlFiles = collectFiles('dist/client', ['.html', '.xml']);
+    const hits: string[] = [];
+    for (const f of htmlFiles) {
+      const text = fs.readFileSync(f, 'utf-8');
+      if (FORBIDDEN.test(text)) hits.push(f);
+    }
+    expect(hits, `Built files mentioning the forbidden name:\n${hits.join('\n')}`).toEqual([]);
   });
 });

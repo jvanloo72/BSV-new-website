@@ -20,14 +20,22 @@ const PRACTICE_SLUGS = [
 ];
 
 test.describe('Published pages exist (ATTY-01 / PRAC-01)', () => {
-  // UNSKIP-WHEN: attorney + practice content exists.
-  test.fixme('all four attorney + three practice pages render to HTML', () => {
+  // Attorney portion active as of Plan 02 (this slice ships the four attorney
+  // pages). Practice pages land in Plans 03/04.
+  test('all four attorney pages render to HTML', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const missing: string[] = [];
     for (const slug of ATTORNEY_SLUGS) {
       const f = path.join(DIST_CLIENT, 'attorneys', slug, 'index.html');
       if (!fs.existsSync(f)) missing.push(f);
     }
+    expect(missing, `Missing pages:\n${missing.join('\n')}`).toEqual([]);
+  });
+
+  // UNSKIP-WHEN: Plans 03/04 ship the three practice-area MDX files.
+  test.fixme('all three practice pages render to HTML', () => {
+    execSync('npm run build', { stdio: 'pipe' });
+    const missing: string[] = [];
     for (const slug of PRACTICE_SLUGS) {
       const f = path.join(DIST_CLIENT, 'practice-areas', slug, 'index.html');
       if (!fs.existsSync(f)) missing.push(f);
