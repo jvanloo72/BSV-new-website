@@ -33,14 +33,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Pages (Static)
 
-- [ ] **PAGES-01**: Homepage opens with the lead message "Team work to get good results" (not credentials)
-- [ ] **PAGES-02**: Homepage includes practice-area teaser (3 cards), attorney row (5 cards), one marquee testimonial pull-quote, Chambers Spotlight 2026 recognition strip, and a primary contact CTA
+- [x] **PAGES-01**: Homepage opens with the lead message "Team work to get good results" (not credentials)
+- [x] **PAGES-02**: Homepage includes practice-area teaser (3 cards), attorney row (5 cards), one marquee testimonial pull-quote, Chambers Spotlight 2026 recognition strip, and a primary contact CTA
 - [ ] **PAGES-03**: About page covers firm history, both office locations (Silicon Valley + 555 California St. Suite 4925 San Francisco), and the firm's positioning
 - [ ] **PAGES-04**: Practice Areas index page lists all three practice areas with links to dedicated pages
 - [ ] **PAGES-05**: Attorneys index page lists all five attorneys (Nir Fishbien explicitly excluded)
 - [ ] **PAGES-06**: Insights (blog) index page with attorney + practice-area filters; handles empty state gracefully
 - [ ] **PAGES-07**: Branded 404 page and 5xx error page
-- [ ] **PAGES-08**: StoryBrand framing throughout — client is hero, BSV is the guide; every page CTA moves visitor toward getting in touch
+- [x] **PAGES-08**: StoryBrand framing throughout — client is hero, BSV is the guide; every page CTA moves visitor toward getting in touch *(homepage delivered in 03-01; reinforced on remaining static pages)*
 
 ### Attorney Profiles
 
@@ -146,7 +146,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
 - [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
 - [ ] **LEGAL-06**: Testimonials carry required disclosures per California bar rules
-- [ ] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
+- [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
 - [ ] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
 - [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — disclaimer + reviewed_by required
 - [ ] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
@@ -229,14 +229,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DESIGN-06 | Phase 2 | Complete |
 | DESIGN-07 | Phase 2 | Complete |
 | DESIGN-08 | Phase 2 | Complete |
-| PAGES-01 | Phase 3 | Pending |
-| PAGES-02 | Phase 3 | Pending |
+| PAGES-01 | Phase 3 | Complete |
+| PAGES-02 | Phase 3 | Complete |
 | PAGES-03 | Phase 3 | Pending |
 | PAGES-04 | Phase 3 | Pending |
 | PAGES-05 | Phase 3 | Pending |
 | PAGES-06 | Phase 3 | Pending |
 | PAGES-07 | Phase 3 | Pending |
-| PAGES-08 | Phase 3 | Pending |
+| PAGES-08 | Phase 3 | Complete |
 | ATTY-01 | Phase 4 | Pending |
 | ATTY-02 | Phase 4 | Pending |
 | ATTY-03 | Phase 4 | Pending |
@@ -318,7 +318,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEGAL-04 | Phase 4 | Pending |
 | LEGAL-05 | Phase 7 | Pending |
 | LEGAL-06 | Phase 4 | Pending |
-| LEGAL-07 | Phase 3 | Pending |
+| LEGAL-07 | Phase 3 | Complete |
 | LEGAL-08 | Phase 4 | Pending |
 | LEGAL-09 | Phase 5 | Pending |
 | LEGAL-10 | Phase 4 | Pending |
