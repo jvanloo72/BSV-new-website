@@ -142,8 +142,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
 - [ ] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
-- [ ] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
-- [ ] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
+- [x] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
+- [x] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
 - [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
 - [ ] **LEGAL-06**: Testimonials carry required disclosures per California bar rules
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
@@ -314,8 +314,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-12 | Phase 7 | Pending |
 | LEGAL-01 | Phase 1 | Validated |
 | LEGAL-02 | Phase 4 | Pending |
-| LEGAL-03 | Phase 4 | Pending |
-| LEGAL-04 | Phase 4 | Pending |
+| LEGAL-03 | Phase 4 | Complete (04-01) |
+| LEGAL-04 | Phase 4 | Complete (04-01) |
 | LEGAL-05 | Phase 7 | Pending |
 | LEGAL-06 | Phase 4 | Pending |
 | LEGAL-07 | Phase 3 | Complete |

@@ -169,7 +169,7 @@ copy violation or an uncleared client name.
 Plans:
 **Wave 1**
 
-- [ ] 04-01-PLAN.md — Foundation: buildPersonLd + buildFaqPageLd, real lint:legal Rule 7.4 scanner (prebuild/CI), Aaron 64-deal clearance, Wave 0 test scaffolds
+- [x] 04-01-PLAN.md — Foundation: buildPersonLd + buildFaqPageLd, real lint:legal Rule 7.4 scanner (prebuild/CI), Aaron 64-deal clearance, Wave 0 test scaffolds *(SUMMARY: 04-01-SUMMARY.md, 3/3 tasks)*
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -254,7 +254,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
-| 4. Attorney & Practice Area Pages | 0/4 | Not started | - |
+| 4. Attorney & Practice Area Pages | 1/4 | In progress | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |

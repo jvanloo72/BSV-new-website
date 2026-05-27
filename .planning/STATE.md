@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 4 context gathered
-last_updated: "2026-05-27T20:09:32.628Z"
-last_activity: 2026-05-27 -- Phase 4 planning complete
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-05-27T21:23:43Z"
+last_activity: 2026-05-27 -- Completed Phase 4 Plan 01 (shared foundation)
 progress:
   total_phases: 7
   completed_phases: 3
   total_plans: 20
-  completed_plans: 16
-  percent: 43
+  completed_plans: 17
+  percent: 47
 ---
 
 # Project State
@@ -21,19 +21,19 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 03 — homepage-static-pages
+**Current focus:** Phase 4 — Attorney & Practice Area Pages
 
 ## Current Position
 
-Phase: 03 (homepage-static-pages) — COMPLETE
-Plan: 3 of 3 (all complete)
-Status: Ready to execute
-Last activity: 2026-05-27 -- Phase 4 planning complete
+Phase: 4 (Attorney & Practice Area Pages) — EXECUTING
+Plan: 2 of 4
+Status: Executing Phase 4
+Last activity: 2026-05-27 -- Completed Phase 4 Plan 01 (shared foundation)
 
-Progress: [████░░░░░░] 43% (3 of 7 phases complete; Phase 3: 3 of 3 plans)
+Progress: [████▌░░░░░] 47% (3 of 7 phases complete; Phase 4: 1 of 4 plans)
 
-Resume: `/gsd:plan-phase 4` — Phase 4 (Attorney & Practice Area Pages) is next.
-Next phase: Phase 4 — five attorney profiles + three practice-area pages (depends on Phase 3).
+Resume: `/gsd:execute-phase 4` — Phase 4 Plan 02 (attorney pages) is next.
+Next phase: Phase 4 Plan 02 — five attorney profiles consuming buildPersonLd + Aaron's cleared deals.
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Next phase: Phase 4 — five attorney profiles + three practice-area pages (depe
 | Phase 3 P1 | 3m | 3 tasks | 5 files |
 | Phase 3 P3 | 12m | 3 tasks | 6 files |
 | Phase 3 P2 | 6m | 2 tasks | 3 files |
+| Phase 4 P1 | 50m | 3 tasks | 14 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,7 @@ Next phase: Phase 4 — five attorney profiles + three practice-area pages (depe
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-27: lint:legal is a real Node 22 scanner (scripts/lint-legal.mjs) over src/content **.mdx, wired as a prebuild gate; "expertise" is banned-by-default with an empty allowlist pending Jon's compliance call (A1); Aaron Belcher's complete deal list cleared en masse via the bsvlaw.com URL basis rather than enumerating ~60 counterparties (D-15/A5) (04-01)
 - 2026-05-27: robots.txt generated via an Astro static endpoint (src/pages/robots.txt.ts) rather than installing astro-robots-txt — @astrojs/sitemap does not emit robots.txt; the endpoint adds zero new dependency, references sitemap-index.xml, and omits /design-system so it cannot advertise the hidden gallery (03-03)
 - 2026-05-26: D-04 homepage named deals (Athelas/Commure $6B, Mode Analytics $200M, Illumina/Roche defense, representative-parties list, Daniel Brian testimonial) cleared by Jon Van Loo and recorded in CLIENT_DISCLOSURE_CLEARANCE.md before publish — the Rule 1.6/7.4 gate; also unblocks the Phase 4 clearance gate for these same items (DECISIONS.md)
 - 2026-05-26: BSV mark derived as a 3-line convergence-to-knot glyph distilled from the hero motif (modernization, not rebrand, D-14) so it reads at 16-32px; favicon carries explicit accent rust (standalone, not theme-following) while the in-app mark uses currentColor
@@ -106,6 +108,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-27T19:34:10.267Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-attorney-practice-area-pages/04-CONTEXT.md
+Last session: 2026-05-27T21:23:43Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: None
