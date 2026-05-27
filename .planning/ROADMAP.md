@@ -167,10 +167,19 @@ copy violation or an uncleared client name.
 
 **Plans**: 4 plans
 Plans:
+**Wave 1**
+
 - [ ] 04-01-PLAN.md — Foundation: buildPersonLd + buildFaqPageLd, real lint:legal Rule 7.4 scanner (prebuild/CI), Aaron 64-deal clearance, Wave 0 test scaffolds
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 04-02-PLAN.md — Attorney slice: 5 attorney MDX (Susan draft) + AttorneyLayout render-out (Person JSON-LD, email-only callout, Aaron deal grid, disclaimer)
 - [ ] 04-03-PLAN.md — Practice slice: 3 practiceArea MDX + Daniel Brian testimonial + PracticeAreaLayout (problem→solution→lead-partner→M&A grid/testimonial→fee band, guarded FAQPage); FAQ drafts staged
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 04-04-PLAN.md — FAQ approval gate (D-13, non-autonomous): Jon approves drafted FAQs, then write into the 3 practice MDX → FaqAccordion + FAQPage JSON-LD live
+
 **UI hint**: yes
 
 ### Phase 5: Insights (Blog) System
