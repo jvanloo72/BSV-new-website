@@ -1,8 +1,16 @@
 ---
 /* Eyebrow primitive — small uppercase kicker label placed above section
-   headings (UI-SPEC §"UI primitives"). Token-only — text-small + muted color. */
+   headings (UI-SPEC §"UI primitives"). Token-only — muted color, uppercase.
+   The font size defaults to text-small but can be overridden per-instance via
+   the `textClass` prop (single font-size class only — avoids a dual size
+   conflict) so one eyebrow can be enlarged without affecting the rest. */
+interface Props {
+  textClass?: string;
+}
+
+const { textClass = 'text-small' } = Astro.props;
 ---
 
-<p class="text-small uppercase tracking-wide text-text-muted">
+<p class:list={[textClass, 'uppercase tracking-wide text-text-muted']}>
   <slot />
 </p>

@@ -2,9 +2,9 @@
 //
 // Verifies FOUND-05 / D-29 / SEO-02: the site-wide LegalService JSON-LD
 // block lands in the rendered HTML, parses cleanly, and contains the firm
-// name + the city-level address. D-33: BSV is a virtual firm, so the address
-// is a SINGLE city-level PostalAddress (San Francisco, CA) with no street
-// address — not the former two-office array.
+// name + the full address. D-37: a SINGLE PostalAddress carrying the full
+// street address (555 California St., Suite 4925, San Francisco, CA 94104) so
+// the structured-data NAP matches the visible footer.
 //
 // Reads dist/client/index.html (the Vercel adapter splits output into
 // dist/client/ for static + dist/server/ for functions). Runs a fresh
@@ -46,18 +46,19 @@ test.describe('LegalService JSON-LD', () => {
     expect(ld['@type']).toBe('LegalService');
     expect(ld.name).toBe('Belcher, Smolen & Van Loo LLP');
 
-    // D-33: a single city-level PostalAddress object (not an array).
+    // D-37: a single PostalAddress object (not an array) carrying the full NAP.
     const address = ld.address as {
       '@type'?: string;
       addressLocality?: string;
       addressRegion?: string;
       streetAddress?: string;
+      postalCode?: string;
     };
     expect(Array.isArray(address), 'address must be a single object, not an array').toBe(false);
     expect(address['@type']).toBe('PostalAddress');
+    expect(address.streetAddress).toBe('555 California St., Suite 4925');
     expect(address.addressLocality).toBe('San Francisco');
     expect(address.addressRegion).toBe('CA');
-    // Virtual firm — no street address must leak into structured data.
-    expect(address.streetAddress, 'virtual firm must not carry a streetAddress').toBeUndefined();
+    expect(address.postalCode).toBe('94104');
   });
 });

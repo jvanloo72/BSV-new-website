@@ -17,12 +17,14 @@ export function buildLegalServiceLd(): WithContext<LegalService> {
     name: SITE.name,
     url: SITE.baseUrl,
     telephone: SITE.phone,
-    // D-33: virtual firm — a single city-level PostalAddress (no streetAddress
-    // or postalCode). Valid structured data; Google accepts locality + region.
+    // D-37: full PostalAddress matching the visible footer NAP (street + locality
+    // + region + postal + country) for consistent local SEO.
     address: {
       '@type': 'PostalAddress' as const,
+      streetAddress: SITE.location.streetAddress,
       addressLocality: SITE.location.addressLocality,
       addressRegion: SITE.location.addressRegion,
+      postalCode: SITE.location.postalCode,
       addressCountry: SITE.location.addressCountry,
     },
     areaServed: 'United States',

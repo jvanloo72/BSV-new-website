@@ -525,6 +525,85 @@ original file.
 
 ---
 
+## 2026-05-27 — Phase 3 — Chambers recognition moved high on the homepage (D-35)
+
+**What was decided:**
+The Chambers badge was moved from just above the footer CTA to high on the homepage —
+the third block, right after the BSV Approach band — enlarged to ~240px and set to
+load eagerly (since it now sits near the top of the page).
+
+**Why:**
+Jon wanted the recognition clearly visible without scrolling. A credibility signal
+buried near the footer does little work; near the top it reassures a prospective
+client early.
+
+**Teaching insight:**
+**Put your strongest trust signal where the reader is, not where it's tidy.** The most
+persuasive proof should appear at the moment a visitor is deciding whether to keep
+reading — usually near the top — even if a neater layout would tuck it away.
+
+---
+
+## 2026-05-27 — Phase 3 — About page stays silent on the office/virtual arrangement (D-36)
+
+**What was decided:**
+The About page no longer describes the firm as "virtual" or explains that it has no
+physical offices. The "Where we work" section shows only "Based in San Francisco."
+plus a neutral line about the industries served and being reachable by phone/email.
+
+**Why:**
+Jon preferred not to characterize the firm's office arrangement on the About page at
+all. Saying nothing is cleaner than either claiming offices or explaining their absence.
+
+**Teaching insight:**
+**You are allowed to simply not address a topic.** Silence is a valid editorial choice —
+not every fact about the firm needs a sentence, and omitting a point is often stronger
+than explaining it.
+
+---
+
+## 2026-05-27 — Phase 3 — Full firm address restored to the footer on every page (D-37, supersedes D-33)
+
+**What was decided:**
+The footer on every page now shows the firm's full mailing address —
+"555 California St., Suite 4925, San Francisco, CA 94104" — instead of "Based in San
+Francisco." This reverses the D-33 address removal. "Based in San Francisco." remains
+only in the About-page body copy. The machine-readable LegalService data was updated to
+carry the same full address so the visible footer and the structured data match.
+
+**Why:**
+Jon directed that the real address appear site-wide in the footer. For a law firm,
+search engines reward a consistent name/address/phone ("NAP") shown both to humans and
+in structured data, so both were aligned to the same full address.
+
+**Teaching insight:**
+**A business's name, address, and phone should read identically everywhere — on the page
+and in the hidden data search engines read.** Inconsistent address details across a site
+dilute local-search trust; one source of truth feeding both keeps them in lockstep.
+
+---
+
+## 2026-05-27 — Phase 3 — Chambers badge recolored black for the white page (D-38, refines D-34/D-35)
+
+**What was decided:**
+The Chambers badge artwork is white-on-transparent and was invisible on the white page.
+A black version was generated from the original by inverting only the color channels
+(preserving transparency), and the strip now shows that black badge directly on the
+normal white background — the earlier dark band behind it was removed. A muted
+"Recognized by" label sits above it.
+
+**Why:**
+The recognition has to actually be seen. Recoloring the mark to black is the simplest
+fix that keeps it on-brand with the rest of the white, minimalist page rather than
+introducing a dark band.
+
+**Teaching insight:**
+**Match the asset to the surface, not the surface to the asset.** When a supplied image
+fights the page, it is usually cheaper and cleaner to adapt the image (here, recolor it)
+than to bend the whole layout around it.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the

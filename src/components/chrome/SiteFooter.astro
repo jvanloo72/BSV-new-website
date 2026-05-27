@@ -8,11 +8,11 @@
    footer disclaimer fragment on every sitemap page. The import, the render, the
    SITE.email intake mailto, the copyright, and the `mx-auto max-w-6xl px-6`
    locked content-width container are all preserved.
-   D-33: BSV is virtual — the footer shows the single "Based in San Francisco."
-   line from SITE.basedIn (no street addresses). */
+   D-37: the footer shows the firm's full mailing address (footerAddress, derived
+   from SITE.location) on every page — NOT "Based in San Francisco." */
 import { Icon } from 'astro-icon/components';
 import Disclaimer from '../legal/Disclaimer.astro';
-import { SITE } from '../../lib/site';
+import { SITE, footerAddress } from '../../lib/site';
 
 const year = new Date().getFullYear();
 ---
@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
     <Disclaimer id="footer" />
 
     <address class="not-italic">
-      <span class="block">{SITE.basedIn}</span>
+      <span class="block">{footerAddress}</span>
     </address>
 
     <p>
