@@ -44,18 +44,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Attorney Profiles
 
-- [ ] **ATTY-01**: Dynamic route `/attorneys/[slug]` generates one page per attorney from the `attorneys` content collection
-- [ ] **ATTY-02**: Aaron Belcher profile page published — bar admissions, education, focus, prior firm (Dewey & LeBoeuf), representative deals (Athelas–Commure $6B; Mode Analytics $200M; Illumina/Roche defense; Adobe, Oracle, PayPal, Dell, eBay, Coinbase as cleared)
-- [ ] **ATTY-03**: Stuart Smolen profile page published — bar admissions, USPTO registration (exact safe phrasing per Rule 7.4), education (Columbia JD; Yale M.S./M.Phil. Physics; SUNY Stony Brook), clerkship (Hon. S. Jay Plager, Fed. Cir.), focus, Corporate IP Star 2017 recognition
-- [ ] **ATTY-04**: Jon Van Loo profile page published — bar admissions (NY, CA), education (Northwestern JD magna cum laude, Duke MA, University of Chicago BA), prior firms (Linklaters, Dechert), focus (M&A tax, international, crypto/blockchain)
-- [ ] **ATTY-05**: Iris Zhang profile page published — education (Columbia JD with Parker School recognition; LSE MS; Nanjing B.Econ.), focus (securities, regulatory, compliance), prior PwC audit + NJ Bureau of Securities experience, languages (English + Mandarin)
-- [ ] **ATTY-06**: Susan Jiang profile page scaffolded with `draft: true` flag — published once Jon supplies the final bio text or URL
-- [ ] **ATTY-07**: Partner direct-contact callout visible on each partner page (email and/or phone) — differentiator that signals partner-led positioning
-- [ ] **ATTY-08**: Tasteful headshot placeholder image used until real photos are taken
-- [ ] **ATTY-09**: Each attorney page renders `Person` JSON-LD structured data
-- [ ] **ATTY-10**: Each attorney page renders the attorney-page disclaimer
-- [ ] **ATTY-11**: Nir Fishbien is NOT featured on the site (not in collections, not linked, not indexed)
-- [ ] **ATTY-12**: Jon is referred to as "Jon" on the new site (defaulting per FIRM_BRIEF.md)
+- [x] **ATTY-01**: Dynamic route `/attorneys/[slug]` generates one page per attorney from the `attorneys` content collection
+- [x] **ATTY-02**: Aaron Belcher profile page published — bar admissions, education, focus, prior firm (Dewey & LeBoeuf), representative deals (Athelas–Commure $6B; Mode Analytics $200M; Illumina/Roche defense; Adobe, Oracle, PayPal, Dell, eBay, Coinbase as cleared)
+- [x] **ATTY-03**: Stuart Smolen profile page published — bar admissions, USPTO registration (exact safe phrasing per Rule 7.4), education (Columbia JD; Yale M.S./M.Phil. Physics; SUNY Stony Brook), clerkship (Hon. S. Jay Plager, Fed. Cir.), focus, Corporate IP Star 2017 recognition
+- [x] **ATTY-04**: Jon Van Loo profile page published — bar admissions (NY, CA), education (Northwestern JD magna cum laude, Duke MA, University of Chicago BA), prior firms (Linklaters, Dechert), focus (M&A tax, international, crypto/blockchain)
+- [x] **ATTY-05**: Iris Zhang profile page published — education (Columbia JD with Parker School recognition; LSE MS; Nanjing B.Econ.), focus (securities, regulatory, compliance), prior PwC audit + NJ Bureau of Securities experience, languages (English + Mandarin)
+- [x] **ATTY-06**: Susan Jiang profile page scaffolded with `draft: true` flag — published once Jon supplies the final bio text or URL
+- [x] **ATTY-07**: Partner direct-contact callout visible on each partner page (email and/or phone) — differentiator that signals partner-led positioning
+- [x] **ATTY-08**: Tasteful headshot placeholder image used until real photos are taken
+- [x] **ATTY-09**: Each attorney page renders `Person` JSON-LD structured data
+- [x] **ATTY-10**: Each attorney page renders the attorney-page disclaimer
+- [x] **ATTY-11**: Nir Fishbien is NOT featured on the site (not in collections, not linked, not indexed)
+- [x] **ATTY-12**: Jon is referred to as "Jon" on the new site (defaulting per FIRM_BRIEF.md)
 
 ### Practice Areas
 
@@ -99,7 +99,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **SEO-01**: Every page sets `<title>`, `<meta name="description">`, `<link rel="canonical">`, and Open Graph tags via a shared `<SeoHead />` component
 - [x] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
-- [ ] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
+- [x] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
 - [ ] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image)
 - [ ] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
 - [ ] **SEO-06**: All JSON-LD generated via `schema-dts` (typed at build time)
@@ -237,18 +237,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PAGES-06 | Phase 3 | Partial (empty-state shell; filters in Phase 5) |
 | PAGES-07 | Phase 3 | Complete |
 | PAGES-08 | Phase 3 | Complete |
-| ATTY-01 | Phase 4 | Pending |
-| ATTY-02 | Phase 4 | Pending |
-| ATTY-03 | Phase 4 | Pending |
-| ATTY-04 | Phase 4 | Pending |
-| ATTY-05 | Phase 4 | Pending |
-| ATTY-06 | Phase 4 | Pending |
-| ATTY-07 | Phase 4 | Pending |
-| ATTY-08 | Phase 4 | Pending |
-| ATTY-09 | Phase 4 | Pending |
-| ATTY-10 | Phase 4 | Pending |
-| ATTY-11 | Phase 4 | Pending |
-| ATTY-12 | Phase 4 | Pending |
+| ATTY-01 | Phase 4 | Complete (04-02) |
+| ATTY-02 | Phase 4 | Complete (04-02) |
+| ATTY-03 | Phase 4 | Complete (04-02) |
+| ATTY-04 | Phase 4 | Complete (04-02) |
+| ATTY-05 | Phase 4 | Complete (04-02) |
+| ATTY-06 | Phase 4 | Complete (04-02) |
+| ATTY-07 | Phase 4 | Complete (04-02) |
+| ATTY-08 | Phase 4 | Complete (04-02) |
+| ATTY-09 | Phase 4 | Complete (04-02) |
+| ATTY-10 | Phase 4 | Complete (04-02) |
+| ATTY-11 | Phase 4 | Complete (04-02) |
+| ATTY-12 | Phase 4 | Complete (04-02) |
 | PRAC-01 | Phase 4 | Pending |
 | PRAC-02 | Phase 4 | Pending |
 | PRAC-03 | Phase 4 | Pending |
@@ -280,7 +280,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORM-11 | Phase 6 | Pending |
 | SEO-01 | Phase 3 | Complete |
 | SEO-02 | Phase 3 | Complete |
-| SEO-03 | Phase 4 | Pending |
+| SEO-03 | Phase 4 | Complete (04-02) |
 | SEO-04 | Phase 5 | Pending |
 | SEO-05 | Phase 4 | Pending |
 | SEO-06 | Phase 7 | Pending |
