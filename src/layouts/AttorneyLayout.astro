@@ -58,16 +58,20 @@ const deals = d.representativeDeals
       </header>
 
       <dl class="mt-10 grid gap-6 sm:grid-cols-2">
-        <div>
-          <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
-            Bar admissions
-          </dt>
-          <dd class="mt-2 text-body text-text">
-            <ul class="list-none space-y-1">
-              {d.barAdmissions.map((bar) => <li>{bar}</li>)}
-            </ul>
-          </dd>
-        </div>
+        {
+          d.barAdmissions.length > 0 && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Bar admissions
+              </dt>
+              <dd class="mt-2 text-body text-text">
+                <ul class="list-none space-y-1">
+                  {d.barAdmissions.map((bar) => <li>{bar}</li>)}
+                </ul>
+              </dd>
+            </div>
+          )
+        }
 
         <div>
           <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">

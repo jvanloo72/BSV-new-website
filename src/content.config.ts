@@ -11,7 +11,7 @@ const attorneys = defineCollection({
     name: z.string(),
     slug: z.string(),
     title: z.enum(['Partner', 'Associate', 'Counsel']),
-    barAdmissions: z.array(z.string()).min(1),
+    barAdmissions: z.array(z.string()).default([]),
     education: z.array(z.object({
       degree: z.string(),
       school: z.string(),
