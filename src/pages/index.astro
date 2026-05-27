@@ -1,17 +1,166 @@
 ---
+/* Homepage (/) — the public composition of the locked Phase 2 component
+   library in the D-01 order:
+   Hero -> ApproachBand -> PracticeAreaCard x3 -> DealsGrid -> AttorneyCard x5
+   -> TestimonialQuote -> ChambersStrip -> CtaBlock.
+   Content (hero copy, practice teasers, attorneys, deals, testimonial) is the
+   FIRM_BRIEF placeholder set reused verbatim from the /design-system gallery
+   (D-03). All named deals are cleared in CLIENT_DISCLOSURE_CLEARANCE.md (D-04).
+   Public route — no noindex. Footer disclaimer + LegalService JSON-LD are
+   injected by BaseLayout. */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ApproachBand from '../components/sections/ApproachBand.astro';
+import PracticeAreaCard from '../components/sections/PracticeAreaCard.astro';
+import AttorneyCard from '../components/sections/AttorneyCard.astro';
+import DealsGrid from '../components/sections/DealsGrid.astro';
+import TestimonialQuote from '../components/sections/TestimonialQuote.astro';
+import ChambersStrip from '../components/sections/ChambersStrip.astro';
+import CtaBlock from '../components/sections/CtaBlock.astro';
+
+// Placeholder headshots (ATTY-08: monograms, no real photos) — processed by <Image>.
+import photoBelcher from '../assets/headshots/placeholder-belcher.svg';
+import photoSmolen from '../assets/headshots/placeholder-smolen.svg';
+import photoVanLoo from '../assets/headshots/placeholder-vanloo.svg';
+import photoZhang from '../assets/headshots/placeholder-zhang.svg';
+import photoJiang from '../assets/headshots/placeholder-jiang.svg';
+
+// FIRM_BRIEF placeholder data (reused from the gallery — D-03).
+const attorneys = [
+  {
+    name: 'Aaron Belcher',
+    role: 'Partner',
+    focus: 'Corporate & M&A — technology and life sciences',
+    photo: photoBelcher,
+    alt: 'Placeholder headshot for Aaron Belcher, Partner',
+  },
+  {
+    name: 'Stuart Smolen',
+    role: 'Partner',
+    focus: 'IP & technology transactions; USPTO-registered',
+    photo: photoSmolen,
+    alt: 'Placeholder headshot for Stuart Smolen, Partner',
+  },
+  {
+    name: 'Jon Van Loo',
+    role: 'Partner',
+    focus: 'M&A, international, and crypto tax',
+    photo: photoVanLoo,
+    alt: 'Placeholder headshot for Jon Van Loo, Partner',
+  },
+  {
+    name: 'Iris Zhang',
+    role: 'Associate',
+    focus: 'Securities, regulatory & compliance',
+    photo: photoZhang,
+    alt: 'Placeholder headshot for Iris Zhang, Associate',
+  },
+  {
+    name: 'Susan Jiang',
+    role: 'Associate',
+    focus: 'Profile coming soon',
+    photo: photoJiang,
+    alt: 'Placeholder headshot for Susan Jiang, Associate',
+  },
+];
+
+const deals = [
+  { title: 'Athelas / Commure', amount: '$6B merger', context: 'Cross-border technology M&A.' },
+  { title: 'Mode Analytics', amount: '$200M sale', context: 'Venture-backed software exit.' },
+  {
+    title: 'Illumina',
+    context: "Defense against Roche's $6.4B hostile bid.",
+  },
+  {
+    title: 'Representative parties',
+    context: 'Adobe · Oracle · PayPal · Dell · eBay · Coinbase',
+  },
+];
 ---
 
 <BaseLayout
   title="Belcher, Smolen & Van Loo LLP"
   description="A boutique California law firm focused on Mergers & Acquisitions, Intellectual Property & Technology Transactions, and Tax for the technology, life sciences, cryptocurrency, FinTech, and AI industries."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16 md:py-24">
-    <h1 class="text-4xl font-semibold tracking-tight text-[color:var(--color-text)] md:text-5xl">
-      Belcher, Smolen &amp; Van Loo LLP
-    </h1>
-    <p class="mt-6 text-lg leading-relaxed text-[color:var(--color-text-muted)]">
-      Placeholder homepage shell — full content lands in Phase 3.
-    </p>
+  <!-- 1. Hero -->
+  <Hero
+    eyebrow="Belcher, Smolen & Van Loo LLP"
+    headline="Team work to get good results."
+    subhead="A boutique M&A, technology, and tax practice for the companies building what's next — partner-led, fast-moving, and built around your transaction."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+    secondaryLabel="See our work"
+    secondaryHref="/practice-areas"
+  />
+
+  <!-- 2. ApproachBand (the StoryBrand guide-with-a-plan beat) -->
+  <ApproachBand />
+
+  <!-- 3. PracticeAreaCard (x3) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <h2 class="mb-8 text-h2 font-bold text-text">Practice areas</h2>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <PracticeAreaCard
+          icon="practice-mergers-acquisitions"
+          title="Mergers & Acquisitions"
+          blurb="Domestic and cross-border M&A for acquirers, PE firms, and venture-backed targets — from $6B mergers to founder exits."
+          href="/practice-areas/mergers-acquisitions"
+        />
+        <PracticeAreaCard
+          icon="practice-ip-tech"
+          title="Intellectual Property & Technology Transactions"
+          blurb="Patent strategy, licensing, open-source and data-security counsel for companies whose IP is the deal."
+          href="/practice-areas/intellectual-property-technology-transactions"
+        />
+        <PracticeAreaCard
+          icon="practice-tax"
+          title="Tax"
+          blurb="M&A tax, cross-border structuring, and crypto/blockchain taxation — the structuring that makes the deal work."
+          href="/practice-areas/tax"
+        />
+      </div>
+    </div>
   </section>
+
+  <!-- 4. DealsGrid (Representative work) — BEFORE the team + testimonial per D-01 -->
+  <DealsGrid heading="Representative work" deals={deals} />
+
+  <!-- 5. AttorneyCard (x5) — no href in Phase 3 (detail routes land in Phase 4) -->
+  <section class="bg-bg py-section">
+    <div class="mx-auto max-w-6xl px-gutter">
+      <h2 class="mb-8 text-h2 font-bold text-text">The team</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {
+          attorneys.map((a) => (
+            <AttorneyCard
+              name={a.name}
+              role={a.role}
+              focus={a.focus}
+              photo={a.photo}
+              alt={a.alt}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TestimonialQuote -->
+  <TestimonialQuote
+    quote="BSV was my rock throughout the $6 billion merger between Athelas and Commure."
+    attribution="Daniel Brian"
+    attributionDetail="GC, Commure, Inc."
+  />
+
+  <!-- 7. ChambersStrip (recognition, not the lead) -->
+  <ChambersStrip />
+
+  <!-- 8. CtaBlock -->
+  <CtaBlock
+    heading="Have a transaction in motion?"
+    body="Tell us about your deal. We'll tell you how we'd approach it — and what it'll cost."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+  />
 </BaseLayout>
