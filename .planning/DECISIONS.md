@@ -438,6 +438,93 @@ operations, not into someone's diligence.
 
 ---
 
+## 2026-05-27 — Phase 3 — Palette shifted from warm Direction-B to cool near-black minimalist (D-32)
+
+**What was decided:**
+The site's color palette moved from the warm "Direction B" scheme (a bone-white
+`#F8F5F0` background, warm beige borders, a warm-grey muted text) to a cooler,
+starker near-black minimalist scheme: a pure-white `#FFFFFF` background and
+elevated surface, cool-neutral `#E4E4E7` borders, cool-grey `#52525B` muted text.
+The deep-rust accent stays for links, eyebrows, and quiet tints (its exact hex was
+set to `#9C3F2A`). Primary action buttons changed from a rust fill to a near-black
+`#0A0A0A` fill with white text, via two new tokens (`--color-primary`,
+`--color-primary-fg`). All changes were value-only — no token was renamed — so the
+swap touched one CSS file plus the button variant, and three guardrail tests
+(contrast, compiled-token, and the contrast ratios) were updated in lockstep.
+
+**Why:**
+Jon asked to cool the look toward a sharper, more modern minimalist register. The
+warm palette read more traditional; pure white + near-black + a single rust accent
+is the cleaner, more contemporary direction (closer to the original Direction-B
+intent of near-black minimalism, now executed coolly). Reserving rust for accents
+and using near-black for the primary button keeps the one bold color rare enough to
+stay special. The WCAG AA contrast test was re-run and every text/button pairing
+still clears the 4.5:1 floor (the new primary button label clears 19.8:1).
+
+**Teaching insight:**
+**Name your design choices once, in one place, and a restyle becomes a find-and-replace
+instead of a renovation.** Because the colors were defined as named tokens (a "bg"
+color, an "accent" color) rather than sprinkled as raw hex codes throughout dozens of
+pages, changing the entire site's mood was a handful of edits in a single file. The
+lesson generalizes beyond color: when something might change later, give it one
+authoritative definition and have everything else refer to that definition by name.
+
+---
+
+## 2026-05-27 — Phase 3 — BSV is a virtual firm with no physical offices (D-33)
+
+**What was decided:**
+Every reference to a physical office was removed: the former Silicon Valley office
+and the "555 California St., Suite 4925" San Francisco address are gone from the
+footer, the About page, the shared firm-data file, and the LegalService structured
+data. The public site now says only "Based in San Francisco." The structured data
+(the machine-readable block search engines read) carries a city-level address —
+San Francisco, CA, US — with no street address or postal code.
+
+**Why:**
+The firm has no leased offices; publishing a street address would be inaccurate, and
+an inaccurate address on a law firm site is a real credibility and client-trust
+problem. A city-level location is honest, still useful for local search, and valid
+structured data (search engines accept a city + region without a street). The About
+page now frames the virtual model as a client benefit — lower overhead, partners who
+work wherever the deal needs them.
+
+**Teaching insight:**
+**Keep facts about the firm in one place so a correction lands everywhere at once.**
+The address lived in a single firm-data file that the footer, the About page, and the
+structured data all read from — so removing the offices was one edit that propagated
+to every page automatically, with no risk of a stale address surviving on some page
+nobody remembered to check. Anything that is both factual and repeated across a site
+should have exactly one source of truth.
+
+---
+
+## 2026-05-27 — Phase 3 — Chambers recognition shown as the real badge image, not text (D-34)
+
+**What was decided:**
+The "Chambers USA — Spotlight 2026" text strip on the homepage was replaced with the
+firm's actual Chambers badge image (downloaded from the current bsvlaw.com site). It
+renders through Astro's image component, which automatically produced small optimized
+WebP versions (6–15 KB) from the 57 KB source — well under the 200 KB per-asset budget
+— and sets fixed dimensions so the page does not visibly jump as the image loads. The
+badge has descriptive alt text ("Chambers USA Spotlight 2026") for screen readers and
+is not a link.
+
+**Why:**
+A real, recognizable award badge carries more credibility at a glance than a line of
+text — readers recognize the Chambers mark. Keeping it non-linked matches the intent
+that the recognition is quiet proof, not a call to action.
+
+**Teaching insight:**
+**Let the build tool do the image work.** Rather than hand-shrinking the badge, the
+image was handed to the framework's image component, which generated the right small,
+modern formats automatically and reserved the correct space on the page to prevent
+layout shift. Manual image optimization is easy to get wrong and forget; a build step
+that does it on every image is reliable and frees the author to just drop in the
+original file.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the

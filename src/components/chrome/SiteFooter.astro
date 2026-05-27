@@ -5,22 +5,16 @@
    (border-border, bg-bg-elevated, text-text-muted).
    CRITICAL (LEGAL-01, do NOT regress): the site-wide <Disclaimer id="footer" />
    MUST keep rendering on every route -- the disclaimer-crawl test asserts the
-   footer disclaimer fragment on every sitemap page. The import, the render, both
-   office strings, the SITE.email intake mailto, the copyright, and the
-   `mx-auto max-w-6xl px-6` locked content-width container are all preserved. */
+   footer disclaimer fragment on every sitemap page. The import, the render, the
+   SITE.email intake mailto, the copyright, and the `mx-auto max-w-6xl px-6`
+   locked content-width container are all preserved.
+   D-33: BSV is virtual — the footer shows the single "Based in San Francisco."
+   line from SITE.basedIn (no street addresses). */
 import { Icon } from 'astro-icon/components';
 import Disclaimer from '../legal/Disclaimer.astro';
-import { SITE, formatOffice } from '../../lib/site';
+import { SITE } from '../../lib/site';
 
 const year = new Date().getFullYear();
-
-/* Render each office as its own line from SITE.offices (single source of truth),
-   omitting any "TBD" street address / postal code so a not-yet-confirmed office
-   reads as "Silicon Valley, CA" rather than a malformed address. Prevents the two
-   offices from being conflated into one misleading address string (code review WR-04).
-   The derivation now lives once as formatOffice in src/lib/site.ts (Phase 3 Plan 02)
-   and is shared with the About page — behavior is identical to the prior inline logic. */
-const officeLines = SITE.offices.map(formatOffice);
 ---
 
 <footer class="mt-16 border-t border-border bg-bg-elevated">
@@ -41,8 +35,8 @@ const officeLines = SITE.offices.map(formatOffice);
 
     <Disclaimer id="footer" />
 
-    <address class="not-italic space-y-0.5">
-      {officeLines.map((line) => <span class="block">{line}</span>)}
+    <address class="not-italic">
+      <span class="block">{SITE.basedIn}</span>
     </address>
 
     <p>

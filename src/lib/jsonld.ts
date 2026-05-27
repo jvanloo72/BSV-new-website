@@ -17,14 +17,14 @@ export function buildLegalServiceLd(): WithContext<LegalService> {
     name: SITE.name,
     url: SITE.baseUrl,
     telephone: SITE.phone,
-    address: SITE.offices.map((o) => ({
+    // D-33: virtual firm — a single city-level PostalAddress (no streetAddress
+    // or postalCode). Valid structured data; Google accepts locality + region.
+    address: {
       '@type': 'PostalAddress' as const,
-      streetAddress: o.streetAddress,
-      addressLocality: o.addressLocality,
-      addressRegion: o.addressRegion,
-      postalCode: o.postalCode,
-      addressCountry: o.addressCountry,
-    })),
+      addressLocality: SITE.location.addressLocality,
+      addressRegion: SITE.location.addressRegion,
+      addressCountry: SITE.location.addressCountry,
+    },
     areaServed: 'United States',
     knowsAbout: [
       'Mergers and Acquisitions',

@@ -2,7 +2,9 @@
 //
 // Verifies FOUND-05 / D-29 / SEO-02: the site-wide LegalService JSON-LD
 // block lands in the rendered HTML, parses cleanly, and contains the firm
-// name + both office locations.
+// name + the city-level address. D-33: BSV is a virtual firm, so the address
+// is a SINGLE city-level PostalAddress (San Francisco, CA) with no street
+// address — not the former two-office array.
 //
 // Reads dist/client/index.html (the Vercel adapter splits output into
 // dist/client/ for static + dist/server/ for functions). Runs a fresh
@@ -20,7 +22,7 @@ test.beforeAll(() => {
 });
 
 test.describe('LegalService JSON-LD', () => {
-  test('parses and contains firm name + both office locations', () => {
+  test('parses and contains firm name + city-level San Francisco address', () => {
     const html = fs.readFileSync(RENDERED_HTML_PATH, 'utf-8');
     const $ = cheerio.load(html);
 
@@ -44,13 +46,18 @@ test.describe('LegalService JSON-LD', () => {
     expect(ld['@type']).toBe('LegalService');
     expect(ld.name).toBe('Belcher, Smolen & Van Loo LLP');
 
-    const address = ld.address;
-    expect(Array.isArray(address), 'address must be an array').toBe(true);
-    if (!Array.isArray(address)) return;
-    expect(address).toHaveLength(2);
-
-    const localities = address.map((a: { addressLocality?: string }) => a.addressLocality);
-    expect(localities).toContain('San Francisco');
-    expect(localities).toContain('Silicon Valley');
+    // D-33: a single city-level PostalAddress object (not an array).
+    const address = ld.address as {
+      '@type'?: string;
+      addressLocality?: string;
+      addressRegion?: string;
+      streetAddress?: string;
+    };
+    expect(Array.isArray(address), 'address must be a single object, not an array').toBe(false);
+    expect(address['@type']).toBe('PostalAddress');
+    expect(address.addressLocality).toBe('San Francisco');
+    expect(address.addressRegion).toBe('CA');
+    // Virtual firm — no street address must leak into structured data.
+    expect(address.streetAddress, 'virtual firm must not carry a streetAddress').toBeUndefined();
   });
 });

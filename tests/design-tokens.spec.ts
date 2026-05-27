@@ -23,7 +23,10 @@ import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-const LOCKED_HEXES = ['#9a3f1a', '#f8f5f0']; // accent + dominant bg, lowercased
+// D-32 cool near-black palette. accent (rust) survives verbatim; the white bg
+// (#ffffff) is minified to the short hex #fff by Lightning CSS in the build, so
+// we assert the compiled short form.
+const LOCKED_HEXES = ['#9c3f2a', '#fff']; // accent + dominant bg (white, minified)
 
 // Compiled CSS may land under either of these depending on adapter layout.
 const CSS_ROOTS = ['dist/client/_astro', 'dist/_astro'];

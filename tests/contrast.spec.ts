@@ -12,23 +12,26 @@
 // Idiom B (analog: tests/disclaimer-set.spec.ts) — no build, pure computation
 // over a known data set.
 //
-// The expected ratios in the table below are the values computed in UI-SPEC
-// (2026-05-26). We assert each pairing clears the 4.5:1 AA floor; the comment
-// records the expected ratio for documentation. `border #D9D2C5` on `bg` is a
-// decorative hairline (1.38:1) — NOT a text/UI-state boundary — so per UI-SPEC
+// The expected ratios in the table below are recomputed for the cool near-black
+// minimalist palette (D-32, 2026-05-27, superseding the warm Direction-B values).
+// We assert each pairing clears the 4.5:1 AA floor; the comment records the
+// expected ratio for documentation. `border #E4E4E7` on `bg #FFFFFF` is a
+// decorative hairline (1.27:1) — NOT a text/UI-state boundary — so per UI-SPEC
 // §"border/bg" it is intentionally EXEMPT and is not gated here.
 
 import { test, expect } from '@playwright/test';
 
-// --- Locked palette (src/styles/global.css @theme; UI-SPEC §Color Tokens) ---
+// --- Locked palette (src/styles/global.css @theme; D-32 cool near-black) ---
 const PALETTE = {
-  bg: '#F8F5F0',
+  bg: '#FFFFFF',
   text: '#111111',
-  textMuted: '#52524E',
-  bgElevated: '#FDFCFA',
-  border: '#D9D2C5',
-  accent: '#9A3F1A',
-  accentFg: '#F8F5F0',
+  textMuted: '#52525B',
+  bgElevated: '#FFFFFF',
+  border: '#E4E4E7',
+  accent: '#9C3F2A',
+  accentFg: '#FFFFFF',
+  primary: '#0A0A0A',
+  primaryFg: '#FFFFFF',
 } as const;
 
 const AA = 4.5;
@@ -66,13 +69,14 @@ function contrastRatio(fg: string, bg: string): number {
 
 // --- The gated pairings (UI-SPEC §"WCAG contrast"; expected ratio in comment) --
 const PAIRINGS: { name: string; fg: string; bg: string; expected: number }[] = [
-  { name: 'text on bg', fg: PALETTE.text, bg: PALETTE.bg, expected: 17.36 },
-  { name: 'text-muted on bg', fg: PALETTE.textMuted, bg: PALETTE.bg, expected: 7.22 },
-  { name: 'text on bg-elevated', fg: PALETTE.text, bg: PALETTE.bgElevated, expected: 18.42 },
-  { name: 'text-muted on bg-elevated', fg: PALETTE.textMuted, bg: PALETTE.bgElevated, expected: 7.65 },
-  { name: 'accent on bg (link/icon)', fg: PALETTE.accent, bg: PALETTE.bg, expected: 6.23 },
-  { name: 'accent on bg-elevated', fg: PALETTE.accent, bg: PALETTE.bgElevated, expected: 6.61 },
-  { name: 'accent-fg on accent (button label)', fg: PALETTE.accentFg, bg: PALETTE.accent, expected: 6.23 },
+  { name: 'text on bg', fg: PALETTE.text, bg: PALETTE.bg, expected: 18.88 },
+  { name: 'text-muted on bg', fg: PALETTE.textMuted, bg: PALETTE.bg, expected: 7.73 },
+  { name: 'text on bg-elevated', fg: PALETTE.text, bg: PALETTE.bgElevated, expected: 18.88 },
+  { name: 'text-muted on bg-elevated', fg: PALETTE.textMuted, bg: PALETTE.bgElevated, expected: 7.73 },
+  { name: 'accent on bg (link/icon)', fg: PALETTE.accent, bg: PALETTE.bg, expected: 6.65 },
+  { name: 'accent on bg-elevated', fg: PALETTE.accent, bg: PALETTE.bgElevated, expected: 6.65 },
+  { name: 'accent-fg on accent (tint label)', fg: PALETTE.accentFg, bg: PALETTE.accent, expected: 6.65 },
+  { name: 'primary-fg on primary (button label)', fg: PALETTE.primaryFg, bg: PALETTE.primary, expected: 19.80 },
 ];
 
 test.describe('WCAG contrast (A11Y-04)', () => {
@@ -98,7 +102,7 @@ test.describe('WCAG contrast (A11Y-04)', () => {
   }
 
   test('border on bg is decorative and intentionally NOT gated (documented exempt)', () => {
-    // Recorded for documentation: this pairing is ~1.38:1 and is allowed to fail
+    // Recorded for documentation: this pairing is ~1.27:1 and is allowed to fail
     // AA because the border is a decorative hairline, not a text/UI-state boundary
     // (UI-SPEC §border/bg, WCAG 1.4.11 does not apply). Do NOT add an AA assertion here.
     const ratio = contrastRatio(PALETTE.border, PALETTE.bg);

@@ -1,8 +1,8 @@
 ---
 /* Homepage (/) — the public composition of the locked Phase 2 component
-   library in the D-01 order:
-   Hero -> ApproachBand -> PracticeAreaCard x3 -> DealsGrid -> AttorneyCard x5
-   -> TestimonialQuote -> ChambersStrip -> CtaBlock.
+   library. Order (D-01, amended by D-35 to surface Chambers recognition high):
+   Hero -> ApproachBand -> ChambersStrip -> PracticeAreaCard x3 -> DealsGrid
+   -> AttorneyCard x5 -> TestimonialQuote -> CtaBlock.
    Content (hero copy, practice teasers, attorneys, deals, testimonial) is the
    FIRM_BRIEF placeholder set reused verbatim from the /design-system gallery
    (D-03). All named deals are cleared in CLIENT_DISCLOSURE_CLEARANCE.md (D-04).
@@ -96,6 +96,9 @@ const deals = [
   <!-- 2. ApproachBand (the StoryBrand guide-with-a-plan beat) -->
   <ApproachBand />
 
+  <!-- 2.5 ChambersStrip — recognition surfaced high (D-35), right after the Approach band -->
+  <ChambersStrip />
+
   <!-- 3. PracticeAreaCard (x3) -->
   <section class="bg-bg py-section">
     <div class="mx-auto max-w-6xl px-gutter">
@@ -153,10 +156,7 @@ const deals = [
     attributionDetail="GC, Commure, Inc."
   />
 
-  <!-- 7. ChambersStrip (recognition, not the lead) -->
-  <ChambersStrip />
-
-  <!-- 8. CtaBlock -->
+  <!-- 7. CtaBlock -->
   <CtaBlock
     heading="Have a transaction in motion?"
     body="Tell us about your deal. We'll tell you how we'd approach it — and what it'll cost."

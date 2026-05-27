@@ -12,14 +12,21 @@
      --radius-* -> rounded
      --shadow-* -> shadow */
 @theme {
-  /* Colors -- D-01 (Direction B, light mode only D-04). Names UNCHANGED. */
+  /* Colors -- D-32 (cool near-black minimalist; supersedes the warm Direction-B
+     palette). Token NAMES are UNCHANGED so the swap is value-only. accent stays
+     deep rust (links, eyebrows, tints); primary buttons now use near-black. */
   --color-text: #111111;
-  --color-text-muted: #52524e;
-  --color-bg: #f8f5f0;
-  --color-bg-elevated: #fdfcfa;
-  --color-border: #d9d2c5;
-  --color-accent: #9a3f1a;
-  --color-accent-fg: #f8f5f0;
+  --color-text-muted: #52525b;
+  --color-bg: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-border: #e4e4e7;
+  --color-accent: #9c3f2a;
+  --color-accent-fg: #ffffff;
+
+  /* Primary action surface (D-32) -- near-black fill with white label, used by
+     the Button primary variant / CtaBlock instead of the rust fill. */
+  --color-primary: #0a0a0a;
+  --color-primary-fg: #ffffff;
 
   /* Font (D-05/D-06) -- self-hosted Hanken Grotesk leads the fallback stack
      via the Fonts API cssVariable, so every `font-sans` consumer adopts it. */

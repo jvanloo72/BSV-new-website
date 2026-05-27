@@ -3,14 +3,15 @@
    Spine (D-05): the client's world + the fear of the wrong counsel → BSV as the
    guide with a plan (team approach, partner access, transaction focus) → firm
    substance as proof ("why a boutique" — M&A/IP/Tax focus, senior pedigrees,
-   Chambers) → both offices from the SITE source of truth (D-07) → a closing CTA
+   Chambers) → "Based in San Francisco" → a closing CTA
    toward /contact with onward links to /attorneys and /practice-areas.
 
    Constraints honored:
    - D-06: verifiable facts only — NO invented founding year or origin narrative.
      Every substance claim below traces to FIRM_BRIEF.md.
-   - D-07: offices render text-only from SITE.offices via formatOffice (no map embed);
-     "Silicon Valley, CA" (TBD street omitted) + the full San Francisco address.
+   - D-36: the "where we work" beat shows only SITE.basedIn ("Based in San
+     Francisco.") with no street address, and stays SILENT on the office/virtual
+     arrangement — no "virtual firm" wording, no mention of having no offices.
    - Token-only Tailwind v4 namespace utilities (text-text / bg-bg / text-accent) —
      no arbitrary-value color form, no hardcoded hex.
    - OPS-06: the prose lives in plain, clearly separated paragraphs so a non-coding
@@ -19,9 +20,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Eyebrow from '../components/ui/Eyebrow.astro';
 import TextLink from '../components/ui/TextLink.astro';
 import CtaBlock from '../components/sections/CtaBlock.astro';
-import { SITE, formatOffice } from '../lib/site';
-
-const officeLines = SITE.offices.map(formatOffice);
+import { SITE } from '../lib/site';
 
 /* The "guide with a plan" beat — the three FIRM_BRIEF client fears, mapped to how
    BSV answers each. Competence → partner-led teams; experience → deep transaction
@@ -129,20 +128,16 @@ const plan = [
     </div>
   </section>
 
-  <!-- 4. Both offices, text-only from the SITE source of truth (D-07) -->
+  <!-- 4. Where we work — San Francisco base (D-36: silent on the office arrangement) -->
   <section class="bg-bg py-section">
     <div class="mx-auto max-w-6xl px-gutter">
       <Eyebrow>Where we work</Eyebrow>
-      <h2 class="mt-3 text-h2 font-bold text-text">Two California offices</h2>
-      <address class="mt-8 grid gap-8 not-italic sm:grid-cols-2">
-        {
-          officeLines.map((line) => (
-            <div>
-              <span class="block text-body text-text">{line}</span>
-            </div>
-          ))
-        }
-      </address>
+      <h2 class="mt-3 text-h2 font-bold text-text">{SITE.basedIn}</h2>
+      <p class="mt-4 max-w-2xl text-body-lg text-text-muted">
+        We work with clients building across the technology, life sciences, FinTech,
+        and cryptocurrency industries, and we are reachable by phone and email
+        throughout your deal.
+      </p>
     </div>
   </section>
 
