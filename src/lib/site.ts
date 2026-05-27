@@ -36,3 +36,23 @@ export const SITE = {
     },
   ],
 } as const;
+
+/* formatOffice — single source of truth for turning one SITE.offices entry into a
+   formatted single-line address string. Extracted from SiteFooter (Phase 3 Plan 02)
+   so the footer and the About page share one derivation and stay in lockstep.
+   Behavior (unchanged from the original footer logic): push the street address only
+   when it is present and not the "TBD" placeholder; always push the locality; build
+   a "region postal" segment, including the postal code only when it is present and
+   not "TBD"; join the collected segments with ", ". Produces "Silicon Valley, CA"
+   for the not-yet-confirmed office and "555 California St., Suite 4925, San Francisco,
+   CA 94104" for the San Francisco office — so a placeholder address never leaks. */
+export function formatOffice(o: (typeof SITE.offices)[number]): string {
+  const segs: string[] = [];
+  if (o.streetAddress && o.streetAddress !== 'TBD') segs.push(o.streetAddress);
+  segs.push(o.addressLocality);
+  const region = [o.addressRegion, o.postalCode && o.postalCode !== 'TBD' ? o.postalCode : null]
+    .filter(Boolean)
+    .join(' ');
+  if (region) segs.push(region);
+  return segs.join(', ');
+}
