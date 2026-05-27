@@ -1,17 +1,28 @@
 ---
+/* Branded 5xx (PAGES-07) — replaces the generic Vercel error page. Warm,
+   on-tone copy with a path home and a direct email path (SITE.email). Renders
+   FIXED static content only — no stack traces, internal paths, or env values
+   (T-03-07). Normal route — NOT noindex. Token-only. */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
 import { SITE } from '../lib/site';
 ---
 
 <BaseLayout
-  title="Something went wrong — BSV Law"
+  title="Something went wrong — Belcher, Smolen & Van Loo LLP"
   description="An unexpected error occurred."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Something went wrong</h1>
-    <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
-      An unexpected error occurred. Please try again, or email
-      <a href={`mailto:${SITE.email}`} class="underline">{SITE.email}</a>.
+  <section class="mx-auto max-w-3xl px-gutter py-section">
+    <p class="text-small font-medium uppercase tracking-wide text-text-muted">Error</p>
+    <h1 class="mt-2 text-h1 font-bold text-text">Something went wrong on our end.</h1>
+    <p class="mt-4 text-body-lg text-text-muted">
+      That&rsquo;s on us, not you. Please try again in a moment — and if it keeps
+      happening, email us at
+      <a href={`mailto:${SITE.email}`} class="text-accent underline">{SITE.email}</a>
+      and we&rsquo;ll sort it out.
     </p>
+    <div class="mt-8">
+      <Button variant="primary" href="/" label="Back to home" />
+    </div>
   </section>
 </BaseLayout>

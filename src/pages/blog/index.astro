@@ -1,28 +1,42 @@
 ---
+/* Insights index (/blog) — PAGES-06.
+   Keeps the getCollection('blog') read and the posts.length === 0 branch, but
+   gives the empty-state warm, on-tone copy (branded — NOT an error) with a path
+   back to contact. Blog post routes + real entries arrive in Phase 5.
+   Public route — no noindex. Token-only. */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/ui/Button.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 ---
 
 <BaseLayout
-  title="Insights — BSV Law"
-  description="BSV Law Insights — analysis from the firm's attorneys on M&A, IP, and tax."
+  title="Insights — Belcher, Smolen & Van Loo LLP"
+  description="Practical analysis from the BSV team on M&A, IP & technology transactions, and tax for the companies building what's next."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Insights</h1>
+  <section class="mx-auto max-w-3xl px-gutter py-section">
+    <h1 class="text-h1 font-bold text-text">Insights</h1>
     {posts.length === 0 ? (
-      <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
-        The Insights blog arrives in Phase 5 of the build.
-      </p>
+      <div class="mt-6">
+        <p class="text-body-lg text-text-muted">
+          Insights are on the way — practical analysis from the BSV team on
+          M&amp;A, IP, and tax for the companies building what&rsquo;s next.
+          Check back soon.
+        </p>
+        <p class="mt-4 text-body text-text-muted">
+          Have a question that can&rsquo;t wait? We&rsquo;d rather talk it
+          through with you directly.
+        </p>
+        <div class="mt-8">
+          <Button variant="primary" href="/contact" label="Get in touch" />
+        </div>
+      </div>
     ) : (
       <ul class="mt-6 space-y-3">
         {posts.map((entry) => (
           <li>
-            <a
-              href={`/blog/${entry.data.slug}`}
-              class="text-[color:var(--color-text)] underline"
-            >
+            <a href={`/blog/${entry.data.slug}`} class="text-text underline">
               {entry.data.title}
             </a>
           </li>
