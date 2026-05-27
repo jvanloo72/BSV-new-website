@@ -165,7 +165,12 @@ copy violation or an uncleared client name.
   4. `npm run lint:legal` runs in CI and fails the build if any non-allowlisted use of "specialist", "expert", or "specialize" appears in content; Stuart's USPTO registration uses the documented allowlisted phrasing.
   5. No deal, client name, or counterparty appears on any practice-area or attorney page unless it is listed in `.planning/CLIENT_DISCLOSURE_CLEARANCE.md`; testimonials carry the California-required disclosure; Nir Fishbien appears nowhere on the site (collections, links, or sitemap).
 
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 04-01-PLAN.md — Foundation: buildPersonLd + buildFaqPageLd, real lint:legal Rule 7.4 scanner (prebuild/CI), Aaron 64-deal clearance, Wave 0 test scaffolds
+- [ ] 04-02-PLAN.md — Attorney slice: 5 attorney MDX (Susan draft) + AttorneyLayout render-out (Person JSON-LD, email-only callout, Aaron deal grid, disclaimer)
+- [ ] 04-03-PLAN.md — Practice slice: 3 practiceArea MDX + Daniel Brian testimonial + PracticeAreaLayout (problem→solution→lead-partner→M&A grid/testimonial→fee band, guarded FAQPage); FAQ drafts staged
+- [ ] 04-04-PLAN.md — FAQ approval gate (D-13, non-autonomous): Jon approves drafted FAQs, then write into the 3 practice MDX → FaqAccordion + FAQPage JSON-LD live
 **UI hint**: yes
 
 ### Phase 5: Insights (Blog) System
@@ -240,7 +245,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
-| 4. Attorney & Practice Area Pages | 0/TBD | Not started | - |
+| 4. Attorney & Practice Area Pages | 0/4 | Not started | - |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |
