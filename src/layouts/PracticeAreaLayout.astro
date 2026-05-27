@@ -1,30 +1,151 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Disclaimer from '../components/legal/Disclaimer.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import DealsGrid from '../components/sections/DealsGrid.astro';
+import TestimonialQuote from '../components/sections/TestimonialQuote.astro';
+import FeeStructureBand from '../components/sections/FeeStructureBand.astro';
+import FaqAccordion from '../components/sections/FaqAccordion.astro';
+import CtaBlock from '../components/sections/CtaBlock.astro';
+import { buildFaqPageLd } from '../lib/jsonld';
+import { getCollection, getEntries } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
-/* PracticeAreaLayout — Phase 1 scaffold. Wraps BaseLayout; renders the
- * practice area header + body slot + practice-area disclaimer.
- *
- * Phase 4 will add <JsonLd slot="head" data={buildFaqPageLd(practiceArea.data.faqs)} />
- * for FAQPage structured data — slot transfer, no BaseLayout edit. */
+/* PracticeAreaLayout — renders a practice-area page in StoryBrand order:
+ * client problem → BSV's team solution → MDX narrative (<slot/>) → proof
+ * (lead-partner callout that resolves the leadAttorneys reference and links to
+ * each profile; M&A also gets the cleared deal grid + the disclosed Daniel
+ * Brian testimonial) → fee band → CTA → practice-area disclaimer. FAQPage
+ * JSON-LD is wired but guarded on empty faqs (populated in Plan 04 after Jon
+ * approves). Token-only utilities; no hardcoded hex. */
 
 interface Props {
   practiceArea: CollectionEntry<'practiceAreas'>;
 }
 
 const { practiceArea } = Astro.props;
-const title = `${practiceArea.data.name} — BSV Law`;
-const description = practiceArea.data.summary;
+const d = practiceArea.data;
+const title = `${d.name} — BSV Law`;
+const description = d.summary;
+
+// PRAC-06 — resolve leadAttorneys reference objects to entries (raw refs render
+// as [object Object]; must getEntries before reading .data.name / .data.slug).
+const leads = await getEntries(d.leadAttorneys);
+
+// DealsGrid adapter (PATTERNS): practiceAreas.representativeDeals is string[].
+const deals = d.representativeDeals.map((s) => ({ title: s }));
+
+// Testimonial for this practice area (M&A only — IP/Tax have none cleared).
+const testimonials = await getCollection('testimonials');
+const testimonial = testimonials.find(
+  (t) => t.data.featured && t.data.practiceArea?.id === practiceArea.id,
+);
+
+// FaqAccordion adapter (PATTERNS): faqs {question,answer} → items {q,a}.
+const faqItems = d.faqs.map((f) => ({ q: f.question, a: f.answer }));
 ---
 
 <BaseLayout title={title} description={description}>
-  {/* Phase 4: <JsonLd slot="head" data={buildFaqPageLd(practiceArea.data.faqs)} /> */}
+  {/* SEO-05 / PRAC-08 — FAQPage JSON-LD, guarded on empty faqs (Plan 04 populates) */}
+  {d.faqs.length > 0 && <JsonLd slot="head" data={buildFaqPageLd(d.faqs)} />}
+
   <article>
-    <header>
-      <h1>{practiceArea.data.name}</h1>
+    <header class="bg-bg py-section">
+      <div class="mx-auto max-w-3xl px-gutter">
+        <h1 class="text-h1 font-bold text-text">{d.name}</h1>
+      </div>
     </header>
-    <slot />
+
+    {/* Problem → solution (StoryBrand, PRAC-02) */}
+    <section class="bg-bg pb-section">
+      <div class="mx-auto max-w-3xl px-gutter space-y-10">
+        <div>
+          <span class="block h-1 w-10 rounded-full bg-accent" aria-hidden="true"></span>
+          <h2 class="mt-4 text-h2 font-bold text-text">The problem you're facing</h2>
+          <p class="mt-4 text-body-lg text-text">{d.clientProblem}</p>
+        </div>
+        <div>
+          <span class="block h-1 w-10 rounded-full bg-accent" aria-hidden="true"></span>
+          <h2 class="mt-4 text-h2 font-bold text-text">How BSV's team helps</h2>
+          <p class="mt-4 text-body-lg text-text">{d.bsvApproach}</p>
+        </div>
+      </div>
+    </section>
+
+    {/* MDX narrative */}
+    <section class="bg-bg pb-section">
+      <div class="prose mx-auto max-w-3xl px-gutter text-body text-text">
+        <slot />
+      </div>
+    </section>
+
+    {/* Proof — lead-partner callout (PRAC-06) */}
+    <section class="bg-bg pb-section">
+      <div class="mx-auto max-w-3xl px-gutter">
+        <div class="rounded-card border border-border bg-bg-elevated p-8 shadow-card">
+          <span class="block h-1 w-10 rounded-full bg-accent" aria-hidden="true"></span>
+          <h2 class="mt-4 text-h3 font-bold text-text">
+            {leads.length > 1 ? 'Your lead partners' : 'Your lead partner'}
+          </h2>
+          <ul class="mt-4 list-none space-y-2">
+            {
+              leads.map((lead) => (
+                <li class="text-body-lg text-text">
+                  <a
+                    href={`/attorneys/${lead.data.slug}`}
+                    class="font-medium text-accent underline"
+                  >
+                    {lead.data.name}
+                  </a>
+                  <span class="text-text-muted">{` — ${lead.data.title}`}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
   </article>
+
+  {/* Proof — cleared deal grid (M&A only; IP/Tax representativeDeals === []) */}
+  {deals.length > 0 && <DealsGrid deals={deals} heading="Representative transactions" />}
+
+  {/* Proof — disclosed testimonial (M&A only; LEGAL-06 / D-18) */}
+  {
+    testimonial && (
+      <TestimonialQuote
+        quote={testimonial.data.quote}
+        attribution={testimonial.data.attribution}
+        attributionDetail={testimonial.data.role}
+      >
+        <p slot="disclosure" class="mt-4 text-small text-text-muted">
+          This testimonial reflects one client's experience and is not a guarantee
+          of any future result. Prior results do not guarantee a similar outcome.
+        </p>
+      </TestimonialQuote>
+    )
+  }
+
+  {/* Fee band — one consistent band across all three pages (PRAC-09 / LEGAL-08) */}
+  {
+    d.feeStructureBand && (
+      <FeeStructureBand
+        heading="How we bill"
+        body="We bill hourly and give you an estimate of total cost up front — so you're never guessing what a matter will run."
+        note="We discuss specific rates one-on-one for your engagement."
+      />
+    )
+  }
+
+  {/* FAQ accordion — guarded; populated in Plan 04 after Jon approves (D-13) */}
+  {faqItems.length > 0 && <FaqAccordion items={faqItems} heading="Common questions" />}
+
+  <CtaBlock
+    heading="Have a transaction in motion?"
+    body="Tell us about your deal. We'll tell you how we'd approach it — and what it'll cost."
+    ctaLabel="Start a conversation"
+    ctaHref="/contact"
+  />
+
   <Disclaimer id="practice-area" />
 </BaseLayout>

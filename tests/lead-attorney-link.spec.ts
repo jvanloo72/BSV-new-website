@@ -22,8 +22,8 @@ const LEAD: Record<string, string> = {
 };
 
 test.describe('Lead-attorney link (PRAC-06)', () => {
-  // UNSKIP-WHEN: practice pages render the lead-attorney callout link.
-  test.fixme('each practice page links to its lead attorney profile', () => {
+  // Active as of Plan 03 — practice pages render the lead-attorney callout link.
+  test('each practice page links to its lead attorney profile', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const failures: string[] = [];
     for (const [practice, leadSlug] of Object.entries(LEAD)) {

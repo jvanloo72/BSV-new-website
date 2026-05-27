@@ -32,8 +32,8 @@ test.describe('Published pages exist (ATTY-01 / PRAC-01)', () => {
     expect(missing, `Missing pages:\n${missing.join('\n')}`).toEqual([]);
   });
 
-  // UNSKIP-WHEN: Plans 03/04 ship the three practice-area MDX files.
-  test.fixme('all three practice pages render to HTML', () => {
+  // Active as of Plan 03 (this slice ships the three practice-area pages).
+  test('all three practice pages render to HTML', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const missing: string[] = [];
     for (const slug of PRACTICE_SLUGS) {
