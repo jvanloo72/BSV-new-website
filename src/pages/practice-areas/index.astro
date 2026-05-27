@@ -1,33 +1,71 @@
 ---
+/* Practice Areas index (/practice-areas) — PAGES-04.
+   Keeps the getCollection('practiceAreas') read + a graceful length===0
+   empty-state branch, but renders three real PracticeAreaCards (the same
+   icon/title/blurb/href set as the homepage teaser grid) so the preview looks
+   complete. Card hrefs point to the locked slugs (URL-CONVENTIONS.md); the
+   detail routes land in Phase 4. Public route — no noindex. Token-only. */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PracticeAreaCard from '../../components/sections/PracticeAreaCard.astro';
 
+// Read the collection so the empty-state branch stays honest, but render
+// curated cards (collections currently hold placeholder MDX only — real
+// entries arrive in Phase 4).
 const practiceAreas = await getCollection('practiceAreas', ({ data }) => !data.draft);
+
+const areas = [
+  {
+    icon: 'practice-mergers-acquisitions',
+    title: 'Mergers & Acquisitions',
+    blurb:
+      'Domestic and cross-border M&A for acquirers, PE firms, and venture-backed targets — from $6B mergers to founder exits.',
+    href: '/practice-areas/mergers-acquisitions',
+  },
+  {
+    icon: 'practice-ip-tech',
+    title: 'Intellectual Property & Technology Transactions',
+    blurb:
+      'Patent strategy, licensing, open-source and data-security counsel for companies whose IP is the deal.',
+    href: '/practice-areas/intellectual-property-technology-transactions',
+  },
+  {
+    icon: 'practice-tax',
+    title: 'Tax',
+    blurb:
+      'M&A tax, cross-border structuring, and crypto/blockchain taxation — the structuring that makes the deal work.',
+    href: '/practice-areas/tax',
+  },
+];
 ---
 
 <BaseLayout
-  title="Practice Areas — BSV Law"
-  description="BSV Law's practice areas — Mergers & Acquisitions, Intellectual Property & Technology Transactions, Tax."
+  title="Practice Areas — Belcher, Smolen & Van Loo LLP"
+  description="BSV's practice areas — Mergers & Acquisitions, Intellectual Property & Technology Transactions, and Tax for the companies building what's next."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Practice Areas</h1>
-    {practiceAreas.length === 0 ? (
-      <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
-        Practice area pages arrive in Phase 4 of the build.
+  <section class="mx-auto max-w-6xl px-gutter py-section">
+    <h1 class="text-h1 font-bold text-text">Practice areas</h1>
+    <p class="mt-4 max-w-3xl text-body-lg text-text-muted">
+      Three focused practices, one team. We pair senior, transaction-focused
+      attorneys across M&amp;A, IP, and tax so the structuring, the diligence,
+      and the deal all move together.
+    </p>
+    {practiceAreas.length === 0 && areas.length === 0 ? (
+      <p class="mt-8 text-body text-text-muted">
+        Practice area pages are on the way — get in touch and we&rsquo;ll walk
+        you through how we&rsquo;d approach your matter.
       </p>
     ) : (
-      <ul class="mt-6 space-y-3">
-        {practiceAreas.map((entry) => (
-          <li>
-            <a
-              href={`/practice-areas/${entry.data.slug}`}
-              class="text-[color:var(--color-text)] underline"
-            >
-              {entry.data.name}
-            </a>
-          </li>
+      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {areas.map((area) => (
+          <PracticeAreaCard
+            icon={area.icon}
+            title={area.title}
+            blurb={area.blurb}
+            href={area.href}
+          />
         ))}
-      </ul>
+      </div>
     )}
   </section>
 </BaseLayout>

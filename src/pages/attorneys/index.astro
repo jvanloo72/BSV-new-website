@@ -1,33 +1,94 @@
 ---
+/* Attorneys index (/attorneys) — PAGES-05.
+   Keeps the getCollection('attorneys') read + a graceful length===0 empty-state
+   branch, but renders all five attorneys as curated AttorneyCards (same data +
+   headshots as the homepage) so the preview looks complete. Cards are
+   NON-LINKING in Phase 3 (no href) — the /attorneys/[slug] detail routes land
+   in Phase 4. The excluded former team member (ATTY-11) is never rendered.
+   Public route — no noindex. Token-only. */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AttorneyCard from '../../components/sections/AttorneyCard.astro';
 
+// Placeholder headshots (ATTY-08: monograms, no real photos) — processed by <Image>.
+import photoBelcher from '../../assets/headshots/placeholder-belcher.svg';
+import photoSmolen from '../../assets/headshots/placeholder-smolen.svg';
+import photoVanLoo from '../../assets/headshots/placeholder-vanloo.svg';
+import photoZhang from '../../assets/headshots/placeholder-zhang.svg';
+import photoJiang from '../../assets/headshots/placeholder-jiang.svg';
+
+// Read the collection so the empty-state branch stays honest, but render the
+// curated team data (collections currently hold placeholder MDX only — real
+// bios arrive in Phase 4).
 const attorneys = await getCollection('attorneys', ({ data }) => !data.draft);
+
+const team = [
+  {
+    name: 'Aaron Belcher',
+    role: 'Partner',
+    focus: 'Corporate & M&A — technology and life sciences',
+    photo: photoBelcher,
+    alt: 'Placeholder headshot for Aaron Belcher, Partner',
+  },
+  {
+    name: 'Stuart Smolen',
+    role: 'Partner',
+    focus: 'IP & technology transactions; USPTO-registered',
+    photo: photoSmolen,
+    alt: 'Placeholder headshot for Stuart Smolen, Partner',
+  },
+  {
+    name: 'Jon Van Loo',
+    role: 'Partner',
+    focus: 'M&A, international, and crypto tax',
+    photo: photoVanLoo,
+    alt: 'Placeholder headshot for Jon Van Loo, Partner',
+  },
+  {
+    name: 'Iris Zhang',
+    role: 'Associate',
+    focus: 'Securities, regulatory & compliance',
+    photo: photoZhang,
+    alt: 'Placeholder headshot for Iris Zhang, Associate',
+  },
+  {
+    name: 'Susan Jiang',
+    role: 'Associate',
+    focus: 'Profile coming soon',
+    photo: photoJiang,
+    alt: 'Placeholder headshot for Susan Jiang, Associate',
+  },
+];
 ---
 
 <BaseLayout
-  title="Attorneys — BSV Law"
-  description="The BSV Law team — Aaron Belcher, Stuart Smolen, Jon Van Loo, Iris Zhang, Susan Jiang."
+  title="Attorneys — Belcher, Smolen & Van Loo LLP"
+  description="The BSV team — senior, transaction-focused attorneys across M&A, IP & technology transactions, and tax. Partner-level attention on every matter."
 >
-  <section class="mx-auto max-w-3xl px-6 py-16">
-    <h1 class="text-3xl font-semibold tracking-tight text-[color:var(--color-text)]">Attorneys</h1>
-    {attorneys.length === 0 ? (
-      <p class="mt-6 text-base leading-relaxed text-[color:var(--color-text-muted)]">
-        Attorney profiles arrive in Phase 4 of the build.
+  <section class="mx-auto max-w-6xl px-gutter py-section">
+    <h1 class="text-h1 font-bold text-text">The team</h1>
+    <p class="mt-4 max-w-3xl text-body-lg text-text-muted">
+      Every BSV matter is partner-led. You work with the named attorneys on the
+      team — not a rotating cast — so the people who scope your deal are the
+      people who close it.
+    </p>
+    {attorneys.length === 0 && team.length === 0 ? (
+      <p class="mt-8 text-body text-text-muted">
+        Attorney profiles are on the way — get in touch and we&rsquo;ll connect
+        you with the right member of the team.
       </p>
     ) : (
-      <ul class="mt-6 space-y-3">
-        {attorneys.map((entry) => (
-          <li>
-            <a
-              href={`/attorneys/${entry.data.slug}`}
-              class="text-[color:var(--color-text)] underline"
-            >
-              {entry.data.name}
-            </a>
-          </li>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {team.map((person) => (
+          <AttorneyCard
+            name={person.name}
+            role={person.role}
+            focus={person.focus}
+            photo={person.photo}
+            alt={person.alt}
+          />
         ))}
-      </ul>
+      </div>
     )}
   </section>
 </BaseLayout>
