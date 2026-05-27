@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "npm run lint:legal",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -25,7 +26,7 @@
     "test:design-route-hidden": "playwright test tests/design-route-hidden.spec.ts",
     "test:fonts-selfhost": "playwright test tests/fonts-selfhost.spec.ts",
     "test": "playwright test",
-    "lint:legal": "echo 'lint:legal — Phase 1 placeholder; real rules land in Phase 4'",
+    "lint:legal": "node scripts/lint-legal.mjs",
     "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
   },
   "dependencies": {
