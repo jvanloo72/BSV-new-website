@@ -1,14 +1,84 @@
 ---
-/* Insights index (/blog) — PAGES-06.
-   Keeps the getCollection('blog') read and the posts.length === 0 branch, but
-   gives the empty-state warm, on-tone copy (branded — NOT an error) with a path
-   back to contact. Blog post routes + real entries arrive in Phase 5.
+/* Insights index (/blog) — PAGES-06 / BLOG-05.
+   The posts.length === 0 branch (Phase 1) preserves verbatim — warm on-tone
+   copy with a Get-in-touch CTA, NOT an error state. The posts.length > 0
+   branch (Phase 5 plan 05-03) renders two chip rows (author + practice) above
+   a single-column post list. Each post <li> carries data-author and
+   data-practice attributes that the inline filter script (below) reads from
+   window.location.search to toggle `hidden`. Chips are server-rendered <a>
+   elements so the filter works without JavaScript — the script only
+   intercepts clicks to avoid the navigation and update via history.pushState.
    Public route — no noindex. Token-only. */
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/ui/Button.astro';
+import FilterChipRow from '../../components/sections/FilterChipRow.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Newest first. Resolves author + practice via getEntry so the byline can
+// render the author's display name and the practice's display name, and so
+// the <li> can carry the correct slug-form data-attributes for the script.
+const sorted = posts.sort((a, b) => +b.data.publishedAt - +a.data.publishedAt);
+const enriched = await Promise.all(
+  sorted.map(async (p) => ({
+    post: p,
+    author: await getEntry(p.data.author),
+    practice: await getEntry(p.data.practiceArea),
+  })),
+);
+
+// Chip option sources — only published attorneys/practices appear. Susan
+// Jiang's chip auto-appears once she flips to draft:false; Nir Fishbien is
+// excluded site-wide because no MDX exists for him.
+const attorneys = await getCollection('attorneys', ({ data }) => !data.draft);
+const attorneysSorted = attorneys.slice().sort((a, b) => a.data.order - b.data.order);
+const practices = await getCollection('practiceAreas', ({ data }) => !data.draft);
+const practicesSorted = practices.slice().sort((a, b) => a.data.order - b.data.order);
+
+// Map verbose practice-area names to the short chip-display labels locked in
+// UI-SPEC. Defensive fallback to full name if a future practice slug isn't
+// in the map.
+const PRACTICE_DISPLAY: Record<string, string> = {
+  'mergers-acquisitions': 'M&A',
+  'intellectual-property-technology-transactions': 'IP & Tech',
+  tax: 'Tax',
+};
+
+const authorChips = [
+  { value: null, label: 'All' },
+  ...attorneysSorted.map((a) => ({
+    value: a.data.slug,
+    label: a.data.name.split(' ')[0],
+    ariaLabel: `Show posts by ${a.data.name}`,
+  })),
+];
+const practiceChips = [
+  { value: null, label: 'All' },
+  ...practicesSorted.map((p) => ({
+    value: p.data.slug,
+    label: PRACTICE_DISPLAY[p.data.slug] ?? p.data.name,
+    ariaLabel: `Show posts in ${p.data.name}`,
+  })),
+];
+
+// Server-render-time activeValue is always null — Astro can't read the
+// request query string for a statically built page (RESEARCH Pitfall 1).
+// The "All" chip in each row therefore renders aria-pressed="true" by
+// default; the inline filter script corrects this at runtime via
+// window.location.search after DOMContentLoaded.
+
+// Per-post visible date helpers (mirrors BlogPostLayout from 05-02 Task 3).
+function formatDate(d: Date): { iso: string; human: string } {
+  return {
+    iso: d.toISOString().slice(0, 10),
+    human: new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    }).format(d),
+  };
+}
 ---
 
 <BaseLayout
@@ -33,15 +103,152 @@ const posts = await getCollection('blog', ({ data }) => !data.draft);
         </div>
       </div>
     ) : (
-      <ul class="mt-6 space-y-3">
-        {posts.map((entry) => (
-          <li>
-            <a href={`/blog/${entry.data.slug}`} class="text-text underline">
-              {entry.data.title}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <>
+        <div class="mt-10 space-y-3">
+          <FilterChipRow
+            label="Filter by attorney"
+            paramName="author"
+            options={authorChips}
+            activeValue={null}
+            otherActiveParams={{ practice: null }}
+          />
+          <FilterChipRow
+            label="Filter by practice area"
+            paramName="practice"
+            options={practiceChips}
+            activeValue={null}
+            otherActiveParams={{ author: null }}
+          />
+        </div>
+
+        <ul id="post-list" class="mt-10 space-y-6">
+          {enriched.map(({ post, author, practice }) => {
+            const { iso, human } = formatDate(post.data.publishedAt);
+            return (
+              <li
+                class="border-b border-border pb-6 last:border-b-0"
+                data-author={author?.data.slug}
+                data-practice={practice?.data.slug}
+              >
+                <h2 class="text-h3 font-bold text-text">
+                  <a
+                    href={`/blog/${post.data.slug}`}
+                    class="rounded-xs transition-colors motion-safe:hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-small text-text-muted">
+                  <span>
+                    By{' '}
+                    <a
+                      href={`/attorneys/${author?.data.slug}`}
+                      class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                    >
+                      {author?.data.name}
+                    </a>
+                  </span>
+                  <span aria-hidden="true">·</span>
+                  <span class="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-text-muted">
+                    {practice?.data.name}
+                  </span>
+                  <span aria-hidden="true">·</span>
+                  <time datetime={iso}>{human}</time>
+                </p>
+                <p class="mt-3 line-clamp-2 text-body text-text-muted">
+                  {post.data.summary}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div
+          id="empty-filtered"
+          hidden
+          role="status"
+          aria-live="polite"
+          class="mt-12 max-w-prose"
+        >
+          <h2 class="text-h3 font-bold text-text">
+            No posts in that combo — yet.
+          </h2>
+          <p class="mt-3 text-body text-text-muted">
+            Try a different filter, or{' '}
+            <a
+              href="/blog"
+              class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+            >
+              browse all Insights
+            </a>.
+          </p>
+        </div>
+
+        <script is:inline>
+          (function () {
+            function readFilter() {
+              var params = new URLSearchParams(window.location.search);
+              return {
+                author: params.get('author'),
+                practice: params.get('practice'),
+              };
+            }
+            function applyFilter() {
+              var f = readFilter();
+              var author = f.author;
+              var practice = f.practice;
+              var items = document.querySelectorAll('#post-list > li');
+              var visible = 0;
+              items.forEach(function (li) {
+                var a = li.getAttribute('data-author');
+                var p = li.getAttribute('data-practice');
+                var match =
+                  (!author || a === author) && (!practice || p === practice);
+                if (match) {
+                  li.removeAttribute('hidden');
+                  visible++;
+                } else {
+                  li.setAttribute('hidden', '');
+                }
+              });
+              var emptyEl = document.getElementById('empty-filtered');
+              var listEl = document.getElementById('post-list');
+              if (emptyEl && listEl) {
+                if (visible === 0) {
+                  emptyEl.removeAttribute('hidden');
+                  listEl.setAttribute('hidden', '');
+                } else {
+                  emptyEl.setAttribute('hidden', '');
+                  listEl.removeAttribute('hidden');
+                }
+              }
+              var chips = document.querySelectorAll('[data-chip]');
+              chips.forEach(function (chip) {
+                var param = chip.getAttribute('data-param');
+                var value = chip.getAttribute('data-value');
+                var current = param === 'author' ? author : practice;
+                var active = (value === null && !current) || value === current;
+                chip.setAttribute('aria-pressed', String(active));
+              });
+            }
+            function onChipClick(e) {
+              var chip = e.currentTarget;
+              var href = chip.getAttribute('href');
+              if (!href) return;
+              e.preventDefault();
+              history.pushState({}, '', href);
+              applyFilter();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+              applyFilter();
+              document.querySelectorAll('[data-chip]').forEach(function (c) {
+                c.addEventListener('click', onChipClick);
+              });
+              window.addEventListener('popstate', applyFilter);
+            });
+          })();
+        </script>
+      </>
     )}
   </section>
 </BaseLayout>
