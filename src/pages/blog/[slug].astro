@@ -11,8 +11,13 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const author = await getEntry(entry.data.author);
-if (!author) {
+
+// 2026-05-28 — category-aware author resolution: insight posts have a
+// required author reference; deal-announcement posts have none (firm-
+// attributed). The schema's refinement guarantees the invariant; this
+// page just respects it.
+const author = entry.data.author ? await getEntry(entry.data.author) : undefined;
+if (entry.data.author && !author) {
   throw new Error(`Blog post '${entry.data.slug}' references unknown author`);
 }
 const { Content } = await render(entry);

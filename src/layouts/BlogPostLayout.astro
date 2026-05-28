@@ -5,21 +5,22 @@ import JsonLd from '../components/seo/JsonLd.astro';
 import AuthorCard from '../components/sections/AuthorCard.astro';
 import { Image } from 'astro:assets';
 import { buildArticleLd } from '../lib/jsonld';
+import { SITE } from '../lib/site';
 import type { CollectionEntry } from 'astro:content';
 
-/* BlogPostLayout — Phase 5 chrome (D-09 + D-11 + D-12).
+/* BlogPostLayout — Phase 5 chrome (D-09 + D-11 + D-12), amended
+ * 2026-05-28 to support category=deal-announcement posts (firm-attributed,
+ * no Person author).
  *
- * Renders the full post page: Article JSON-LD slot-transferred into <head>,
- * H1, byline (author name → /attorneys/<slug>, ISO <time>), optional 16:9
- * cover figure, MDX body inside the .prose-bsv typography surface,
- * AuthorCard inside an "About the author" section, persistent blog
- * disclaimer. The signature is { post, author } — the [slug].astro page
- * resolves the author reference via getEntry before passing both props,
- * keeping this layout pure-presentational. */
+ * Insight posts (author present): byline links to /attorneys/<slug>, the
+ * "About the author" section renders an AuthorCard. Deal-announcement
+ * posts (author undefined): byline reads "Belcher, Smolen & Van Loo LLP"
+ * with no link; no AuthorCard surface. JSON-LD uses Organization in
+ * place of Person for the author field. */
 
 interface Props {
   post: CollectionEntry<'blog'>;
-  author: CollectionEntry<'attorneys'>;
+  author?: CollectionEntry<'attorneys'>;
 }
 
 const { post, author } = Astro.props;
@@ -43,10 +44,16 @@ const isoDate = post.data.publishedAt.toISOString().slice(0, 10);
       <header>
         <h1 class="text-h1 font-bold text-text">{post.data.title}</h1>
         <p class="mt-4 text-small text-text-muted">
-          By <a
-            href={`/attorneys/${author.data.slug}`}
-            class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-          >{author.data.name}</a>
+          {author ? (
+            <>
+              By <a
+                href={`/attorneys/${author.data.slug}`}
+                class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              >{author.data.name}</a>
+            </>
+          ) : (
+            <span>{SITE.name}</span>
+          )}
           {' · '}
           <time datetime={isoDate}>{formattedDate}</time>
         </p>
@@ -70,12 +77,14 @@ const isoDate = post.data.publishedAt.toISOString().slice(0, 10);
     </div>
   </article>
 
-  <section aria-label="About the author" class="bg-bg pb-section">
-    <div class="mx-auto max-w-prose px-gutter">
-      <h2 class="sr-only">About the author</h2>
-      <AuthorCard attorney={author} />
-    </div>
-  </section>
+  {author && (
+    <section aria-label="About the author" class="bg-bg pb-section">
+      <div class="mx-auto max-w-prose px-gutter">
+        <h2 class="sr-only">About the author</h2>
+        <AuthorCard attorney={author} />
+      </div>
+    </section>
+  )}
 
   <Disclaimer id="blog" />
 </BaseLayout>

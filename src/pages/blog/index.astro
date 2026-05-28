@@ -2,29 +2,40 @@
 /* Insights index (/blog) — PAGES-06 / BLOG-05.
    The posts.length === 0 branch (Phase 1) preserves verbatim — warm on-tone
    copy with a Get-in-touch CTA, NOT an error state. The posts.length > 0
-   branch (Phase 5 plan 05-03) renders two chip rows (author + practice) above
-   a single-column post list. Each post <li> carries data-author and
-   data-practice attributes that the inline filter script (below) reads from
-   window.location.search to toggle `hidden`. Chips are server-rendered <a>
-   elements so the filter works without JavaScript — the script only
-   intercepts clicks to avoid the navigation and update via history.pushState.
+   branch (Phase 5 plan 05-03) renders two chip rows above a single-column
+   post list:
+     - Row 1: Filter by attorney — All / Aaron / Stuart / Jon / Iris / Susan
+     - Row 2: Filter by topic — All / M&A / IP & Tech / Tax / Deal Announcements
+   The "topic" axis is a unified one — practice slugs OR the literal value
+   "deal-announcement" (category). Each post <li> carries data-author and
+   data-topic that the inline script reads from URLSearchParams to toggle
+   `hidden`. Chips are server-rendered <a> elements so the filter works
+   without JavaScript — the script only intercepts clicks to avoid the
+   navigation and update via history.pushState.
+
+   Amended 2026-05-28 to support the two-category schema:
+     - Author/practice references are now OPTIONAL (deal announcements have neither)
+     - The byline reads "Belcher, Smolen & Van Loo LLP" with no link when author absent
+     - The practice-pill is omitted when practice absent
+     - A "Deal Announcements" chip joins the topic row
    Public route — no noindex. Token-only. */
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/ui/Button.astro';
 import FilterChipRow from '../../components/sections/FilterChipRow.astro';
+import { SITE } from '../../lib/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-// Newest first. Resolves author + practice via getEntry so the byline can
-// render the author's display name and the practice's display name, and so
-// the <li> can carry the correct slug-form data-attributes for the script.
+// Newest first. Resolves author + practice via getEntry where present (insight
+// posts only — deal announcements have neither). The <li>'s data-* attributes
+// carry the slug-form values the inline filter script compares against.
 const sorted = posts.sort((a, b) => +b.data.publishedAt - +a.data.publishedAt);
 const enriched = await Promise.all(
   sorted.map(async (p) => ({
     post: p,
-    author: await getEntry(p.data.author),
-    practice: await getEntry(p.data.practiceArea),
+    author: p.data.author ? await getEntry(p.data.author) : undefined,
+    practice: p.data.practiceArea ? await getEntry(p.data.practiceArea) : undefined,
   })),
 );
 
@@ -53,13 +64,22 @@ const authorChips = [
     ariaLabel: `Show posts by ${a.data.name}`,
   })),
 ];
-const practiceChips = [
+// Topic row mixes practice slugs and the literal "deal-announcement" category
+// value. The inline filter script maps each post's category=insight→its
+// practiceArea slug, category=deal-announcement→"deal-announcement", and
+// matches data-topic against the URL ?topic= parameter.
+const topicChips = [
   { value: null, label: 'All' },
   ...practicesSorted.map((p) => ({
     value: p.data.slug,
     label: PRACTICE_DISPLAY[p.data.slug] ?? p.data.name,
     ariaLabel: `Show posts in ${p.data.name}`,
   })),
+  {
+    value: 'deal-announcement',
+    label: 'Deal Announcements',
+    ariaLabel: 'Show firm deal announcements',
+  },
 ];
 
 // Server-render-time activeValue is always null — Astro can't read the
@@ -78,6 +98,14 @@ function formatDate(d: Date): { iso: string; human: string } {
       year: 'numeric',
     }).format(d),
   };
+}
+
+// Topic value for the post's <li data-topic>. Insights expose their practice
+// slug; deal announcements expose the literal "deal-announcement" string —
+// the same value the chip carries.
+function topicValue(category: 'insight' | 'deal-announcement', practiceSlug: string | undefined): string {
+  if (category === 'deal-announcement') return 'deal-announcement';
+  return practiceSlug ?? '';
 }
 ---
 
@@ -110,12 +138,12 @@ function formatDate(d: Date): { iso: string; human: string } {
             paramName="author"
             options={authorChips}
             activeValue={null}
-            otherActiveParams={{ practice: null }}
+            otherActiveParams={{ topic: null }}
           />
           <FilterChipRow
-            label="Filter by practice area"
-            paramName="practice"
-            options={practiceChips}
+            label="Filter by topic"
+            paramName="topic"
+            options={topicChips}
             activeValue={null}
             otherActiveParams={{ author: null }}
           />
@@ -124,11 +152,12 @@ function formatDate(d: Date): { iso: string; human: string } {
         <ul id="post-list" class="mt-10 space-y-6">
           {enriched.map(({ post, author, practice }) => {
             const { iso, human } = formatDate(post.data.publishedAt);
+            const topic = topicValue(post.data.category, practice?.data.slug);
             return (
               <li
                 class="border-b border-border pb-6 last:border-b-0"
-                data-author={author?.data.slug}
-                data-practice={practice?.data.slug}
+                data-author={author?.data.slug ?? ''}
+                data-topic={topic}
               >
                 <h2 class="text-h3 font-bold text-text">
                   <a
@@ -139,19 +168,35 @@ function formatDate(d: Date): { iso: string; human: string } {
                   </a>
                 </h2>
                 <p class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-small text-text-muted">
-                  <span>
-                    By{' '}
-                    <a
-                      href={`/attorneys/${author?.data.slug}`}
-                      class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                    >
-                      {author?.data.name}
-                    </a>
-                  </span>
-                  <span aria-hidden="true">·</span>
-                  <span class="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-text-muted">
-                    {practice?.data.name}
-                  </span>
+                  {author ? (
+                    <span>
+                      By{' '}
+                      <a
+                        href={`/attorneys/${author.data.slug}`}
+                        class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                      >
+                        {author.data.name}
+                      </a>
+                    </span>
+                  ) : (
+                    <span>{SITE.name}</span>
+                  )}
+                  {practice && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span class="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-text-muted">
+                        {practice.data.name}
+                      </span>
+                    </>
+                  )}
+                  {post.data.category === 'deal-announcement' && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span class="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-text-muted">
+                        Deal Announcement
+                      </span>
+                    </>
+                  )}
                   <span aria-hidden="true">·</span>
                   <time datetime={iso}>{human}</time>
                 </p>
@@ -190,20 +235,20 @@ function formatDate(d: Date): { iso: string; human: string } {
               var params = new URLSearchParams(window.location.search);
               return {
                 author: params.get('author'),
-                practice: params.get('practice'),
+                topic: params.get('topic'),
               };
             }
             function applyFilter() {
               var f = readFilter();
               var author = f.author;
-              var practice = f.practice;
+              var topic = f.topic;
               var items = document.querySelectorAll('#post-list > li');
               var visible = 0;
               items.forEach(function (li) {
-                var a = li.getAttribute('data-author');
-                var p = li.getAttribute('data-practice');
+                var a = li.getAttribute('data-author') || '';
+                var t = li.getAttribute('data-topic') || '';
                 var match =
-                  (!author || a === author) && (!practice || p === practice);
+                  (!author || a === author) && (!topic || t === topic);
                 if (match) {
                   li.removeAttribute('hidden');
                   visible++;
@@ -226,7 +271,7 @@ function formatDate(d: Date): { iso: string; human: string } {
               chips.forEach(function (chip) {
                 var param = chip.getAttribute('data-param');
                 var value = chip.getAttribute('data-value');
-                var current = param === 'author' ? author : practice;
+                var current = param === 'author' ? author : topic;
                 var active = (value === null && !current) || value === current;
                 chip.setAttribute('aria-pressed', String(active));
               });

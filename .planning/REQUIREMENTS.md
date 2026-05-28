@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUND-01**: Astro 6 project scaffolded with TypeScript, MDX, Vercel adapter, sitemap, and Tailwind v4 integrations
 - [x] **FOUND-02**: Tailwind v4 configured via `@theme` in `src/styles/global.css` (no `tailwind.config.js`)
 - [x] **FOUND-03**: Five Zod-typed Astro Content Collections exist — `attorneys`, `practiceAreas`, `blog`, `testimonials`, `disclaimers`
-- [x] **FOUND-04**: Cross-collection `reference()` typing enforced — blog posts cannot publish with a missing author; practice areas cannot reference a missing lead attorney
+- [x] **FOUND-04**: Cross-collection `reference()` typing enforced — `insight`-category blog posts cannot publish with a missing author; `deal-announcement`-category blog posts must NOT set an author or practiceArea (firm-attributed); practice areas cannot reference a missing lead attorney *(amended 2026-05-28 to add the `category` axis — schema refinement enforces both rules)*
 - [x] **FOUND-05**: `BaseLayout.astro` renders site header, site footer (with footer disclaimer slot), main content slot, and `<head>` SEO + JSON-LD slots
 - [x] **FOUND-06**: Three specialized layouts extending BaseLayout — `AttorneyLayout`, `PracticeAreaLayout`, `BlogPostLayout` — each adding its own JSON-LD and per-page disclaimer
 - [x] **FOUND-07**: Single `<Disclaimer id="..." />` component reads from `disclaimers` content collection (one edit updates every disclaimer site-wide)
@@ -72,7 +72,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Insights (Blog)
 
 - [x] **BLOG-01**: Dynamic route `/blog/[slug]` generates one page per post from the `blog` content collection *(chrome ready in 05-02; visible page lands 05-05)*
-- [x] **BLOG-02**: Every blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing *(enforced by content.config.ts since Phase 1; resolved+rendered in 05-02)*
+- [x] **BLOG-02**: Every `insight`-category blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing on an `insight`; `deal-announcement`-category posts are firm-attributed and have no author (the schema refinement enforces both rules) *(enforced by content.config.ts; resolved+rendered in 05-02; amended 2026-05-28 to introduce the `category` axis)*
 - [x] **BLOG-03**: Every blog post renders the blog-post legal disclaimer *(BlogPostLayout renders `<Disclaimer id="blog" />` automatically — verified in 05-02)*
 - [x] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image) *(buildArticleLd + slot-transfer ready in 05-02; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard)*
 - [x] **BLOG-05**: Insights index supports filtering by attorney and by practice area *(FilterChipRow.astro + /blog index posts.length>0 branch with two chip rows + inline progressive-enhancement filter script shipped in 05-03; tests/blog-filter.spec.ts un-skipped with deferred-pass guard for the five contract assertions; the chip UI engages once 05-05 publishes the seed post)*

@@ -1,13 +1,19 @@
-{/* DO NOT add an `author` field to this file. This fixture proves Zod rejects missing author. Plan 02's zod-negative test copies it into src/content/blog/, runs build, asserts failure, removes it. */}
 ---
 title: "Deliberately broken — missing author field"
 slug: "deliberately-broken-missing-author"
+category: "insight"
 practiceArea: "tax"
 publishedAt: 2026-05-25
-summary: "This post intentionally omits the required `author` field. Plan 02's zod-negative test copies this file into src/content/blog/ and asserts that npm run build fails with a Zod error."
+summary: "This post intentionally omits the required `author` field on an insight-category post. tests/zod-negative.spec.ts copies this file into src/content/blog/ and asserts that npm run build fails with a Zod refinement error about insight posts requiring an author."
 ---
 
+{/* DO NOT add an `author` field to this file. This fixture proves the
+    `insight`-category refinement rejects missing author. Amended
+    2026-05-28: the schema now has a `category` axis; this fixture sets
+    `category: insight` so the refinement (insight ⇒ author required) is
+    what fires. */}
+
 This MDX file is the negative-test input for the blog content-collection schema (D-06).
-Astro's Zod reference for `author` (which uses `reference('attorneys')`) is required.
-A successful Plan 02 negative test asserts that `npm run build` exits non-zero and the
+The schema's `insight ⇒ author + practiceArea` refinement is required.
+A successful test run asserts that `npm run build` exits non-zero and the
 stderr mentions the missing `author` field.

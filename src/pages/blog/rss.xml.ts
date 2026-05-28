@@ -31,8 +31,12 @@ export const GET: APIRoute = async (context) => {
 
   const items = await Promise.all(
     sorted.map(async (post) => {
-      const author = await getEntry(post.data.author);
-      if (!author) {
+      // 2026-05-28 — category-aware author resolution. Insight posts have a
+      // required author reference; deal-announcement posts have none (firm-
+      // attributed). When author is absent, the feed item's <author> field
+      // becomes the firm name. D-08 invariant (no email) holds in both branches.
+      const author = post.data.author ? await getEntry(post.data.author) : undefined;
+      if (post.data.author && !author) {
         throw new Error(
           `RSS: blog post '${post.data.slug}' references unknown author`,
         );
@@ -62,8 +66,9 @@ export const GET: APIRoute = async (context) => {
         title: post.data.title,
         link: `${SITE.baseUrl}/blog/${post.data.slug}`,
         pubDate: post.data.publishedAt,
-        // D-08 / T-05-03: name only, NEVER the email field.
-        author: author.data.name,
+        // D-08 / T-05-03: name only, NEVER the email field. Deal announcements
+        // (no Person author) are attributed to the firm.
+        author: author ? author.data.name : SITE.name,
         description: post.data.summary,
         content: cleanHtml,
       };

@@ -32,11 +32,14 @@ test.describe('Zod negative — missing author', () => {
         stderrOutput = stderr + stdout;
       }
 
-      expect(buildSucceeded, 'Expected build to fail when blog post is missing required author').toBe(false);
+      expect(buildSucceeded, 'Expected build to fail when an insight blog post is missing required author').toBe(false);
       expect(stderrOutput, 'Expected build output to mention the missing author field').toMatch(/author/i);
+      // 2026-05-28 — schema now has a category axis. The "insight ⇒ author + practiceArea" refinement
+      // fires for the fixture (category: insight + no author); Zod's default "Required" message also
+      // appears for the missing field. Either pattern proves the schema is doing its job.
       expect(
-        /required|invalid|expected/i.test(stderrOutput),
-        'Expected build output to indicate a Zod constraint violation (required/invalid/expected)',
+        /required|invalid|expected|insight posts require/i.test(stderrOutput),
+        'Expected build output to indicate a Zod constraint violation (required/invalid/expected) or the insight-category refinement message',
       ).toBe(true);
     } finally {
       if (fs.existsSync(target)) {

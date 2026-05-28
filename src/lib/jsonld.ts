@@ -108,16 +108,21 @@ export function buildFaqPageLd(
   };
 }
 
-/* BLOG-04 / SEO-04: takes a blog post CollectionEntry plus the resolved
- * author entry, returns a WithContext<Article>. Slot-transferred into
- * BlogPostLayout via <JsonLd slot="head" />. Image fallback:
+/* BLOG-04 / SEO-04: takes a blog post CollectionEntry plus (optionally) the
+ * resolved author entry. When `author` is provided (insight category), the
+ * Article `author` field is a Person sub-blob. When `author` is undefined
+ * (deal-announcement category, firm-attributed), the Article `author` field
+ * is an Organization sub-blob (BSV) — same shape as `publisher`. Slot-
+ * transferred into BlogPostLayout via <JsonLd slot="head" />. Image fallback:
  * `${SITE.baseUrl}/og-default.svg` when post.data.cover is unset (RESEARCH
  * Open Question 2 resolved via 05-01). D-02: no `sameAs` on the Person
  * sub-blob — never invent profile URLs.
+ *
+ * Amended 2026-05-28 to add the category=deal-announcement branch.
  */
 export function buildArticleLd(
   post: CollectionEntry<'blog'>,
-  author: CollectionEntry<'attorneys'>,
+  author?: CollectionEntry<'attorneys'>,
 ): WithContext<Article> {
   const p = post.data;
   const url = `${SITE.baseUrl}/blog/${p.slug}`;
@@ -128,23 +133,26 @@ export function buildArticleLd(
   const imageUrl = p.cover
     ? `${SITE.baseUrl}${(p.cover as { src: string }).src}`
     : `${SITE.baseUrl}/og-default.svg`;
+  const orgBlob = {
+    '@type': 'Organization' as const,
+    name: SITE.name,
+    url: SITE.baseUrl,
+  };
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: p.title,
-    author: {
-      '@type': 'Person' as const,
-      name: author.data.name,
-      url: `${SITE.baseUrl}/attorneys/${author.data.slug}`,
-    },
+    author: author
+      ? {
+          '@type': 'Person' as const,
+          name: author.data.name,
+          url: `${SITE.baseUrl}/attorneys/${author.data.slug}`,
+        }
+      : orgBlob,
     datePublished: p.publishedAt.toISOString(),
     dateModified: (p.updatedAt ?? p.publishedAt).toISOString(),
     image: imageUrl,
     mainEntityOfPage: url,
-    publisher: {
-      '@type': 'Organization' as const,
-      name: SITE.name,
-      url: SITE.baseUrl,
-    },
+    publisher: orgBlob,
   };
 }
