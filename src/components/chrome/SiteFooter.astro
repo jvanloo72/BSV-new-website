@@ -1,28 +1,32 @@
 ---
-/* SiteFooter -- refined chrome (D-14 / D-28). Adds the derived wordmark mark +
-   typographic firm name on the elevated footer surface; token syntax retrofitted
-   from the Phase 1 arbitrary-value form to the Tailwind v4 namespace utilities
-   (border-border, bg-bg-elevated, text-text-muted).
-   CRITICAL (LEGAL-01, do NOT regress): the site-wide <Disclaimer id="footer" />
-   MUST keep rendering on every route -- the disclaimer-crawl test asserts the
-   footer disclaimer fragment on every sitemap page. The import, the render, the
-   SITE.email mailto, the copyright, and the `mx-auto max-w-6xl px-6`
-   locked content-width container are all preserved.
-   D-37: the footer shows the firm's full mailing address (footerAddress, derived
-   from SITE.location) on every page — NOT "Based in San Francisco."
-   2026-05-28: the footer now carries a small "About · Attorney Advertising"
-   nav row. The "Attorney Advertising" link points to /attorney-advertising,
-   which holds the canonical Cal. Rules of Prof'l Conduct disclosure (Kirkland
-   pattern — link site-wide, notation on one page). LEGAL-05 satisfied. */
+/* SiteFooter — centered chrome (2026-05-28 redesign).
+   Renders the derived wordmark, the firm's full mailing address (D-37,
+   from footerAddress derived from SITE.location), a "Contact Us:" email
+   line linking to SITE.email, a centered link row to the four legal /
+   firm-info pages, and the copyright at the very bottom.
+
+   2026-05-28 changes from the prior chrome:
+   - Removed <Disclaimer id="footer" /> entirely. The general disclaimer
+     now lives at /legal-notices (linked from the row below); the
+     attorney-advertising notation lives at /attorney-advertising
+     (also linked). This is the Kirkland linked-disclosure pattern
+     applied across both the general disclaimer AND the AA notation.
+   - All content centered (text-center on the inner wrapper).
+   - Email label "New client intake:" → "Contact Us:".
+   - The link row was expanded from 2 entries (About · Attorney
+     Advertising) to 4 entries (About · Attorney Advertising · Privacy
+     Policy · Legal Notices).
+   - Copyright sits at the very bottom, after the link row.
+   - Token-only Tailwind v4 namespace utilities; the
+     mx-auto max-w-6xl px-6 content-width container is preserved. */
 import { Icon } from 'astro-icon/components';
-import Disclaimer from '../legal/Disclaimer.astro';
 import { SITE, footerAddress } from '../../lib/site';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-16 border-t border-border bg-bg-elevated">
-  <div class="mx-auto max-w-6xl px-6 py-10 space-y-6 text-sm text-text-muted">
+  <div class="mx-auto max-w-6xl px-6 py-10 space-y-6 text-center text-sm text-text-muted">
     <a
       href="/"
       class="group inline-flex items-center gap-2.5 rounded-xs text-text
@@ -37,14 +41,12 @@ const year = new Date().getFullYear();
       </span>
     </a>
 
-    <Disclaimer id="footer" />
-
     <address class="not-italic">
       <span class="block">{footerAddress}</span>
     </address>
 
     <p>
-      New client intake:
+      Contact Us:
       <a
         href={`mailto:${SITE.email}`}
         class="relative inline text-accent underline decoration-1 underline-offset-2
@@ -55,12 +57,8 @@ const year = new Date().getFullYear();
       >{SITE.email}</a>
     </p>
 
-    <small class="block text-xs">
-      &copy; {year} {SITE.name}. All rights reserved.
-    </small>
-
     <nav aria-label="Footer" class="text-xs">
-      <ul class="flex flex-wrap items-center gap-x-2 gap-y-1">
+      <ul class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
         <li>
           <a
             href="/about"
@@ -80,7 +78,31 @@ const year = new Date().getFullYear();
                    focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
           >Attorney Advertising</a>
         </li>
+        <li aria-hidden="true" class="text-text-muted">·</li>
+        <li>
+          <a
+            href="/privacy"
+            class="rounded-xs text-text-muted underline decoration-1 underline-offset-2
+                   motion-safe:hover:text-text motion-safe:hover:decoration-2
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
+          >Privacy Policy</a>
+        </li>
+        <li aria-hidden="true" class="text-text-muted">·</li>
+        <li>
+          <a
+            href="/legal-notices"
+            class="rounded-xs text-text-muted underline decoration-1 underline-offset-2
+                   motion-safe:hover:text-text motion-safe:hover:decoration-2
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
+          >Legal Notices</a>
+        </li>
       </ul>
     </nav>
+
+    <small class="block text-xs">
+      &copy; {year} {SITE.name}. All rights reserved.
+    </small>
   </div>
 </footer>

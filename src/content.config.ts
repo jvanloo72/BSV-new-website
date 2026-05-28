@@ -113,10 +113,15 @@ const testimonials = defineCollection({
 });
 
 // D-08 — disclaimers (single JSON file, multiple entries)
+// 2026-05-28: 'footer' removed from the enum — the site-wide footer
+// disclaimer was retired in favor of dedicated /legal-notices and
+// /attorney-advertising pages linked from the footer (Kirkland
+// linked-disclosure pattern). Per-page disclaimers (contact, blog,
+// practice-area, attorney) are unchanged.
 const disclaimers = defineCollection({
   loader: file('src/content/disclaimers/disclaimers.json'),
   schema: z.object({
-    id: z.enum(['footer', 'contact', 'blog', 'practice-area', 'attorney']),
+    id: z.enum(['contact', 'blog', 'practice-area', 'attorney']),
     text: z.string(),
     version: z.string(),
   }),

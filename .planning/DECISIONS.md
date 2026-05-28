@@ -686,6 +686,53 @@ not looking for.
 
 ---
 
+## 2026-05-28 — Phase 5 — Footer redesign: site-wide disclaimer retired in favor of four linked pages
+
+**What was decided:**
+The site-wide footer was redesigned: the inline `<Disclaimer id="footer" />`
+render was removed entirely, and the `id: 'footer'` entry was deleted from
+`src/content/disclaimers/disclaimers.json` and from the `DisclaimerId`
+enums in `src/content.config.ts` and `src/components/legal/Disclaimer.astro`.
+The general-disclaimer text moved to a new `/legal-notices` page; the
+attorney-advertising notation moved to the new `/attorney-advertising`
+page (already created earlier the same day); a new `/privacy` page was
+scaffolded as a draft Privacy Policy for Jon's review. The footer now
+shows: the BSV wordmark, the firm's full mailing address, a "Contact Us:"
+email line linking to `info@bsvlaw.com`, a centered link row to all four
+firm-info pages (`About · Attorney Advertising · Privacy Policy ·
+Legal Notices`), and the copyright at the very bottom — all centered.
+The disclaimer-crawl Playwright test now asserts the four-link contract
+on every sitemap route (no longer asserts any footer-disclaimer text
+fragment); `baselayout.spec.ts` mirrors the same change. Per-page
+disclaimers (blog, practice-area, attorney, contact) are unaffected and
+remain independently tested. LEGAL-01 amended; LEGAL-05 unchanged
+(already complete via the linked-disclosure pattern).
+
+**Why:**
+Two reasons. First, applying the Kirkland linked-disclosure pattern to
+the general disclaimer (not just the attorney-advertising notation)
+keeps the footer chrome consistent — all four legal/firm-info surfaces
+are reached by the same row of links. Second, the redesign decouples
+the substance of each disclosure from where it lives — adding a Privacy
+Policy in this turn was cheap because the linked-page pattern was
+already established for the AA notation. The general-disclaimer move
+also unifies how the disclaimer-crawl test thinks about compliance:
+"on every page, the linked footer surfaces are reachable" is a cleaner
+contract than "on every page, this exact text appears verbatim in the
+footer."
+
+**Teaching insight:**
+**A pattern earns its keep by getting reused.** Linking to a single
+disclosure page from every footer was already the right answer for
+attorney advertising. Once that pattern existed, extending it to the
+general disclaimer and the privacy policy was a small edit — and the
+test contract collapsed from "every footer carries this text" to
+"every footer carries these links," which is easier to reason about
+and harder to silently regress. When you find yourself adding a second
+exception to a rule, it's worth asking whether the rule was right.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the
