@@ -60,7 +60,11 @@ const practiceAreas = defineCollection({
   }),
 });
 
-// D-06 — blog (author + reviewedBy are REQUIRED editorial gates)
+// D-06 — blog (author is a REQUIRED editorial gate)
+// Phase 5 plan 05-01 / RESEARCH Pitfall 5: the .refine() below enforces an
+// a11y rule at schema-validation time — if a post sets `cover`, it MUST
+// also set a non-empty `coverAlt`. WCAG 2.1 SC 1.1.1 (Non-text Content) and
+// UI-SPEC § "Cover image — alt text contract".
 const blog = defineCollection({
   loader: glob({ pattern: '**/[^_]*.mdx', base: './src/content/blog' }),
   schema: ({ image }) => z.object({
@@ -71,11 +75,13 @@ const blog = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     summary: z.string(),
-    reviewedBy: z.string().min(1),
     cover: image().optional(),
     coverAlt: z.string().optional(),
     draft: z.boolean().default(false),
-  }),
+  }).refine(
+    (data) => !data.cover || (data.coverAlt !== undefined && data.coverAlt.length > 0),
+    { message: 'coverAlt is required when cover is set', path: ['coverAlt'] },
+  ),
 });
 
 // D-07 — testimonials

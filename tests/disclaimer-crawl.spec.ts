@@ -25,6 +25,17 @@ import * as cheerio from 'cheerio';
 const FOOTER_DISCLAIMER_FRAGMENT =
   'The information on this website is for general informational purposes only';
 
+// BLOG_DISCLAIMER_FRAGMENT — verbatim substring of the `id: 'blog'` entry in
+// src/content/disclaimers/disclaimers.json. Plan 05-01 BLOG-03: the blog
+// disclaimer must render in the BODY of every /blog/<slug> route (in
+// addition to the footer disclaimer that the footer-walk asserts). This
+// fragment is unique to the blog disclaimer — the footer disclaimer begins
+// "The information on this website is...", so a body-text containment check
+// against "This article is for general informational purposes only" cannot
+// false-positive against the footer.
+const BLOG_DISCLAIMER_FRAGMENT =
+  'This article is for general informational purposes only';
+
 const DIST_CLIENT = 'dist/client';
 
 const SITEMAP_CANDIDATES = ['sitemap-0.xml', 'sitemap-index.xml', 'sitemap.xml'];
@@ -123,5 +134,45 @@ test.describe('Disclaimer crawl', () => {
     }
 
     expect(missing, `Routes missing footer disclaimer:\n${missing.join('\n')}`).toEqual([]);
+  });
+
+  test('blog disclaimer fragment appears in body on every /blog/<slug> route', () => {
+    // BLOG-03: the per-post blog disclaimer (rendered by <Disclaimer id="blog" />
+    // inside BlogPostLayout) must appear in the body of every /blog/<slug>
+    // page in addition to the footer disclaimer asserted above. /blog (the
+    // index page) is EXCLUDED — the index renders without the per-post
+    // disclaimer; only individual post pages carry it.
+    //
+    // When no /blog/<slug> route appears in the sitemap (no published seed
+    // post yet — Phase 5 plan 05-05 lands the seed), the filtered set is
+    // empty and the test is skipped via test.skip — never false-passes by
+    // checking nothing.
+    const urls = readSitemapUrls();
+    const blogSlugUrls = urls.filter((url) => {
+      const pathname = new URL(url).pathname.replace(/\/$/, '');
+      return pathname.startsWith('/blog/') && pathname !== '/blog';
+    });
+
+    test.skip(
+      blogSlugUrls.length === 0,
+      'No /blog/<slug> in sitemap — seed post not yet published (Phase 5 plan 05-05)',
+    );
+
+    const missing: string[] = [];
+    for (const url of blogSlugUrls) {
+      const filePath = urlToFilePath(url);
+      if (!filePath) {
+        missing.push(`${url} — no rendered HTML file under ${DIST_CLIENT}/`);
+        continue;
+      }
+      const html = fs.readFileSync(filePath, 'utf-8');
+      const $ = cheerio.load(html);
+      const bodyText = $('body').text();
+      if (!bodyText.includes(BLOG_DISCLAIMER_FRAGMENT)) {
+        missing.push(`${url} (${filePath}) — body text does not contain the blog disclaimer fragment`);
+      }
+    }
+
+    expect(missing, `/blog/<slug> routes missing the blog disclaimer:\n${missing.join('\n')}`).toEqual([]);
   });
 });
