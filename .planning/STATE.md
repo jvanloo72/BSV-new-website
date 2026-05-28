@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-05-28T01:05:42.581Z"
+stopped_at: Phase 5 context captured (05-CONTEXT.md committed)
+last_updated: "2026-05-28T18:30:00.000Z"
 last_activity: 2026-05-28
 progress:
   total_phases: 7
@@ -21,19 +21,19 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 4 — Attorney & Practice Area Pages
+**Current focus:** Phase 5 — Insights (Blog) System
 
 ## Current Position
 
 Phase: 5
 Plan: Not started
-Status: Executing Phase 4
+Status: Context captured; ready for planning
 Last activity: 2026-05-28
 
-Progress: [█████░░░░░] 51% (3 of 7 phases complete; Phase 4: 3 of 4 plans)
+Progress: [█████░░░░░] 57% (4 of 7 phases complete; Phase 5: context captured, planning next)
 
-Resume: `/gsd:execute-phase 4` — Phase 4 Plan 04 (commit Jon-approved FAQ copy) is next.
-Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit the FAQs into the practice MDX faqs: arrays and un-guard FAQPage/FaqAccordion.
+Resume: `/gsd:plan-phase 5` — Phase 5 context is in `.planning/phases/05-insights-blog-system/05-CONTEXT.md`.
+Next phase: Phase 5 planning — auto-advance is enabled, so plan-phase will run autonomously after context capture.
 
 ## Performance Metrics
 
