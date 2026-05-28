@@ -10,8 +10,11 @@ import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as cheerio from 'cheerio';
 
+// Keep this aligned with tests/disclaimer-crawl.spec.ts — same fragment from
+// the (trimmed 2026-05-28) footer disclaimer. The AA sentences now live on
+// /attorney-advertising; the footer ends with this string instead.
 const FOOTER_DISCLAIMER_FRAGMENT =
-  'The information on this website is for general informational purposes only';
+  'without seeking the advice of an attorney.';
 
 test.beforeAll(() => {
   execSync('npm run build', { stdio: 'pipe' });

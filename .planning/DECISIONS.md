@@ -640,6 +640,52 @@ would skim past, or it should not be in the workflow at all.
 
 ---
 
+## 2026-05-28 — Phase 5 — Attorney-advertising notation moved to a linked disclosure page (Kirkland pattern)
+
+**What was decided:**
+The two-sentence attorney-advertising disclosure — "Attorney advertising.
+Prior results do not guarantee a similar outcome." — is no longer rendered
+in the site-wide footer disclaimer. The footer disclaimer was trimmed to
+its three core sentences. A dedicated page at `/attorney-advertising` was
+created with the full disclosure: "Some of the content on this site is
+considered Attorney Advertising under the applicable rules of the State
+of California. Prior results do not guarantee a similar outcome." Every
+page now carries a small "Attorney Advertising" link in the footer-nav
+row (alongside "About") pointing to that page. The disclaimer-crawl
+Playwright test was updated accordingly: it now asserts (a) the trimmed
+footer fragment appears on every route, (b) the legacy AA text is ABSENT
+from every footer, and (c) the "Attorney Advertising" footer link is
+present on every page. REQUIREMENTS.md LEGAL-01 was amended to note the
+linked-disclosure change; LEGAL-05 was marked complete (was Phase 7 /
+Pending; now Phase 5 / Complete). ROADMAP Phase 7 success criterion 5 was
+re-worded to reflect that the AA page already exists.
+
+**Why:**
+Top-tier U.S. law firms (Kirkland & Ellis is the canonical reference)
+serve the disclosure at a dedicated linked page rather than carrying the
+notation in every page's footer. The compliance contract is the same — a
+visitor on any page can reach the disclosure in one click — but the
+chrome on every page reads as a firm's voice rather than a regulatory
+footnote. For BSV, whose lead message is "Team work to get good results,"
+a quieter footer reinforces the brand. The legal substance is unchanged:
+the disclosure is still discoverable from every page (one tab away), and
+California's rules speak to the disclosure existing on the website, not
+to where exactly the words live.
+
+**Teaching insight:**
+**Where a disclosure lives is a design decision; whether the disclosure
+exists is the compliance one.** When a regulatory rule says "the website
+must carry an attorney-advertising disclosure," it speaks to the website,
+not to every page. Linking from every page to one canonical disclosure
+satisfies the rule and frees the per-page chrome to do its real job:
+help the visitor understand who you are and what you do. The trade-off
+is that the disclosure is one click away rather than zero — acceptable
+when (a) the link is prominent enough to find without effort and (b) the
+disclosure page itself is short, plain, and the content the visitor was
+not looking for.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the

@@ -15,6 +15,14 @@
 // FOOTER_DISCLAIMER_FRAGMENT is the SINGLE SOURCE OF TRUTH for the footer
 // disclaimer text. It must remain verbatim-equal to the matching substring in
 // src/content/disclaimers/disclaimers.json.
+//
+// 2026-05-28 — the footer disclaimer was trimmed: "Attorney advertising. Prior
+// results do not guarantee a similar outcome." now lives at the dedicated
+// /attorney-advertising page (Kirkland linked-disclosure pattern). The site-
+// wide footer links to that page via the footer nav. Tests below assert:
+//   1. FOOTER_DISCLAIMER_FRAGMENT (the trimmed text) appears on every route.
+//   2. FOOTER_AA_LEGACY_FRAGMENT is ABSENT from every route's footer.
+//   3. The "Attorney Advertising" footer link is present on every route.
 
 import { test, expect } from '@playwright/test';
 import { execSync } from 'node:child_process';
@@ -22,8 +30,15 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cheerio from 'cheerio';
 
+// New (trimmed) footer disclaimer — must end with "without seeking the advice
+// of an attorney." (the legacy AA sentences were stripped 2026-05-28).
 const FOOTER_DISCLAIMER_FRAGMENT =
-  'The information on this website is for general informational purposes only';
+  'without seeking the advice of an attorney.';
+
+// Legacy AA sentences that MUST be absent from the site-wide footer now that
+// they live on the /attorney-advertising page.
+const FOOTER_AA_LEGACY_FRAGMENT =
+  'Attorney advertising. Prior results do not guarantee a similar outcome.';
 
 // BLOG_DISCLAIMER_FRAGMENT — verbatim substring of the `id: 'blog'` entry in
 // src/content/disclaimers/disclaimers.json. Plan 05-01 BLOG-03: the blog
@@ -134,6 +149,52 @@ test.describe('Disclaimer crawl', () => {
     }
 
     expect(missing, `Routes missing footer disclaimer:\n${missing.join('\n')}`).toEqual([]);
+  });
+
+  test('legacy attorney-advertising sentences are absent from every footer', () => {
+    // Belt-and-braces: prove the AA text was actually removed from the site-
+    // wide footer (it now lives on /attorney-advertising). Without this check,
+    // a regression that re-added the text but kept the new fragment would
+    // pass the test above. The /attorney-advertising page itself contains
+    // the AA disclosure in its BODY, NOT in the <footer>, so this footer-
+    // scoped check correctly excludes that page.
+    const urls = readSitemapUrls();
+    const leaks: string[] = [];
+    for (const url of urls) {
+      const filePath = urlToFilePath(url);
+      if (!filePath) continue;
+      const html = fs.readFileSync(filePath, 'utf-8');
+      const $ = cheerio.load(html);
+      const footerText = $('footer').text();
+      if (footerText.includes(FOOTER_AA_LEGACY_FRAGMENT)) {
+        leaks.push(`${url} (${filePath}) — footer still carries legacy AA text`);
+      }
+    }
+    expect(leaks, `Routes leaking legacy AA text in footer:\n${leaks.join('\n')}`).toEqual([]);
+  });
+
+  test('Attorney Advertising footer link is present on every sitemap route', () => {
+    // Kirkland linked-disclosure pattern (LEGAL-05): every page carries a
+    // footer link to /attorney-advertising; the page itself holds the Cal.
+    // Rules of Prof'l Conduct disclosure text.
+    const urls = readSitemapUrls();
+    const missing: string[] = [];
+    for (const url of urls) {
+      const filePath = urlToFilePath(url);
+      if (!filePath) continue;
+      const html = fs.readFileSync(filePath, 'utf-8');
+      const $ = cheerio.load(html);
+      const link = $('footer a[href="/attorney-advertising"]');
+      if (link.length === 0) {
+        missing.push(`${url} (${filePath}) — no <a href="/attorney-advertising"> in footer`);
+        continue;
+      }
+      const text = link.text().trim();
+      if (!/attorney advertising/i.test(text)) {
+        missing.push(`${url} (${filePath}) — footer AA link text is "${text}", expected "Attorney Advertising"`);
+      }
+    }
+    expect(missing, `Routes missing Attorney Advertising footer link:\n${missing.join('\n')}`).toEqual([]);
   });
 
   test('blog disclaimer fragment appears in body on every /blog/<slug> route', () => {

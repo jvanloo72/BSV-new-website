@@ -138,9 +138,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Legal Compliance (Bar Rules + Disclaimers)
 
-- [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
+- [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI *(amended 2026-05-28: the attorney-advertising notation moved to a dedicated `/attorney-advertising` page per the Kirkland linked-disclosure pattern; the site-wide footer carries a small "Attorney Advertising" link, not the notation itself. The crawl test asserts (a) the trimmed footer fragment, (b) absence of the legacy AA text in every footer, (c) the AA footer link present on every route.)*
 - [x] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
-- [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
+- [x] **LEGAL-05**: Attorney advertising disclosure satisfied via the linked-disclosure pattern — a dedicated `/attorney-advertising` page carries the Cal. Rules of Prof'l Conduct disclosure ("Some of the content on this site is considered Attorney Advertising under the applicable rules of the State of California. Prior results do not guarantee a similar outcome."); every page links to it from the footer. *(Landed 2026-05-28; final wording can still be reviewed by Jon at Phase 7 launch.)*
 - [x] **LEGAL-06**: Testimonials carry required disclosures per California bar rules *(Daniel Brian testimonial renders the CA disclosure via the TestimonialQuote disclosure slot; final wording confirmed by Jon at review per D-18)*
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
 - [x] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
@@ -308,7 +308,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-12 | Phase 7 | Pending |
 | LEGAL-01 | Phase 1 | Validated |
 | LEGAL-02 | Phase 4 | Complete |
-| LEGAL-05 | Phase 7 | Pending |
+| LEGAL-05 | Phase 5 | Complete (2026-05-28 — linked-disclosure page at /attorney-advertising + site-wide footer link) |
 | LEGAL-06 | Phase 4 | Complete (04-03) |
 | LEGAL-07 | Phase 3 | Complete |
 | LEGAL-08 | Phase 4 | Complete |

@@ -6,10 +6,14 @@
    CRITICAL (LEGAL-01, do NOT regress): the site-wide <Disclaimer id="footer" />
    MUST keep rendering on every route -- the disclaimer-crawl test asserts the
    footer disclaimer fragment on every sitemap page. The import, the render, the
-   SITE.email intake mailto, the copyright, and the `mx-auto max-w-6xl px-6`
+   SITE.email mailto, the copyright, and the `mx-auto max-w-6xl px-6`
    locked content-width container are all preserved.
    D-37: the footer shows the firm's full mailing address (footerAddress, derived
-   from SITE.location) on every page — NOT "Based in San Francisco." */
+   from SITE.location) on every page — NOT "Based in San Francisco."
+   2026-05-28: the footer now carries a small "About · Attorney Advertising"
+   nav row. The "Attorney Advertising" link points to /attorney-advertising,
+   which holds the canonical Cal. Rules of Prof'l Conduct disclosure (Kirkland
+   pattern — link site-wide, notation on one page). LEGAL-05 satisfied. */
 import { Icon } from 'astro-icon/components';
 import Disclaimer from '../legal/Disclaimer.astro';
 import { SITE, footerAddress } from '../../lib/site';
@@ -54,5 +58,29 @@ const year = new Date().getFullYear();
     <small class="block text-xs">
       &copy; {year} {SITE.name}. All rights reserved.
     </small>
+
+    <nav aria-label="Footer" class="text-xs">
+      <ul class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <li>
+          <a
+            href="/about"
+            class="rounded-xs text-text-muted underline decoration-1 underline-offset-2
+                   motion-safe:hover:text-text motion-safe:hover:decoration-2
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
+          >About</a>
+        </li>
+        <li aria-hidden="true" class="text-text-muted">·</li>
+        <li>
+          <a
+            href="/attorney-advertising"
+            class="rounded-xs text-text-muted underline decoration-1 underline-offset-2
+                   motion-safe:hover:text-text motion-safe:hover:decoration-2
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
+                   focus-visible:ring-offset-2 focus-visible:ring-offset-bg-elevated"
+          >Attorney Advertising</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </footer>
