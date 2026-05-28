@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
@@ -11,9 +11,13 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const author = await getEntry(entry.data.author);
+if (!author) {
+  throw new Error(`Blog post '${entry.data.slug}' references unknown author`);
+}
 const { Content } = await render(entry);
 ---
 
-<BlogPostLayout post={entry}>
+<BlogPostLayout post={entry} author={author}>
   <Content />
 </BlogPostLayout>
