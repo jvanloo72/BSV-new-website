@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 5 Plan 04 complete
-last_updated: "2026-05-28T19:58:42.000Z"
+stopped_at: Phase 5 Plan 05-05 paused at D-05/D-14 human-action checkpoint (awaiting Jon's seed-post title + summary + cover choice)
+last_updated: "2026-05-28T20:05:00.000Z"
 last_activity: 2026-05-28 -- Phase 5 plan 05-04 complete (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
 progress:
   total_phases: 7
