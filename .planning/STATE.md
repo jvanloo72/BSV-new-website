@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 5 UI-SPEC approved
-last_updated: "2026-05-28T19:03:32.818Z"
-last_activity: 2026-05-28 -- Phase 5 planning complete
+stopped_at: Phase 5 Plan 01 complete
+last_updated: "2026-05-28T19:14:43.000Z"
+last_activity: 2026-05-28 -- Phase 5 plan 05-01 complete (Wave-0 foundation)
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 25
-  completed_plans: 20
-  percent: 57
+  completed_plans: 21
+  percent: 60
 ---
 
 # Project State
@@ -25,15 +25,15 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-05-28 -- Phase 5 planning complete
+Phase: 5 (Insights (Blog) System) — EXECUTING
+Plan: 2 of 5 (next: 05-02 — blog-post-layout slice)
+Status: Executing Phase 5
+Last activity: 2026-05-28 -- Phase 5 plan 05-01 complete (Wave-0 foundation)
 
-Progress: [█████░░░░░] 57% (4 of 7 phases complete; Phase 5: context captured, planning next)
+Progress: [██████░░░░] 60% (4 of 7 phases complete; Phase 5: 1 of 5 plans complete — Wave-0 foundation landed)
 
-Resume: `/gsd:plan-phase 5` — Phase 5 context is in `.planning/phases/05-insights-blog-system/05-CONTEXT.md`.
-Next phase: Phase 5 planning — auto-advance is enabled, so plan-phase will run autonomously after context capture.
+Resume: `/gsd:execute-phase 5` — 05-01 done; 05-02 unblocked; auto-advance enabled.
+Next plan: 05-02 (blog-post-layout slice) — implements buildArticleLd, BlogPostLayout chrome, AuthorCard, prose-bsv CSS. Tests/article-jsonld.spec.ts scaffold awaits un-skip.
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Next phase: Phase 5 planning — auto-advance is enabled, so plan-phase will run
 | 1. Scaffold & Shell | 9/9 | — | — |
 | 2 | 4 | - | - |
 | 4 | 4 | - | - |
+| 5 | 1/5 | - | - |
 
 **Recent Trend:**
 
@@ -66,6 +67,7 @@ Next phase: Phase 5 planning — auto-advance is enabled, so plan-phase will run
 | Phase 4 P1 | 50m | 3 tasks | 14 files |
 | Phase 4 P2 | 22m | 2 tasks | 11 files |
 | Phase 4 P3 | 41m | 2 tasks | 8 files |
+| Phase 5 P1 | 8m | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -74,6 +76,7 @@ Next phase: Phase 5 planning — auto-advance is enabled, so plan-phase will run
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-28: Phase 5 Wave-0 landed — @astrojs/rss@4.0.18 + sanitize-html@2.17.4 + rehype-external-links@3.0.0 + @types/sanitize-html@2.16.1 installed; six Playwright scaffolds (2 live + 4 SKIPPED with UNSKIP-WHEN markers tied to 05-02/03/04/05); blog Zod schema gains .refine() for cover⇒coverAlt (a11y / WCAG 1.1.1); MDX integration rewrites every external <a> to target=_blank rel=noopener,noreferrer (rehype-external-links); og-default.svg site fallback (1264 B, 1200×630, palette tokens only). Live tests reconstruct the schema shape via plain Zod rather than importing collections.blog.schema — the production definition uses ({image}) =&gt; z.object(...) where image() is a runtime injection; the schema-approximation captures the contracts under test with zero build cost (05-01)
 - 2026-05-27: Three practice-area pages shipped — M&A keeps a curated 10-deal cleared grid + the Daniel Brian testimonial with the CA disclosure rendered in the TestimonialQuote disclosure slot (D-09/D-18); IP & Tech and Tax have NO deal grid and NO testimonial (D-10); lead-partner callouts resolve leadAttorneys via getEntries and link to /attorneys/<slug> (D-11). FAQs drafted to FAQ-DRAFT.md only and left out of the MDX faqs: arrays pending Jon's D-13 approval; FAQPage JSON-LD + FaqAccordion are wired but guarded on empty faqs (04-03)
 - 2026-05-27: Attorney bios replicated verbatim from the live bsvlaw.com pages (re-fetched at build, D-01/D-03); Aaron's full 64-deal list mapped 1:1 from CONTEXT <specifics> all cleared:true (D-04/D-15); Iris + Susan barAdmissions use a non-committal "Bar admission details to be confirmed" placeholder to satisfy the min-1 schema without inventing a jurisdiction (D-05); email-only mailto callout, phone field left unset everywhere (D-08) (04-02)
 - 2026-05-27: lint:legal is a real Node 22 scanner (scripts/lint-legal.mjs) over src/content **.mdx, wired as a prebuild gate; "expertise" is banned-by-default with an empty allowlist pending Jon's compliance call (A1); Aaron Belcher's complete deal list cleared en masse via the bsvlaw.com URL basis rather than enumerating ~60 counterparties (D-15/A5) (04-01)
@@ -113,6 +116,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-28T18:15:46.958Z
-Stopped at: Phase 5 UI-SPEC approved
-Resume file: .planning/phases/05-insights-blog-system/05-UI-SPEC.md
+Last session: 2026-05-28T19:14:43.000Z
+Stopped at: Completed 05-01-PLAN.md (Wave-0 foundation)
+Resume file: .planning/phases/05-insights-blog-system/05-01-SUMMARY.md
+Next: 05-02-PLAN.md (blog-post-layout slice)

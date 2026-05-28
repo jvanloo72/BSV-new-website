@@ -202,7 +202,7 @@ anonymous post, or a post without a disclaimer from ever publishing.
 Plans:
 **Wave 1**
 
-- [ ] 05-01-PLAN.md — Wave 0 foundation: install @astrojs/rss + sanitize-html + rehype-external-links + @types/sanitize-html; six Playwright spec scaffolds (UNSKIP-WHEN markers); extend disclaimer-crawl.spec for /blog/<slug>; Zod refine cover-requires-coverAlt; rehype-external-links wired into mdx integration; public/og-default.svg site fallback
+- [x] 05-01-PLAN.md — Wave 0 foundation: install @astrojs/rss + sanitize-html + rehype-external-links + @types/sanitize-html; six Playwright spec scaffolds (UNSKIP-WHEN markers); extend disclaimer-crawl.spec for /blog/<slug>; Zod refine cover-requires-coverAlt; rehype-external-links wired into mdx integration; public/og-default.svg site fallback (completed 2026-05-28)
 
 **Wave 2** *(depends on 05-01)*
 
@@ -273,6 +273,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
-| 5. Insights (Blog) System | 0/TBD | Not started | - |
+| 5. Insights (Blog) System | 1/5 | In progress | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |
