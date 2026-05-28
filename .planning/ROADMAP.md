@@ -29,7 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Scaffold & Shell** - Astro 6 project, content collections, BaseLayout with disclaimer plumbing, security baseline, preview-deploy workflow verified
 - [x] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set (completed 2026-05-26)
 - [x] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell (completed 2026-05-27)
-- [ ] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint
+- [x] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint (completed 2026-05-28)
 - [ ] **Phase 5: Insights (Blog) System** - Dynamic blog routes, attorney/practice-area filtering, RSS feed, Article JSON-LD, editorial review gate, one seed post live
 - [ ] **Phase 6: Contact Form & Intake** - Contact page with ABA 477R-compliant intake, Astro Action with Zod validation, honeypot + time-trap + rate limiting, Resend email dispatch
 - [ ] **Phase 7: Security Hardening, Performance & Launch** - CSP switched to enforce, securityheaders.com grade A, Lighthouse mobile gates, redirect map from legacy URLs, custom domain live
@@ -178,7 +178,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 04-04-PLAN.md — FAQ approval gate (D-13, non-autonomous): Jon approves drafted FAQs, then write into the 3 practice MDX → FaqAccordion + FAQPage JSON-LD live
+- [x] 04-04-PLAN.md — FAQ approval gate (D-13, non-autonomous): Jon approves drafted FAQs, then write into the 3 practice MDX → FaqAccordion + FAQPage JSON-LD live
 
 **UI hint**: yes
 
@@ -254,7 +254,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Scaffold & Shell | 9/9 | Complete | 2026-05-26 |
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
-| 4. Attorney & Practice Area Pages | 3/4 | In progress | - |
+| 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
 | 5. Insights (Blog) System | 0/TBD | Not started | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |

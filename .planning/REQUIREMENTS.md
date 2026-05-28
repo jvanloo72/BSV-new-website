@@ -66,7 +66,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PRAC-05**: Deal-experience grid on each practice-area page lists representative deals with cleared client names and (where appropriate) anonymized $-amounts *(M&A grid uses register-cleared names; IP & Tax carry no grid per D-10 — no cleared deals there yet)*
 - [x] **PRAC-06**: Lead-attorney callout on each practice-area page links to the relevant attorney profile(s)
 - [x] **PRAC-07**: Each practice-area page renders the practice-area disclaimer
-- [ ] **PRAC-08**: Each practice-area page renders FAQPage JSON-LD with 3-5 plain-English FAQs for AEO/AI-search surface *(layout wired + guarded; FAQs drafted to FAQ-DRAFT.md, emission pending Jon's D-13 approval in Plan 04-04)*
+- [x] **PRAC-08**: Each practice-area page renders FAQPage JSON-LD with 3-5 plain-English FAQs for AEO/AI-search surface *(layout wired + guarded; FAQs drafted to FAQ-DRAFT.md, emission pending Jon's D-13 approval in Plan 04-04)*
 - [x] **PRAC-09**: Fee-structure transparency band — hourly billing with estimate of total cost — visible on each practice-area page
 
 ### Insights (Blog)
@@ -101,7 +101,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
 - [x] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
 - [ ] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image)
-- [ ] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
+- [x] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
 - [ ] **SEO-06**: All JSON-LD generated via `schema-dts` (typed at build time)
 - [x] **SEO-07**: Sitemap.xml auto-generated via `@astrojs/sitemap`
 - [x] **SEO-08**: robots.txt published with sitemap reference
@@ -141,15 +141,15 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Legal Compliance (Bar Rules + Disclaimers)
 
 - [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
-- [ ] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
+- [x] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
 - [x] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
 - [x] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
 - [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
 - [x] **LEGAL-06**: Testimonials carry required disclosures per California bar rules *(Daniel Brian testimonial renders the CA disclosure via the TestimonialQuote disclosure slot; final wording confirmed by Jon at review per D-18)*
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
-- [ ] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
+- [x] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
 - [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — disclaimer + reviewed_by required
-- [ ] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
+- [x] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
 
 ### Deployment & Operations
 
@@ -313,15 +313,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-11 | Phase 7 | Pending |
 | SEC-12 | Phase 7 | Pending |
 | LEGAL-01 | Phase 1 | Validated |
-| LEGAL-02 | Phase 4 | Pending |
+| LEGAL-02 | Phase 4 | Complete |
 | LEGAL-03 | Phase 4 | Complete (04-01) |
 | LEGAL-04 | Phase 4 | Complete (04-01) |
 | LEGAL-05 | Phase 7 | Pending |
 | LEGAL-06 | Phase 4 | Complete (04-03) |
 | LEGAL-07 | Phase 3 | Complete |
-| LEGAL-08 | Phase 4 | Pending |
+| LEGAL-08 | Phase 4 | Complete |
 | LEGAL-09 | Phase 5 | Pending |
-| LEGAL-10 | Phase 4 | Pending |
+| LEGAL-10 | Phase 4 | Complete |
 | OPS-01 | Phase 7 | Pending |
 | OPS-02 | Phase 7 | Pending |
 | OPS-03 | Phase 7 | Pending |
