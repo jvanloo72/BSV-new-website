@@ -24,8 +24,8 @@ const PRACTICE_SLUGS = [
 ];
 
 test.describe('FAQPage JSON-LD (PRAC-08 / SEO-05)', () => {
-  // UNSKIP-WHEN: practice pages + approved FAQs exist.
-  test.fixme('FAQPage mainEntity count matches visible FAQ accordion items', () => {
+  // UNSKIPPED: practice pages + Jon-approved FAQs shipped 2026-05-27.
+  test('FAQPage mainEntity count matches visible FAQ accordion items', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const failures: string[] = [];
     for (const slug of PRACTICE_SLUGS) {
