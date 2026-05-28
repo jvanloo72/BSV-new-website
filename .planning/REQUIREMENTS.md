@@ -140,13 +140,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **LEGAL-01**: Site-wide footer disclaimer renders on EVERY page — verified by a Playwright crawl test that runs in CI
 - [x] **LEGAL-02**: Per-page disclaimers on practice area, attorney profile, blog post, and contact pages — driven by the `disclaimers` content collection
-- [x] **LEGAL-03**: California Rule 7.4 compliance — `npm run lint:legal` script scans content for banned terms ("specialist", "expert", "specialize") and fails the build if found, with documented allowlisted phrasing for Stuart's USPTO registration
-- [x] **LEGAL-04**: Client-disclosure clearance gate — `.planning/CLIENT_DISCLOSURE_CLEARANCE.md` tracks which client/counterparty names are cleared for use in deal experience; no deal publishes without clearance
 - [ ] **LEGAL-05**: Attorney advertising notation on the site as required by California Rules of Professional Conduct (final wording confirmed by Jon in Phase 7 content review)
 - [x] **LEGAL-06**: Testimonials carry required disclosures per California bar rules *(Daniel Brian testimonial renders the CA disclosure via the TestimonialQuote disclosure slot; final wording confirmed by Jon at review per D-18)*
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
 - [x] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
-- [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — every post renders the legal disclaimer
+- [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — every post renders the legal disclaimer (satisfied structurally by the per-post `<Disclaimer id="blog" />` auto-rendered in BlogPostLayout; review is a human-only process per D-12)
 - [x] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
 
 ### Deployment & Operations
@@ -310,8 +308,6 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-12 | Phase 7 | Pending |
 | LEGAL-01 | Phase 1 | Validated |
 | LEGAL-02 | Phase 4 | Complete |
-| LEGAL-03 | Phase 4 | Complete (04-01) |
-| LEGAL-04 | Phase 4 | Complete (04-01) |
 | LEGAL-05 | Phase 7 | Pending |
 | LEGAL-06 | Phase 4 | Complete (04-03) |
 | LEGAL-07 | Phase 3 | Complete |
@@ -327,8 +323,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 **Coverage:**
 
-- v1 requirements: 117 total (FOUND 10 + DESIGN 8 + PAGES 8 + ATTY 12 + PRAC 9 + BLOG 9 + FORM 11 + SEO 10 + A11Y 6 + PERF 6 + SEC 12 + LEGAL 10 + OPS 6)
-- Mapped to phases: 117
+- v1 requirements: 113 total (FOUND 10 + DESIGN 8 + PAGES 8 + ATTY 12 + PRAC 9 + BLOG 7 + FORM 11 + SEO 10 + A11Y 6 + PERF 6 + SEC 12 + LEGAL 8 + OPS 6)
+- Mapped to phases: 113
 - Unmapped: 0
 - Coverage: 100%
 
@@ -337,11 +333,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Phase 1 (Scaffold & Shell): 17 requirements
 - Phase 2 (Design System & Visual Identity): 8 requirements
 - Phase 3 (Homepage & Static Pages): 14 requirements
-- Phase 4 (Attorney & Practice Area Pages): 29 requirements
-- Phase 5 (Insights (Blog) System): 11 requirements
+- Phase 4 (Attorney & Practice Area Pages): 27 requirements (LEGAL-03 + LEGAL-04 descoped 2026-05-28)
+- Phase 5 (Insights (Blog) System): 9 requirements (BLOG-07 / BLOG-08 descoped 2026-05-28; BLOG-09 retained)
 - Phase 6 (Contact Form & Intake): 15 requirements
 - Phase 7 (Security Hardening, Performance & Launch): 23 requirements
 
 ---
 *Requirements defined: 2026-05-25*
-*Last updated: 2026-05-25 — Traceability populated by gsd-roadmapper*
+*Last updated: 2026-05-28 — LEGAL-03 (Rule 7.4 lint:legal) and LEGAL-04 (CLIENT_DISCLOSURE_CLEARANCE.md gate) removed per Jon; replaced by manual review. BLOG-07 (reviewedBy) and BLOG-08 (EDITORIAL.md) also descoped on the same date.*

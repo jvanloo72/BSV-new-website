@@ -604,6 +604,42 @@ than to bend the whole layout around it.
 
 ---
 
+## 2026-05-28 — Phase 5 — Rule 7.4 lint and client-disclosure clearance gate removed (descopes LEGAL-03, LEGAL-04)
+
+**What was decided:**
+The two pre-publish automated guards added in Phase 4 — `npm run lint:legal`
+(a Rule 7.4 banned-term scanner over `src/content/**/*.mdx`) and the
+`.planning/CLIENT_DISCLOSURE_CLEARANCE.md` register gate — are removed
+entirely from the project. Files deleted: `scripts/lint-legal.mjs`,
+`tests/lint-legal.spec.ts`, `tests/_fixtures/lint-legal-violation.mdx`,
+`tests/clearance.spec.ts`, `.planning/CLIENT_DISCLOSURE_CLEARANCE.md`. Build
+hooks (`prebuild`) and CI step that ran `lint:legal` removed.
+REQUIREMENTS.md LEGAL-03 and LEGAL-04 deleted; LEGAL-09 reworded to drop
+its reference to `lint:legal` — it is now satisfied by the per-post
+disclaimer alone (auto-rendered by `BlogPostLayout`). Client-name
+disclosure decisions move to manual review by Jon (attorney of record)
+before publish.
+
+**Why:**
+Jon decided the automated guards were not pulling their weight. The
+banned-term list was a coarse filter for context-free string matches —
+substantive Rule 7.4 / Rule 7.1 compliance requires the lawyer's judgment
+on each post anyway. The clearance register added bookkeeping overhead
+without changing the reviewing-lawyer's decision flow. Manual review,
+which was always the substantive gate, is now also the operational gate.
+
+**Teaching insight:**
+**Automated pre-publish checks earn their keep only when they catch
+something the human reviewer would miss.** A scanner that matches strings
+without context (like a banned-word list) duplicates the human's eye
+without sharpening it. A register that the human has to keep in sync with
+the content (like a clearance roster) creates two sources of truth where
+one would do. When the human review is non-negotiable anyway, the
+automation should either be precise enough to flag something a human eye
+would skim past, or it should not be in the workflow at all.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the

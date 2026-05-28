@@ -8,7 +8,6 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "npm run lint:legal",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -27,10 +26,8 @@
     "test:fonts-selfhost": "playwright test tests/fonts-selfhost.spec.ts",
     "test:person-jsonld": "playwright test tests/person-jsonld.spec.ts",
     "test:faqpage-jsonld": "playwright test tests/faqpage-jsonld.spec.ts",
-    "test:lint-legal": "playwright test tests/lint-legal.spec.ts",
     "test:fishbien": "playwright test tests/fishbien-absent.spec.ts",
     "test:draft-exclusion": "playwright test tests/draft-exclusion.spec.ts",
-    "test:clearance": "playwright test tests/clearance.spec.ts",
     "test:pages-exist": "playwright test tests/pages-exist.spec.ts",
     "test:lead-attorney-link": "playwright test tests/lead-attorney-link.spec.ts",
     "test:blog-pages-exist": "playwright test tests/blog-pages-exist.spec.ts",
@@ -40,7 +37,6 @@
     "test:blog-filter": "playwright test tests/blog-filter.spec.ts",
     "test:rss-feed": "playwright test tests/rss-feed.spec.ts",
     "test": "playwright test",
-    "lint:legal": "node scripts/lint-legal.mjs",
     "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
   },
   "dependencies": {
