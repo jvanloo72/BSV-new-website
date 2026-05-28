@@ -75,7 +75,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BLOG-02**: Every blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing *(enforced by content.config.ts since Phase 1; resolved+rendered in 05-02)*
 - [x] **BLOG-03**: Every blog post renders the blog-post legal disclaimer *(BlogPostLayout renders `<Disclaimer id="blog" />` automatically — verified in 05-02)*
 - [x] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image) *(buildArticleLd + slot-transfer ready in 05-02; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard)*
-- [ ] **BLOG-05**: Insights index supports filtering by attorney and by practice area
+- [x] **BLOG-05**: Insights index supports filtering by attorney and by practice area *(FilterChipRow.astro + /blog index posts.length>0 branch with two chip rows + inline progressive-enhancement filter script shipped in 05-03; tests/blog-filter.spec.ts un-skipped with deferred-pass guard for the five contract assertions; the chip UI engages once 05-05 publishes the seed post)*
 - [ ] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss`
 - [ ] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end
 
@@ -260,7 +260,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-02 | Phase 5 | Complete (05-02 — author Zod enforced + resolved+rendered) |
 | BLOG-03 | Phase 5 | Complete (05-02 — BlogPostLayout renders `<Disclaimer id="blog" />`) |
 | BLOG-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; test deferred-pass) |
-| BLOG-05 | Phase 5 | Pending |
+| BLOG-05 | Phase 5 | Complete (05-03 — FilterChipRow + chip-row index + inline filter script; test un-skipped with deferred-pass) |
 | BLOG-06 | Phase 5 | Pending |
 | BLOG-09 | Phase 5 | Pending |
 | FORM-01 | Phase 6 | Pending |

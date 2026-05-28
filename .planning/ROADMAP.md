@@ -210,7 +210,7 @@ Plans:
 
 **Wave 3** *(depends on 05-01; parallel with 05-04)*
 
-- [ ] 05-03-PLAN.md — Slice 2 (browse + filter): new FilterChipRow.astro section component; /blog index posts.length>0 branch rewritten with two chip rows + rich post list (data-author/data-practice + practice-tag pill + line-clamp summary) + empty-filtered state + inline progressive-enhancement filter script; tests/blog-filter.spec.ts un-skipped (BLOG-05)
+- [x] 05-03-PLAN.md — Slice 2 (browse + filter): new FilterChipRow.astro section component; /blog index posts.length>0 branch rewritten with two chip rows + rich post list (data-author/data-practice + practice-tag pill + line-clamp summary) + empty-filtered state + inline progressive-enhancement filter script; tests/blog-filter.spec.ts un-skipped (BLOG-05) (completed 2026-05-28)
 
 **Wave 3** *(depends on 05-01; parallel with 05-03)*
 
@@ -273,6 +273,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
-| 5. Insights (Blog) System | 1/5 | In progress | - |
+| 5. Insights (Blog) System | 3/5 | In progress | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |
