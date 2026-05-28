@@ -206,7 +206,7 @@ Plans:
 
 **Wave 2** *(depends on 05-01)*
 
-- [ ] 05-02-PLAN.md — Slice 1 (read one post end-to-end): replace buildArticleLd stub in jsonld.ts; BlogPostLayout chrome (header, byline, optional cover, prose-bsv body slot, AuthorCard section, preserved Disclaimer); [slug].astro resolves author via getEntry; new AuthorCard.astro section component; .prose-bsv CSS appended via @layer components; tests/article-jsonld.spec.ts un-skipped (BLOG-01..04, SEO-04, LEGAL-09)
+- [x] 05-02-PLAN.md — Slice 1 (read one post end-to-end): replace buildArticleLd stub in jsonld.ts; BlogPostLayout chrome (header, byline, optional cover, prose-bsv body slot, AuthorCard section, preserved Disclaimer); [slug].astro resolves author via getEntry; new AuthorCard.astro section component; .prose-bsv CSS appended via @layer components; tests/article-jsonld.spec.ts un-skipped (BLOG-01..04, SEO-04, LEGAL-09) (completed 2026-05-28)
 
 **Wave 3** *(depends on 05-01; parallel with 05-04)*
 

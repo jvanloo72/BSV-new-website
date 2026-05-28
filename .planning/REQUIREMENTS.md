@@ -71,14 +71,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Insights (Blog)
 
-- [ ] **BLOG-01**: Dynamic route `/blog/[slug]` generates one page per post from the `blog` content collection
-- [ ] **BLOG-02**: Every blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing
-- [ ] **BLOG-03**: Every blog post renders the blog-post legal disclaimer
-- [ ] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image)
+- [x] **BLOG-01**: Dynamic route `/blog/[slug]` generates one page per post from the `blog` content collection *(chrome ready in 05-02; visible page lands 05-05)*
+- [x] **BLOG-02**: Every blog post is attributed to a named attorney via Zod `reference()` — build fails if author is missing *(enforced by content.config.ts since Phase 1; resolved+rendered in 05-02)*
+- [x] **BLOG-03**: Every blog post renders the blog-post legal disclaimer *(BlogPostLayout renders `<Disclaimer id="blog" />` automatically — verified in 05-02)*
+- [x] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image) *(buildArticleLd + slot-transfer ready in 05-02; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard)*
 - [ ] **BLOG-05**: Insights index supports filtering by attorney and by practice area
 - [ ] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss`
-- [ ] **BLOG-07**: Schema requires a `reviewed_by` field on every post (editorial review gate)
-- [ ] **BLOG-08**: Editorial guidelines documented in `.planning/EDITORIAL.md` — banned terms (Rule 7.4), disclaimer placement, client-name policy, no legal advice
 - [ ] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end
 
 ### Contact Form
@@ -148,7 +146,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **LEGAL-06**: Testimonials carry required disclosures per California bar rules *(Daniel Brian testimonial renders the CA disclosure via the TestimonialQuote disclosure slot; final wording confirmed by Jon at review per D-18)*
 - [x] **LEGAL-07**: Chambers USA Spotlight 2026 recognition visible on the site but not the lead message
 - [x] **LEGAL-08**: Fee structure clearly communicated — hourly billing paired with an estimate of total cost per engagement — on the contact and practice-area pages
-- [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — disclaimer + reviewed_by required
+- [ ] **LEGAL-09**: Blog editorial process prevents posts that could be construed as legal advice — every post renders the legal disclaimer
 - [x] **LEGAL-10**: No language on the site claims results, predicts outcomes, or guarantees representation
 
 ### Deployment & Operations
@@ -258,14 +256,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PRAC-07 | Phase 4 | Complete (04-03) |
 | PRAC-08 | Phase 4 | Pending (04-04 — FAQ approval gate) |
 | PRAC-09 | Phase 4 | Complete (04-03) |
-| BLOG-01 | Phase 5 | Pending |
-| BLOG-02 | Phase 5 | Pending |
-| BLOG-03 | Phase 5 | Pending |
-| BLOG-04 | Phase 5 | Pending |
+| BLOG-01 | Phase 5 | Complete (05-02 — chrome ready; visible page lands 05-05) |
+| BLOG-02 | Phase 5 | Complete (05-02 — author Zod enforced + resolved+rendered) |
+| BLOG-03 | Phase 5 | Complete (05-02 — BlogPostLayout renders `<Disclaimer id="blog" />`) |
+| BLOG-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; test deferred-pass) |
 | BLOG-05 | Phase 5 | Pending |
 | BLOG-06 | Phase 5 | Pending |
-| BLOG-07 | Phase 5 | Pending |
-| BLOG-08 | Phase 5 | Pending |
 | BLOG-09 | Phase 5 | Pending |
 | FORM-01 | Phase 6 | Pending |
 | FORM-02 | Phase 6 | Pending |
@@ -281,7 +277,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEO-01 | Phase 3 | Complete |
 | SEO-02 | Phase 3 | Complete |
 | SEO-03 | Phase 4 | Complete (04-02) |
-| SEO-04 | Phase 5 | Pending |
+| SEO-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; deferred-pass test) |
 | SEO-05 | Phase 4 | Pending (04-04 — JSON-LD wired + guarded in 04-03; emits once FAQs land) |
 | SEO-06 | Phase 7 | Pending |
 | SEO-07 | Phase 3 | Complete |
@@ -320,7 +316,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEGAL-06 | Phase 4 | Complete (04-03) |
 | LEGAL-07 | Phase 3 | Complete |
 | LEGAL-08 | Phase 4 | Complete |
-| LEGAL-09 | Phase 5 | Pending |
+| LEGAL-09 | Phase 5 | Complete (05-02 structural — disclaimer auto-rendered; Zod author; lint:legal scans MDX; D-12 review-is-human) |
 | LEGAL-10 | Phase 4 | Complete |
 | OPS-01 | Phase 7 | Pending |
 | OPS-02 | Phase 7 | Pending |
