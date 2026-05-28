@@ -36,6 +36,7 @@ itself a clearance violation.
 | Illumina | Jon Van Loo | 2026-05-26 | homepage representative-work strip; practice-area deal grid |
 | Daniel Brian (GC, Commure, Inc.) | Jon Van Loo | 2026-05-26 | testimonial — verbatim quote "BSV was my rock throughout the $6 billion merger between Athelas and Commure." |
 | Representative-parties note: Adobe, Oracle, PayPal, Dell, eBay, Coinbase | Jon Van Loo | 2026-05-26 | homepage representative-parties strip; attorney bio |
+| Aaron Belcher COMPLETE representative-transactions list, as published at https://bsvlaw.com/team/aaron-belcher-partner/ (en-masse clearance — D-15 / A5) | Jon Van Loo | 2026-05-27 | attorney bio (aaron-belcher); M&A practice-area deal grid |
 | (none yet) | | | |
 
 `Allowed contexts` examples: "attorney bio only" (Aaron's prior-deal list on
@@ -48,6 +49,7 @@ post" (a Tax post that references a closed engagement).
 | Name | Cleared by | Cleared on | Allowed contexts |
 | --- | --- | --- | --- |
 | Roche | Jon Van Loo | 2026-05-26 | homepage representative-work strip; practice-area deal grid — counterparty in the Illumina defense (public-record hostile bid) |
+| All counterparties named in Aaron Belcher's complete representative-transactions list, as published at https://bsvlaw.com/team/aaron-belcher-partner/ (en-masse clearance basis: already public on the firm's current site — D-15 / A5; the ~60 counterparties are not enumerated individually per D-15 wording) | Jon Van Loo | 2026-05-27 | attorney bio (aaron-belcher); M&A practice-area deal grid |
 | (none yet) | | | |
 
 Counterparties are entities on the OTHER side of a transaction BSV worked on

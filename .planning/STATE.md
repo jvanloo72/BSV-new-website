@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md (About page — Phase 03 complete)
-last_updated: "2026-05-27T02:20:00.000Z"
-last_activity: 2026-05-27 -- Completed Phase 03 Plan 02 (About page); Phase 03 complete
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-05-28T01:05:42.581Z"
+last_activity: 2026-05-28
 progress:
   total_phases: 7
-  completed_phases: 3
-  total_plans: 16
-  completed_plans: 16
-  percent: 43
+  completed_phases: 4
+  total_plans: 20
+  completed_plans: 20
+  percent: 57
 ---
 
 # Project State
@@ -21,25 +21,25 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 03 — homepage-static-pages
+**Current focus:** Phase 4 — Attorney & Practice Area Pages
 
 ## Current Position
 
-Phase: 03 (homepage-static-pages) — COMPLETE
-Plan: 3 of 3 (all complete)
-Status: Phase 03 complete — all three plans executed
-Last activity: 2026-05-27 -- Completed Phase 03 Plan 02 (About page); Phase 03 complete
+Phase: 5
+Plan: Not started
+Status: Executing Phase 4
+Last activity: 2026-05-28
 
-Progress: [████░░░░░░] 43% (3 of 7 phases complete; Phase 3: 3 of 3 plans)
+Progress: [█████░░░░░] 51% (3 of 7 phases complete; Phase 4: 3 of 4 plans)
 
-Resume: `/gsd:plan-phase 4` — Phase 4 (Attorney & Practice Area Pages) is next.
-Next phase: Phase 4 — five attorney profiles + three practice-area pages (depends on Phase 3).
+Resume: `/gsd:execute-phase 4` — Phase 4 Plan 04 (commit Jon-approved FAQ copy) is next.
+Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit the FAQs into the practice MDX faqs: arrays and un-guard FAQPage/FaqAccordion.
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 13 (Phase 1)
+- Total plans completed: 17 (Phase 1)
 - Average duration: —
 - Total execution time: —
 
@@ -49,6 +49,7 @@ Next phase: Phase 4 — five attorney profiles + three practice-area pages (depe
 |-------|-------|-------|----------|
 | 1. Scaffold & Shell | 9/9 | — | — |
 | 2 | 4 | - | - |
+| 4 | 4 | - | - |
 
 **Recent Trend:**
 
@@ -62,6 +63,9 @@ Next phase: Phase 4 — five attorney profiles + three practice-area pages (depe
 | Phase 3 P1 | 3m | 3 tasks | 5 files |
 | Phase 3 P3 | 12m | 3 tasks | 6 files |
 | Phase 3 P2 | 6m | 2 tasks | 3 files |
+| Phase 4 P1 | 50m | 3 tasks | 14 files |
+| Phase 4 P2 | 22m | 2 tasks | 11 files |
+| Phase 4 P3 | 41m | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -70,6 +74,9 @@ Next phase: Phase 4 — five attorney profiles + three practice-area pages (depe
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-27: Three practice-area pages shipped — M&A keeps a curated 10-deal cleared grid + the Daniel Brian testimonial with the CA disclosure rendered in the TestimonialQuote disclosure slot (D-09/D-18); IP & Tech and Tax have NO deal grid and NO testimonial (D-10); lead-partner callouts resolve leadAttorneys via getEntries and link to /attorneys/<slug> (D-11). FAQs drafted to FAQ-DRAFT.md only and left out of the MDX faqs: arrays pending Jon's D-13 approval; FAQPage JSON-LD + FaqAccordion are wired but guarded on empty faqs (04-03)
+- 2026-05-27: Attorney bios replicated verbatim from the live bsvlaw.com pages (re-fetched at build, D-01/D-03); Aaron's full 64-deal list mapped 1:1 from CONTEXT <specifics> all cleared:true (D-04/D-15); Iris + Susan barAdmissions use a non-committal "Bar admission details to be confirmed" placeholder to satisfy the min-1 schema without inventing a jurisdiction (D-05); email-only mailto callout, phone field left unset everywhere (D-08) (04-02)
+- 2026-05-27: lint:legal is a real Node 22 scanner (scripts/lint-legal.mjs) over src/content **.mdx, wired as a prebuild gate; "expertise" is banned-by-default with an empty allowlist pending Jon's compliance call (A1); Aaron Belcher's complete deal list cleared en masse via the bsvlaw.com URL basis rather than enumerating ~60 counterparties (D-15/A5) (04-01)
 - 2026-05-27: robots.txt generated via an Astro static endpoint (src/pages/robots.txt.ts) rather than installing astro-robots-txt — @astrojs/sitemap does not emit robots.txt; the endpoint adds zero new dependency, references sitemap-index.xml, and omits /design-system so it cannot advertise the hidden gallery (03-03)
 - 2026-05-26: D-04 homepage named deals (Athelas/Commure $6B, Mode Analytics $200M, Illumina/Roche defense, representative-parties list, Daniel Brian testimonial) cleared by Jon Van Loo and recorded in CLIENT_DISCLOSURE_CLEARANCE.md before publish — the Rule 1.6/7.4 gate; also unblocks the Phase 4 clearance gate for these same items (DECISIONS.md)
 - 2026-05-26: BSV mark derived as a 3-line convergence-to-knot glyph distilled from the hero motif (modernization, not rebrand, D-14) so it reads at 16-32px; favicon carries explicit accent rust (standalone, not theme-following) while the in-app mark uses currentColor
@@ -106,6 +113,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-27T02:20:00.000Z
-Stopped at: Completed 03-02-PLAN.md (About page — Phase 03 complete)
-Resume file: .planning/phases/03-homepage-static-pages/03-02-SUMMARY.md
+Last session: 2026-05-27T22:56:00Z
+Stopped at: Completed 04-03-PLAN.md
+Resume file: None

@@ -1,33 +1,160 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Disclaimer from '../components/legal/Disclaimer.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import DealsGrid from '../components/sections/DealsGrid.astro';
+import { buildPersonLd } from '../lib/jsonld';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
-/* AttorneyLayout — Phase 1 scaffold. Wraps BaseLayout, renders an attorney
- * page header + slot for body content, then the attorney disclaimer.
- *
- * Phase 4 will add <JsonLd slot="head" data={buildPersonLd(attorney)} />
- * just inside the BaseLayout open tag to inject per-attorney Person JSON-LD
- * via slot transfer — no BaseLayout edit required. The slot is reserved by
- * the contract; this layout deliberately does not implement it yet. */
+/* AttorneyLayout — renders a full attorney profile: header + headshot,
+ * field-driven sections (bar admissions, education, focus, prior firms,
+ * recognition, languages), an email-only contact callout (D-08 — never a
+ * phone), the cleared representative-deals grid (Aaron), the MDX bio body via
+ * <slot />, and the attorney disclaimer. Per-attorney Person JSON-LD is
+ * injected into <head> via slot transfer (ATTY-09 / SEO-03) — no BaseLayout
+ * edit required. Token-only utilities; no hardcoded hex. */
 
 interface Props {
   attorney: CollectionEntry<'attorneys'>;
 }
 
 const { attorney } = Astro.props;
-const title = `${attorney.data.name} — BSV Law`;
-const description = attorney.data.focus;
+const d = attorney.data;
+const title = `${d.name} — BSV Law`;
+const description = d.focus;
+
+// DealsGrid adapter (PATTERNS): only cleared deals (LEGAL-04), schema field
+// names → component prop names. parties→title, value→amount, role→context.
+const deals = d.representativeDeals
+  .filter((deal) => deal.cleared)
+  .map((deal) => ({ title: deal.parties, amount: deal.value, context: deal.role }));
 ---
 
 <BaseLayout title={title} description={description}>
-  {/* Phase 4: <JsonLd slot="head" data={buildPersonLd(attorney)} /> */}
-  <article>
-    <header>
-      <h1>{attorney.data.name}</h1>
-      <p>{attorney.data.title}</p>
-    </header>
-    <slot />
+  <JsonLd slot="head" data={buildPersonLd(attorney)} />
+  <article class="bg-bg py-section">
+    <div class="mx-auto max-w-4xl px-gutter">
+      <header class="flex flex-col gap-6 sm:flex-row sm:items-center">
+        <Image
+          src={d.headshot}
+          alt={d.headshotAlt}
+          width={120}
+          height={120}
+          class="h-30 w-30 rounded-card border border-border bg-bg-elevated"
+        />
+        <div>
+          <h1 class="text-h1 font-bold text-text">{d.name}</h1>
+          <p class="mt-1 text-body-lg text-text-muted">{d.title}</p>
+          <p class="mt-3">
+            <a
+              href={`mailto:${d.email}`}
+              class="text-body font-medium text-accent underline"
+            >
+              {d.email}
+            </a>
+          </p>
+        </div>
+      </header>
+
+      <dl class="mt-10 grid gap-6 sm:grid-cols-2">
+        {
+          d.barAdmissions.length > 0 && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Bar admissions
+              </dt>
+              <dd class="mt-2 text-body text-text">
+                <ul class="list-none space-y-1">
+                  {d.barAdmissions.map((bar) => <li>{bar}</li>)}
+                </ul>
+              </dd>
+            </div>
+          )
+        }
+
+        <div>
+          <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+            Education
+          </dt>
+          <dd class="mt-2 text-body text-text">
+            <ul class="list-none space-y-1">
+              {
+                d.education.map((e) => (
+                  <li>
+                    {e.degree}, {e.school}
+                    {e.year ? `, ${e.year}` : ''}
+                    {e.honors ? ` (${e.honors})` : ''}
+                  </li>
+                ))
+              }
+            </ul>
+          </dd>
+        </div>
+
+        <div>
+          <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+            Focus
+          </dt>
+          <dd class="mt-2 text-body text-text">{d.focus}</dd>
+        </div>
+
+        {
+          d.clerkship && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Clerkship
+              </dt>
+              <dd class="mt-2 text-body text-text">{d.clerkship}</dd>
+            </div>
+          )
+        }
+
+        {
+          d.priorFirms.length > 0 && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Prior firms
+              </dt>
+              <dd class="mt-2 text-body text-text">{d.priorFirms.join(' · ')}</dd>
+            </div>
+          )
+        }
+
+        {
+          d.recognition.length > 0 && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Recognition
+              </dt>
+              <dd class="mt-2 text-body text-text">
+                <ul class="list-none space-y-1">
+                  {d.recognition.map((r) => <li>{r}</li>)}
+                </ul>
+              </dd>
+            </div>
+          )
+        }
+
+        {
+          d.languages.length > 0 && (
+            <div>
+              <dt class="text-body-sm font-bold uppercase tracking-wide text-text-muted">
+                Languages
+              </dt>
+              <dd class="mt-2 text-body text-text">{d.languages.join(' · ')}</dd>
+            </div>
+          )
+        }
+      </dl>
+
+      <div class="prose mt-10 max-w-none text-body text-text">
+        <slot />
+      </div>
+    </div>
   </article>
+
+  {deals.length > 0 && <DealsGrid deals={deals} heading="Representative transactions" />}
+
   <Disclaimer id="attorney" />
 </BaseLayout>
