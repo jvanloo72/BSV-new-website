@@ -33,17 +33,26 @@
     "test:clearance": "playwright test tests/clearance.spec.ts",
     "test:pages-exist": "playwright test tests/pages-exist.spec.ts",
     "test:lead-attorney-link": "playwright test tests/lead-attorney-link.spec.ts",
+    "test:blog-pages-exist": "playwright test tests/blog-pages-exist.spec.ts",
+    "test:blog-zod-author": "playwright test tests/blog-zod-author.spec.ts",
+    "test:blog-zod-cover": "playwright test tests/blog-zod-cover.spec.ts",
+    "test:article-jsonld": "playwright test tests/article-jsonld.spec.ts",
+    "test:blog-filter": "playwright test tests/blog-filter.spec.ts",
+    "test:rss-feed": "playwright test tests/rss-feed.spec.ts",
     "test": "playwright test",
     "lint:legal": "node scripts/lint-legal.mjs",
     "install:hooks": "powershell -ExecutionPolicy Bypass -File scripts/install-git-hooks.ps1"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.6",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/vercel": "^10.0.7",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.7",
     "astro-icon": "^1.1.5",
+    "rehype-external-links": "^3.0.0",
+    "sanitize-html": "^2.17.4",
     "schema-dts": "^2.0.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0"
@@ -51,6 +60,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.60.0",
+    "@types/sanitize-html": "^2.16.1",
     "cheerio": "^1.2.0"
   }
 }
