@@ -18,12 +18,12 @@ import TestimonialQuote from '../components/sections/TestimonialQuote.astro';
 import ChambersStrip from '../components/sections/ChambersStrip.astro';
 import CtaBlock from '../components/sections/CtaBlock.astro';
 
-// Placeholder headshots (ATTY-08: monograms, no real photos) — processed by <Image>.
-import photoBelcher from '../assets/headshots/placeholder-belcher.svg';
-import photoSmolen from '../assets/headshots/placeholder-smolen.svg';
-import photoVanLoo from '../assets/headshots/placeholder-vanloo.svg';
-import photoZhang from '../assets/headshots/placeholder-zhang.svg';
-import photoJiang from '../assets/headshots/placeholder-jiang.svg';
+// Attorney headshots (real photos from the firm's existing site) — processed by <Image>.
+import photoBelcher from '../assets/headshots/belcher.jpg';
+import photoSmolen from '../assets/headshots/smolen.jpg';
+import photoVanLoo from '../assets/headshots/vanloo.jpg';
+import photoZhang from '../assets/headshots/zhang.jpg';
+import photoJiang from '../assets/headshots/jiang.jpg';
 
 // FIRM_BRIEF placeholder data (reused from the gallery — D-03).
 const attorneys = [
@@ -32,35 +32,35 @@ const attorneys = [
     role: 'Partner',
     focus: 'Corporate & M&A — technology and life sciences',
     photo: photoBelcher,
-    alt: 'Placeholder headshot for Aaron Belcher, Partner',
+    alt: 'Aaron Belcher, Partner',
   },
   {
     name: 'Stuart Smolen',
     role: 'Partner',
     focus: 'IP & technology transactions; USPTO-registered',
     photo: photoSmolen,
-    alt: 'Placeholder headshot for Stuart Smolen, Partner',
+    alt: 'Stuart Smolen, Partner',
   },
   {
     name: 'Jon Van Loo',
     role: 'Partner',
     focus: 'M&A, international, and crypto tax',
     photo: photoVanLoo,
-    alt: 'Placeholder headshot for Jon Van Loo, Partner',
+    alt: 'Jon Van Loo, Partner',
   },
   {
     name: 'Iris Zhang',
     role: 'Associate',
     focus: 'Securities, regulatory & compliance',
     photo: photoZhang,
-    alt: 'Placeholder headshot for Iris Zhang, Associate',
+    alt: 'Iris Zhang, Associate',
   },
   {
-    name: 'Susan Jiang',
+    name: 'Susan (Kezhen) Jiang',
     role: 'Associate',
-    focus: 'Profile coming soon',
+    focus: 'Corporate & commercial guidance for technology companies — China & Greater Pacific',
     photo: photoJiang,
-    alt: 'Placeholder headshot for Susan Jiang, Associate',
+    alt: 'Susan (Kezhen) Jiang, Associate',
   },
 ];
 
