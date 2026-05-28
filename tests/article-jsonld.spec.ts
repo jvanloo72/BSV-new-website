@@ -26,19 +26,27 @@ const DIST_CLIENT = 'dist/client';
 const BLOG_CONTENT_DIR = path.join('src', 'content', 'blog');
 const SITE_BASE_URL = 'https://bsvlaw.com';
 
-function listNonDraftPostSlugs(): string[] {
+interface PostInfo {
+  slug: string;
+  category: 'insight' | 'deal-announcement';
+}
+
+function listNonDraftPosts(): PostInfo[] {
   if (!fs.existsSync(BLOG_CONTENT_DIR)) return [];
-  const slugs: string[] = [];
+  const posts: PostInfo[] = [];
   for (const entry of fs.readdirSync(BLOG_CONTENT_DIR)) {
     if (!entry.endsWith('.mdx') || entry.startsWith('_')) continue;
     const raw = fs.readFileSync(path.join(BLOG_CONTENT_DIR, entry), 'utf-8');
     const slugMatch = /^slug:\s*["']?([^"'\n]+)["']?\s*$/m.exec(raw);
     const draftMatch = /^draft:\s*(true|false)\s*$/m.exec(raw);
+    const categoryMatch = /^category:\s*["']?(insight|deal-announcement)["']?\s*$/m.exec(raw);
     if (!slugMatch) continue;
     const isDraft = draftMatch ? draftMatch[1] === 'true' : false;
-    if (!isDraft) slugs.push(slugMatch[1]);
+    if (isDraft) continue;
+    if (!categoryMatch) continue;
+    posts.push({ slug: slugMatch[1], category: categoryMatch[1] as 'insight' | 'deal-announcement' });
   }
-  return slugs;
+  return posts;
 }
 
 function readArticleLd(slug: string): Record<string, unknown> | null {
@@ -57,24 +65,21 @@ function readArticleLd(slug: string): Record<string, unknown> | null {
 test.describe('Article JSON-LD (BLOG-04 / SEO-04)', () => {
   test('every published blog post page has valid Article JSON-LD in <head>', () => {
     execSync('npm run build', { stdio: 'pipe' });
-    const PUBLISHED_SLUGS = listNonDraftPostSlugs();
+    const PUBLISHED = listNonDraftPosts();
 
-    // 05-02 deferred-pass guard: while no non-draft post exists on disk
-    // (placeholder-post.mdx stays draft:true; seed post lands in 05-05),
-    // there are no slugs to iterate. Annotate as pending and pass — the
-    // moment a non-draft post lands, this guard falls through and the
-    // assertion loop runs for real with zero test-code changes.
-    if (PUBLISHED_SLUGS.length === 0) {
+    // Deferred-pass guard: while no non-draft post exists on disk there is
+    // nothing to assert. Annotate as pending and pass — the moment a
+    // non-draft post lands, the assertion loop runs for real.
+    if (PUBLISHED.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'No non-draft blog posts yet — un-skip will produce real assertions once the seed post lands in 05-05',
+        description: 'No non-draft blog posts yet',
       });
       return;
     }
 
     const missing: string[] = [];
-    for (const slug of PUBLISHED_SLUGS) {
+    for (const { slug, category } of PUBLISHED) {
       const ld = readArticleLd(slug);
       if (!ld) {
         missing.push(`${slug}: no Article JSON-LD in <head>`);
@@ -86,11 +91,19 @@ test.describe('Article JSON-LD (BLOG-04 / SEO-04)', () => {
       const author = ld.author as Record<string, unknown> | undefined;
       if (!author) {
         missing.push(`${slug}: missing author`);
-      } else {
-        if (author['@type'] !== 'Person') missing.push(`${slug}: author['@type'] is not 'Person'`);
+      } else if (category === 'insight') {
+        // Insight posts: author is a Person sub-blob with name + /attorneys/<slug> url.
+        if (author['@type'] !== 'Person') missing.push(`${slug}: insight author['@type'] is not 'Person'`);
         if (typeof author.name !== 'string' || !author.name) missing.push(`${slug}: missing author.name`);
         if (typeof author.url !== 'string' || !author.url.startsWith(`${SITE_BASE_URL}/attorneys/`)) {
-          missing.push(`${slug}: author.url must start with ${SITE_BASE_URL}/attorneys/`);
+          missing.push(`${slug}: insight author.url must start with ${SITE_BASE_URL}/attorneys/`);
+        }
+      } else {
+        // Deal-announcement posts: author is an Organization sub-blob (the firm).
+        if (author['@type'] !== 'Organization') missing.push(`${slug}: deal-announcement author['@type'] is not 'Organization'`);
+        if (typeof author.name !== 'string' || !author.name) missing.push(`${slug}: missing author.name`);
+        if (typeof author.url !== 'string' || author.url !== SITE_BASE_URL) {
+          missing.push(`${slug}: deal-announcement author.url must equal ${SITE_BASE_URL}`);
         }
       }
 

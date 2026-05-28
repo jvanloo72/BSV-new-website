@@ -1,37 +1,21 @@
 // tests/blog-filter.spec.ts
 //
-// BLOG-05: the /blog index supports filtering by attorney + practice area
-// via URL params (?author=&practice=) with shareable filtered URLs and
-// client-side progressive enhancement on chip clicks. Verifies the four
-// behaviors UI-SPEC pins:
+// BLOG-05: the /blog index supports filtering by attorney + topic via URL
+// params (?author=&topic=) with shareable filtered URLs and client-side
+// progressive enhancement on chip clicks. The "topic" axis unifies
+// practice slugs and the literal value "deal-announcement" (the
+// firm-attributed deal-announcement category — see 2026-05-28 schema
+// amendment). Verifies the four behaviors UI-SPEC pins:
 //   (a) direct navigation with params applies the filter on load,
 //   (b) the unfiltered default shows everything and "All" chips read pressed,
 //   (c) zero-match combos reveal the empty-filtered state with the right ARIA,
 //   (d) chips emit working hrefs (no-JS fallback).
 //
-// RESOLVED 05-03: FilterChipRow + the inline filter script in
-// src/pages/blog/index.astro shipped. The describe block is un-skipped.
-// While placeholder-post.mdx stays draft:true and no non-draft posts exist
-// (the posts.length === 0 empty-state branch fires and emits no chips),
-// the tests pass vacuously via a no-posts-yet guard (annotates pending
-// and returns early). The moment 05-05 publishes the seed post, the
-// posts.length > 0 branch fires, the guard falls through, and the full
-// assertion suite runs for real -- zero further test edits required.
-//
-// Implementation note: this spec reads dist/client/blog/index.html from disk
-// for the no-JS / href-shape checks (matches the no-server pattern of
-// disclaimer-crawl.spec.ts), and uses page.goto('file://...?...') for the
-// live filter-script checks. Playwright can navigate to a file:// URL with
-// a query string; the inline script reads window.location.search exactly
-// the same way as it would on a deployed page.
-//
-// Plan: 05-03.
-//
 // Locked DOM contract under test (referenced verbatim so the un-skip verify
 // regex finds the substrings it expects):
 //   - chip:        role="status" appears on #empty-filtered
 //   - aria-live:   aria-live="polite" appears on #empty-filtered
-//   - chip data:   data-chip / data-param="author" / data-param="practice"
+//   - chip data:   data-chip / data-param="author" / data-param="topic"
 //   - press state: aria-pressed="true" / aria-pressed="false"
 
 import { test, expect } from '@playwright/test';
@@ -78,8 +62,7 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     if (PUBLISHED_SLUGS.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'No non-draft blog posts yet — chip rows render only when posts.length > 0; un-skip will produce real assertions once the seed post lands in 05-05',
+        description: 'No non-draft blog posts yet — chip rows render only when posts.length > 0',
       });
       return;
     }
@@ -91,13 +74,12 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     expect($list.length, '#post-list expected when posts.length > 0').toBe(1);
 
     const authorChips = $('[data-chip][data-param="author"]');
-    const practiceChips = $('[data-chip][data-param="practice"]');
+    const topicChips = $('[data-chip][data-param="topic"]');
     // Permissive count: at minimum All + Aaron + Stuart + Jon + Iris (5
-    // author chips) and All + M&A + IP&Tech + Tax (4 practice chips); when
-    // Susan flips to draft:false the author row has 6 chips. The exact
-    // floor is the locked contract; any extra is acceptable.
+    // author chips); when Susan flips to draft:false the author row has 6.
+    // Topic row: All + M&A + IP&Tech + Tax + Deal Announcements (5 chips).
     expect(authorChips.length, 'expected ≥5 author chips').toBeGreaterThanOrEqual(5);
-    expect(practiceChips.length, 'expected ≥4 practice chips').toBeGreaterThanOrEqual(4);
+    expect(topicChips.length, 'expected ≥5 topic chips').toBeGreaterThanOrEqual(5);
 
     // Every non-"All" chip carries the right ?param=value fragment in its href.
     authorChips.each((_, el) => {
@@ -110,19 +92,19 @@ test.describe('Blog filter chips (BLOG-05)', () => {
           `author chip [${value}] href must carry author=${value}; got ${href}`,
         ).toBe(true);
       } else {
-        // The "All" chip in the author row -- when no practice filter is
+        // The "All" chip in the author row — when no topic filter is
         // server-rendered-active, href is /blog.
         expect(href).toBe('/blog');
       }
     });
-    practiceChips.each((_, el) => {
+    topicChips.each((_, el) => {
       const $el = $(el);
       const value = $el.attr('data-value');
       const href = $el.attr('href') ?? '';
       if (value) {
         expect(
-          new RegExp(`^/blog\\?(.*&)?practice=${value}(&|$)`).test(href),
-          `practice chip [${value}] href must carry practice=${value}; got ${href}`,
+          new RegExp(`^/blog\\?(.*&)?topic=${value}(&|$)`).test(href),
+          `topic chip [${value}] href must carry topic=${value}; got ${href}`,
         ).toBe(true);
       } else {
         expect(href).toBe('/blog');
@@ -135,8 +117,7 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     if (PUBLISHED_SLUGS.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'No non-draft blog posts yet — inline filter script needs a non-empty #post-list to exercise; un-skip auto-engages when 05-05 publishes the seed post',
+        description: 'No non-draft blog posts yet',
       });
       return;
     }
@@ -164,11 +145,40 @@ test.describe('Blog filter chips (BLOG-05)', () => {
       await expect(nonJonItems.nth(i)).toHaveAttribute('hidden', /.*/);
     }
 
-    // No practice filter applied → All-practice chip is pressed.
-    const allPractice = page.locator(
-      '[data-chip][data-param="practice"]:not([data-value])',
+    // No topic filter applied → All-topic chip is pressed.
+    const allTopic = page.locator(
+      '[data-chip][data-param="topic"]:not([data-value])',
     );
-    await expect(allPractice).toHaveAttribute('aria-pressed', 'true');
+    await expect(allTopic).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('JS filter — Deal Announcements topic chip filters to firm-attributed posts only', async ({ page }) => {
+    const PUBLISHED_SLUGS = listNonDraftPostSlugs();
+    if (PUBLISHED_SLUGS.length === 0) {
+      test.info().annotations.push({
+        type: 'pending',
+        description: 'No non-draft blog posts yet',
+      });
+      return;
+    }
+    await page.goto(blogFileUrl('?topic=deal-announcement'));
+
+    const dealChip = page.locator(
+      '[data-chip][data-param="topic"][data-value="deal-announcement"]',
+    );
+    await expect(dealChip).toHaveAttribute('aria-pressed', 'true');
+
+    // Every visible <li> carries data-topic="deal-announcement".
+    const dealItems = page.locator('#post-list > li[data-topic="deal-announcement"]');
+    const dealCount = await dealItems.count();
+    for (let i = 0; i < dealCount; i++) {
+      await expect(dealItems.nth(i)).not.toHaveAttribute('hidden', /.*/);
+    }
+    const nonDealItems = page.locator('#post-list > li:not([data-topic="deal-announcement"])');
+    const nonDealCount = await nonDealItems.count();
+    for (let i = 0; i < nonDealCount; i++) {
+      await expect(nonDealItems.nth(i)).toHaveAttribute('hidden', /.*/);
+    }
   });
 
   test('JS filter — zero-match combo reveals the empty-filtered state with role=status aria-live=polite', async ({ page }) => {
@@ -176,14 +186,13 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     if (PUBLISHED_SLUGS.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'Empty-filtered region only fires when posts.length > 0 + zero-match combo; un-skip auto-engages when 05-05 publishes the seed post',
+        description: 'No non-draft blog posts yet',
       });
       return;
     }
-    // Jon writes Tax posts; this Jon + IP&Tech combo should match zero posts.
+    // Jon writes Tax posts; Jon + IP&Tech topic = zero matches.
     await page.goto(
-      blogFileUrl('?author=jon-van-loo&practice=intellectual-property-technology-transactions'),
+      blogFileUrl('?author=jon-van-loo&topic=intellectual-property-technology-transactions'),
     );
 
     const empty = page.locator('#empty-filtered');
@@ -200,8 +209,7 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     if (PUBLISHED_SLUGS.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'Default state checks need posts.length > 0; un-skip auto-engages when 05-05 publishes the seed post',
+        description: 'No non-draft blog posts yet',
       });
       return;
     }
@@ -210,11 +218,11 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     const allAuthor = page.locator(
       '[data-chip][data-param="author"]:not([data-value])',
     );
-    const allPractice = page.locator(
-      '[data-chip][data-param="practice"]:not([data-value])',
+    const allTopic = page.locator(
+      '[data-chip][data-param="topic"]:not([data-value])',
     );
     await expect(allAuthor).toHaveAttribute('aria-pressed', 'true');
-    await expect(allPractice).toHaveAttribute('aria-pressed', 'true');
+    await expect(allTopic).toHaveAttribute('aria-pressed', 'true');
 
     const items = page.locator('#post-list > li');
     const total = await items.count();
@@ -231,15 +239,16 @@ test.describe('Blog filter chips (BLOG-05)', () => {
     if (PUBLISHED_SLUGS.length === 0) {
       test.info().annotations.push({
         type: 'pending',
-        description:
-          'Chip hrefs render only when posts.length > 0; un-skip auto-engages when 05-05 publishes the seed post',
+        description: 'No non-draft blog posts yet',
       });
       return;
     }
 
     const $ = cheerio.load(fs.readFileSync(BLOG_INDEX_HTML, 'utf-8'));
     const chips = $('[data-chip]');
-    expect(chips.length, 'at least 9 chips total (5 author + 4 practice)').toBeGreaterThanOrEqual(9);
+    // 5 author chips (Aaron/Stuart/Jon/Iris + All; Susan when she publishes) +
+    // 5 topic chips (M&A/IP&Tech/Tax/Deal Announcements + All) = ≥10.
+    expect(chips.length, 'at least 10 chips total (5 author + 5 topic)').toBeGreaterThanOrEqual(10);
 
     chips.each((_, el) => {
       const href = $(el).attr('href');
