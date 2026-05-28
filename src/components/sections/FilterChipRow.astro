@@ -1,0 +1,98 @@
+---
+/* FilterChipRow — Phase 5 BLOG-05 (D-08).
+ *
+ * One row of pill-shaped chip filters above the /blog index. Two instances
+ * appear on the page: one for `author`, one for `practiceArea`. Each chip is
+ * a real <a href> carrying the right ?author=&practice= query string so the
+ * row works WITHOUT JavaScript (UI-SPEC § FilterChipRow "Anchor-as-toggle").
+ *
+ * Active visual = filled near-black pill (bg-text text-bg) — D-08 locked this
+ * over the accent rust to avoid clashing with byline accent links elsewhere on
+ * the index. Inactive = soft elevated surface with motion-safe hover.
+ *
+ * The companion inline <script is:inline> in src/pages/blog/index.astro reads
+ * window.location.search at runtime, sets aria-pressed on the matching chip,
+ * and toggles `hidden` on non-matching #post-list > li. This component itself
+ * is pure server-rendered — no `client-*` directive, no inline JS handler.
+ *
+ * Tab is the navigation pattern (UI-SPEC § Keyboard Contract): no arrow-key
+ * roving tab-index. The min-h-[44px] meets WCAG 2.5.5 tap-target (mirrors the
+ * FaqAccordion summary contract). focus-visible accent ring is the site-wide
+ * A11Y-05 vocabulary inherited from Button. Token-only; data-component marker
+ * for the gallery test. */
+
+interface ChipOption {
+  value: string | null;
+  label: string;
+  ariaLabel?: string;
+}
+
+interface Props {
+  label: string;
+  paramName: 'author' | 'practice';
+  options: ChipOption[];
+  activeValue: string | null;
+  otherActiveParams: Record<string, string | null>;
+}
+
+const { label, paramName, options, activeValue, otherActiveParams } = Astro.props;
+const labelId = `chiprow-${paramName}`;
+
+/* buildHref — produce the href for one chip. Preserves the OTHER axis's
+ * filter (otherActiveParams) so a click on an author chip doesn't drop the
+ * active practice filter, and vice versa. URLSearchParams.set() URL-encodes
+ * the value per spec, so the resulting href is safe by construction
+ * (T-05-02 mitigation). When `value` is null (the "All" chip), the param
+ * for THIS row is dropped — All means "no filter on this axis". */
+function buildHref(value: string | null): string {
+  const params = new URLSearchParams();
+  for (const [k, v] of Object.entries(otherActiveParams)) {
+    if (v) params.set(k, v);
+  }
+  if (value) params.set(paramName, value);
+  const qs = params.toString();
+  return qs ? `/blog?${qs}` : '/blog';
+}
+---
+
+<div aria-labelledby={labelId} data-component="FilterChipRow">
+  <p
+    id={labelId}
+    class="mb-2 flex items-center gap-2 text-small font-medium uppercase tracking-wide text-text-muted"
+  >
+    <span class="block h-1 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+    {label}
+  </p>
+  <div class="flex flex-wrap items-center gap-2">
+    {
+      options.map((opt) => {
+        const isActive = activeValue === opt.value;
+        return (
+          <a
+            href={buildHref(opt.value)}
+            data-chip
+            data-param={paramName}
+            data-value={opt.value}
+            aria-pressed={isActive}
+            aria-label={opt.ariaLabel}
+            class:list={[
+              'inline-flex items-center justify-center rounded-full',
+              'min-h-[44px] px-4',
+              'text-small font-medium',
+              'transition-colors duration-150',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg',
+              isActive
+                ? 'bg-text text-bg border border-text'
+                : [
+                    'border border-border bg-bg-elevated text-text-muted',
+                    'motion-safe:hover:bg-text/[0.04] motion-safe:hover:text-text motion-safe:hover:border-text/[0.15]',
+                  ],
+            ]}
+          >
+            {opt.label}
+          </a>
+        );
+      })
+    }
+  </div>
+</div>
