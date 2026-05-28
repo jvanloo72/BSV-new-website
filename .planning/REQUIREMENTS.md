@@ -76,7 +76,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BLOG-03**: Every blog post renders the blog-post legal disclaimer *(BlogPostLayout renders `<Disclaimer id="blog" />` automatically — verified in 05-02)*
 - [x] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image) *(buildArticleLd + slot-transfer ready in 05-02; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard)*
 - [x] **BLOG-05**: Insights index supports filtering by attorney and by practice area *(FilterChipRow.astro + /blog index posts.length>0 branch with two chip rows + inline progressive-enhancement filter script shipped in 05-03; tests/blog-filter.spec.ts un-skipped with deferred-pass guard for the five contract assertions; the chip UI engages once 05-05 publishes the seed post)*
-- [ ] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss`
+- [x] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss` *(static endpoint at src/pages/blog/rss.xml.ts shipped in 05-04 — Container API + sanitize-html + draft filter + author=name-never-email; tests/rss-feed.spec.ts un-skipped with 8 live tests, 3 deferred-pass for per-item assertions; feed envelope live now, items engage once 05-05 publishes the seed post)*
 - [ ] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end
 
 ### Contact Form
@@ -261,7 +261,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-03 | Phase 5 | Complete (05-02 — BlogPostLayout renders `<Disclaimer id="blog" />`) |
 | BLOG-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; test deferred-pass) |
 | BLOG-05 | Phase 5 | Complete (05-03 — FilterChipRow + chip-row index + inline filter script; test un-skipped with deferred-pass) |
-| BLOG-06 | Phase 5 | Pending |
+| BLOG-06 | Phase 5 | Complete (05-04 — rss.xml.ts via Container API + sanitize-html; 8 live tests, 3 deferred-pass for per-item) |
 | BLOG-09 | Phase 5 | Pending |
 | FORM-01 | Phase 6 | Pending |
 | FORM-02 | Phase 6 | Pending |

@@ -214,7 +214,7 @@ Plans:
 
 **Wave 3** *(depends on 05-01; parallel with 05-03)*
 
-- [ ] 05-04-PLAN.md — Slice 3 (subscribe via RSS): new src/pages/blog/rss.xml.ts endpoint — async APIRoute with getCollection draft filter + experimental_AstroContainer renderToString + relative-to-absolute URL rewrite + sanitize-html with allowedTags.concat(['img']) + author=name-never-email (D-08 / T-05-03); tests/rss-feed.spec.ts un-skipped (BLOG-06)
+- [x] 05-04-PLAN.md — Slice 3 (subscribe via RSS): new src/pages/blog/rss.xml.ts endpoint — async APIRoute with getCollection draft filter + experimental_AstroContainer renderToString + relative-to-absolute URL rewrite + sanitize-html with allowedTags.concat(['img']) + author=name-never-email (D-08 / T-05-03); tests/rss-feed.spec.ts un-skipped (BLOG-06) (completed 2026-05-28)
 
 **Wave 4** *(depends on 05-01..05-04; NON-AUTONOMOUS — checkpoint:human-action D-14)*
 
@@ -273,6 +273,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
-| 5. Insights (Blog) System | 3/5 | In progress | - |
+| 5. Insights (Blog) System | 4/5 | In progress | - |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |

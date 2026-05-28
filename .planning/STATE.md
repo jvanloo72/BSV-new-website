@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 5 Plan 03 complete
-last_updated: "2026-05-28T12:44:30.000Z"
-last_activity: 2026-05-28 -- Phase 5 plan 05-03 complete (blog index filtering slice — FilterChipRow + chip rows + inline filter script)
+stopped_at: Phase 5 Plan 04 complete
+last_updated: "2026-05-28T19:58:42.000Z"
+last_activity: 2026-05-28 -- Phase 5 plan 05-04 complete (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
 progress:
   total_phases: 7
   completed_phases: 4
   total_plans: 25
-  completed_plans: 23
-  percent: 64
+  completed_plans: 24
+  percent: 67
 ---
 
 # Project State
@@ -26,14 +26,14 @@ See: .planning/PROJECT.md (updated 2026-05-25)
 ## Current Position
 
 Phase: 5 (Insights (Blog) System) — EXECUTING
-Plan: 4 of 5 (next: 05-04 — RSS feed slice; 05-05 — seed post depends on 05-04 + Jon)
+Plan: 5 of 5 (next: 05-05 — seed post; NON-AUTONOMOUS — checkpoint:human-action D-14 for Jon's seed-post copy)
 Status: Executing Phase 5
-Last activity: 2026-05-28 -- Phase 5 plan 05-03 complete (blog index filtering slice — FilterChipRow + chip rows + inline filter script)
+Last activity: 2026-05-28 -- Phase 5 plan 05-04 complete (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
 
-Progress: [██████░░░░] 64% (4 of 7 phases complete; Phase 5: 3 of 5 plans complete — Wave-0 foundation + BlogPostLayout slice + blog-index filtering slice landed)
+Progress: [███████░░░] 67% (4 of 7 phases complete; Phase 5: 4 of 5 plans complete — Wave-0 foundation + BlogPostLayout slice + blog-index filtering slice + RSS feed slice landed)
 
-Resume: `/gsd:execute-phase 5` — 05-03 done; 05-04 unblocked (RSS feed slice); auto-advance enabled.
-Next plan: 05-04 (RSS feed slice) — new src/pages/blog/rss.xml.ts endpoint via @astrojs/rss + sanitize-html; tests/rss-feed.spec.ts awaits un-skip. Wave 4 (05-05) is non-autonomous — checkpoint:human-action D-14 for Jon's seed-post copy.
+Resume: `/gsd:execute-phase 5` — 05-04 done; 05-05 is non-autonomous (checkpoint:human-action D-14).
+Next plan: 05-05 (seed post; NON-AUTONOMOUS) — scaffold one src/content/blog/<slug>.mdx with draft:true, Jon pastes draft body, Claude formats verbatim + runs lint:legal + surfaces clearance flags + waits for publish/revise/hold sign-off; on publish, flip draft:false + delete placeholder-post.mdx in the same commit (Pitfall 9) + build + push + report preview URL.
 
 ## Performance Metrics
 
@@ -70,6 +70,7 @@ Next plan: 05-04 (RSS feed slice) — new src/pages/blog/rss.xml.ts endpoint via
 | Phase 5 P1 | 8m | 3 tasks | 13 files |
 | Phase 5 P2 | 6m | 3 tasks | 6 files |
 | Phase 5 P3 | 12m | 3 tasks | 3 files |
+| Phase 5 P4 | 8m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,7 @@ Next plan: 05-04 (RSS feed slice) — new src/pages/blog/rss.xml.ts endpoint via
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-28: Phase 5 RSS feed slice landed — new src/pages/blog/rss.xml.ts (84 lines; static endpoint; APIRoute signature mirrors robots.txt.ts but async; locked seven imports — @astrojs/rss + astro:content + astro/container + astro:container + @astrojs/mdx + sanitize-html + SITE constants + APIRoute type; experimental_AstroContainer.create initialised ONCE per build before Promise.all loop; getCollection draft filter — Pitfall 9; per-post getEntry author resolution with throw on unknown reference; container.renderToString(Content) for MDX-to-string; safe negative-lookahead regex /(href|src)=\"\\/(?!\\/)/g for relative-to-absolute URL rewrite — T-05-RELURL; sanitize-html with defaults.allowedTags.concat(['img']) — Pitfall 3 + T-05-04; author: author.data.name only, NEVER .email — D-08 / T-05-03 mitigation by code-path exclusion; rss() with locked BSV Insights channel metadata + en-us language + atom xmlns); astro.config.mjs NOT touched (no output:'server' — static pre-render per Pitfall 11; lands at dist/client/blog/rss.xml); tests/rss-feed.spec.ts un-skipped with 8 live tests (3 fully live regardless of post count + 3 deferred-pass per-item assertions + 1 always-pass draft-leak cross-check + 1 whole-file @bsvlaw.com substring guard — D-08 belt-and-braces); 8 tests pass today via deferred-pass annotation, fall through to real assertions automatically when 05-05 publishes the seed post (05-04)
 - 2026-05-28: Phase 5 blog-index filtering slice landed — new src/components/sections/FilterChipRow.astro (98 lines; data-component=FilterChipRow; chip-as-anchor with aria-pressed/data-chip/data-param/data-value; min-h-[44px]; A11Y-05 focus ring; active visual = bg-text text-bg border-text per D-08, NOT bg-accent; buildHref() preserves cross-axis filter state via otherActiveParams); rewritten posts.length>0 branch of src/pages/blog/index.astro (Promise.all+getEntry for author+practice resolution; PRACTICE_DISPLAY map for M&A/IP&Tech/Tax short labels; two FilterChipRow instances above #post-list ul with per-li data-author+data-practice; #empty-filtered region with role=status aria-live=polite; ~50-line inline <script is:inline> filter handler using only attribute writes — never innerHTML, T-05-02 mitigation by construction); tests/blog-filter.spec.ts un-skipped with five live tests behind a deferred-pass guard (mirrors 05-02 article-jsonld pattern — all five pass via guard today; the moment 05-05 publishes the seed post the guard falls through and the assertion loop runs). Inline script is ES5-safe (var/function/IIFE) because is:inline skips Vite+Babel; chip is <a> not <button> so the filter works without JavaScript (anchor-as-toggle, UI-SPEC line 272). Susan's chip auto-appeared because draft flipped to false on 2026-05-28 — permissive test count floors (>=5 author / >=4 practice) anticipated this (05-03)
 - 2026-05-28: Phase 5 BlogPostLayout slice landed — buildArticleLd Phase 1 throw-stub replaced with real two-arg (post, author) WithContext&lt;Article&gt; implementation (og-default.svg fallback; no sameAs; no reviewedBy); BlogPostLayout full chrome (JsonLd slot=head + H1 + byline with /attorneys/<slug> link + optional 16:9 cover figure + .prose-bsv MDX body + AuthorCard section + preserved Disclaimer); [slug].astro resolves author via getEntry; new AuthorCard.astro section component (80×80 headshot, no hover-lift — UI-SPEC line 311); .prose-bsv ~25-rule typography block appended to global.css under @layer components, token-only; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard (passes vacuously while no non-draft posts; assertion loop runs automatically when 05-05 lands the seed post). buildArticleLd takes the resolved author as a second arg rather than re-resolving inside jsonld.ts — keeps the builder pure of astro:content runtime concerns and matches the existing buildPersonLd/buildLegalServiceLd shape (05-02)
 - 2026-05-28: Phase 5 Wave-0 landed — @astrojs/rss@4.0.18 + sanitize-html@2.17.4 + rehype-external-links@3.0.0 + @types/sanitize-html@2.16.1 installed; six Playwright scaffolds (2 live + 4 SKIPPED with UNSKIP-WHEN markers tied to 05-02/03/04/05); blog Zod schema gains .refine() for cover⇒coverAlt (a11y / WCAG 1.1.1); MDX integration rewrites every external <a> to target=_blank rel=noopener,noreferrer (rehype-external-links); og-default.svg site fallback (1264 B, 1200×630, palette tokens only). Live tests reconstruct the schema shape via plain Zod rather than importing collections.blog.schema — the production definition uses ({image}) =&gt; z.object(...) where image() is a runtime injection; the schema-approximation captures the contracts under test with zero build cost (05-01)
@@ -120,7 +122,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-28T12:44:30.000Z
-Stopped at: Completed 05-03-PLAN.md (blog-index filtering slice — FilterChipRow + chip rows + inline filter script)
-Resume file: .planning/phases/05-insights-blog-system/05-03-SUMMARY.md
-Next: 05-04-PLAN.md (RSS feed slice) — new src/pages/blog/rss.xml.ts endpoint; tests/rss-feed.spec.ts awaits un-skip. Wave 4 (05-05) is non-autonomous — checkpoint:human-action D-14 for Jon's seed-post copy.
+Last session: 2026-05-28T19:58:42.000Z
+Stopped at: Completed 05-04-PLAN.md (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
+Resume file: .planning/phases/05-insights-blog-system/05-04-SUMMARY.md
+Next: 05-05-PLAN.md (seed post; NON-AUTONOMOUS — checkpoint:human-action D-14) — scaffold one src/content/blog/<slug>.mdx with draft:true; Jon pastes draft body; Claude formats verbatim + runs lint:legal + surfaces clearance flags + waits for publish/revise/hold sign-off; on publish, flip draft:false + delete placeholder-post.mdx in the same commit (Pitfall 9) + build + push + report preview URL.
