@@ -77,7 +77,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BLOG-04**: Every blog post renders `Article` JSON-LD structured data (author, datePublished, dateModified, headline, image) *(buildArticleLd + slot-transfer ready in 05-02; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard)*
 - [x] **BLOG-05**: Insights index supports filtering by attorney and by practice area *(FilterChipRow.astro + /blog index posts.length>0 branch with two chip rows + inline progressive-enhancement filter script shipped in 05-03; tests/blog-filter.spec.ts un-skipped with deferred-pass guard for the five contract assertions; the chip UI engages once 05-05 publishes the seed post)*
 - [x] **BLOG-06**: RSS feed available at `/blog/rss.xml` via `@astrojs/rss` *(static endpoint at src/pages/blog/rss.xml.ts shipped in 05-04 — Container API + sanitize-html + draft filter + author=name-never-email; tests/rss-feed.spec.ts un-skipped with 8 live tests, 3 deferred-pass for per-item assertions; feed envelope live now, items engage once 05-05 publishes the seed post)*
-- [ ] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end
+- [x] **BLOG-09**: At least one seed post published by a named attorney to validate the pipeline end-to-end *(satisfied 2026-05-28: 14 posts imported from bsvlaw.com/news — 5 named-author Jon Van Loo tax insights + 1 named-author Stuart Smolen IP insight + 8 firm-attributed deal announcements)*
 
 ### Contact Form
 
@@ -98,7 +98,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **SEO-01**: Every page sets `<title>`, `<meta name="description">`, `<link rel="canonical">`, and Open Graph tags via a shared `<SeoHead />` component
 - [x] **SEO-02**: `LegalService` JSON-LD injected site-wide via BaseLayout (firm name, locations, contact, areaServed, knowsAbout)
 - [x] **SEO-03**: `Person` JSON-LD on every attorney page (jobTitle, alumniOf, knowsAbout, sameAs)
-- [ ] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image)
+- [x] **SEO-04**: `Article` JSON-LD on every blog post (author, datePublished, dateModified, headline, image) *(satisfied by `buildArticleLd` in `src/lib/jsonld.ts` slot-transferred via `BlogPostLayout`; category-aware — Person author for insights, Organization for deal-announcements)*
 - [x] **SEO-05**: `FAQPage` JSON-LD on each practice-area page
 - [ ] **SEO-06**: All JSON-LD generated via `schema-dts` (typed at build time)
 - [x] **SEO-07**: Sitemap.xml auto-generated via `@astrojs/sitemap`
@@ -260,7 +260,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; test deferred-pass) |
 | BLOG-05 | Phase 5 | Complete (05-03 — FilterChipRow + chip-row index + inline filter script; test un-skipped with deferred-pass) |
 | BLOG-06 | Phase 5 | Complete (05-04 — rss.xml.ts via Container API + sanitize-html; 8 live tests, 3 deferred-pass for per-item) |
-| BLOG-09 | Phase 5 | Pending |
+| BLOG-09 | Phase 5 | Complete (2026-05-28 — 14 posts imported from bsvlaw.com/news) |
 | FORM-01 | Phase 6 | Pending |
 | FORM-02 | Phase 6 | Pending |
 | FORM-03 | Phase 6 | Pending |
@@ -275,7 +275,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEO-01 | Phase 3 | Complete |
 | SEO-02 | Phase 3 | Complete |
 | SEO-03 | Phase 4 | Complete (04-02) |
-| SEO-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; deferred-pass test) |
+| SEO-04 | Phase 5 | Complete (05-02 — buildArticleLd + slot-transfer; verified live across 14 posts) |
 | SEO-05 | Phase 4 | Pending (04-04 — JSON-LD wired + guarded in 04-03; emits once FAQs land) |
 | SEO-06 | Phase 7 | Pending |
 | SEO-07 | Phase 3 | Complete |

@@ -2,14 +2,14 @@
 //
 // BLOG-01 / BLOG-09: every published blog post (non-draft) renders to a
 // dist/client/blog/<slug>/index.html file at build time. Also enforces the
-// phase-close invariant BLOG-09 — exactly one non-draft post lives in
+// phase-close invariant BLOG-09 — at least one non-draft post lives in
 // src/content/blog/ at phase end.
 //
-// SCAFFOLD — skipped until plan 05-05 lands the seed post with draft:false.
-// UNSKIP-WHEN: src/content/blog/<seed-post>.mdx exists with draft:false, and
-// placeholder-post.mdx has been removed.
-//
-// Plan: 05-01 — scaffold only.
+// 2026-05-28: un-skipped after Plan 05-05's seed-post pivot. The original
+// pre-pivot expectation was "exactly 1 non-draft post" (single Jon-authored
+// seed); after Jon's import of 14 bsvlaw.com/news posts, the count is 14.
+// The assertion was relaxed to ≥1 — BLOG-09's substantive requirement is
+// "at least one published seed post," which 14 over-satisfies.
 
 import { test, expect } from '@playwright/test';
 import { execSync } from 'node:child_process';
@@ -40,13 +40,13 @@ function listNonDraftPostSlugs(): string[] {
   return slugs;
 }
 
-test.describe.skip('Blog pages exist (BLOG-01 / BLOG-09)', () => {
-  test('every non-draft blog post renders to dist/client/blog/<slug>/index.html and exactly one is published', () => {
+test.describe('Blog pages exist (BLOG-01 / BLOG-09)', () => {
+  test('every non-draft blog post renders to dist/client/blog/<slug>/index.html and at least one is published', () => {
     execSync('npm run build', { stdio: 'pipe' });
     const slugs = listNonDraftPostSlugs();
 
-    // BLOG-09 phase-close invariant: exactly one non-draft post.
-    expect(slugs.length, `expected exactly 1 non-draft blog post; found ${slugs.length}: ${slugs.join(', ')}`).toBe(1);
+    // BLOG-09 phase-close invariant: at least one non-draft post.
+    expect(slugs.length, `expected ≥1 non-draft blog post; found ${slugs.length}`).toBeGreaterThanOrEqual(1);
 
     const missing: string[] = [];
     for (const slug of slugs) {

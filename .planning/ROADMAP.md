@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set (completed 2026-05-26)
 - [x] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell (completed 2026-05-27)
 - [x] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint (completed 2026-05-28)
-- [ ] **Phase 5: Insights (Blog) System** - Dynamic blog routes, attorney/practice-area filtering, RSS feed, Article JSON-LD, one seed post live
+- [x] **Phase 5: Insights (Blog) System** - Dynamic blog routes, two-category schema (insight + deal-announcement), attorney/practice-area + Deal-Announcements filtering, RSS feed, Article JSON-LD, 14 posts imported from bsvlaw.com/news + footer redesigned with linked-disclosure pattern (completed 2026-05-28)
 - [ ] **Phase 6: Contact Form & Intake** - Contact page with ABA 477R-compliant intake, Astro Action with Zod validation, honeypot + time-trap + rate limiting, Resend email dispatch
 - [ ] **Phase 7: Security Hardening, Performance & Launch** - CSP switched to enforce, securityheaders.com grade A, Lighthouse mobile gates, redirect map from legacy URLs, custom domain live
 
@@ -273,6 +273,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
-| 5. Insights (Blog) System | 4/5 | In progress | - |
+| 5. Insights (Blog) System | 5/5 | Complete    | 2026-05-28 |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |

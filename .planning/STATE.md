@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 5 Plan 05-05 paused at D-05/D-14 human-action checkpoint (awaiting Jon's seed-post title + summary + cover choice)
-last_updated: "2026-05-28T20:05:00.000Z"
-last_activity: 2026-05-28 -- Phase 5 plan 05-04 complete (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
+status: verified
+stopped_at: Phase 5 verified passed — ready for secure-phase
+last_updated: "2026-05-28T22:30:00.000Z"
+last_activity: 2026-05-28 -- Phase 5 verification passed (4/4 ROADMAP success criteria; 5th descoped); 14 posts published; footer redesign live; REDIRECT-MAP.md ready for Phase 7
 progress:
   total_phases: 7
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 25
-  completed_plans: 24
-  percent: 67
+  completed_plans: 25
+  percent: 71
 ---
 
 # Project State
@@ -21,19 +21,19 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 5 — Insights (Blog) System
+**Current focus:** Phase 5 → secure-phase audit, then Phase 6 (Contact Form)
 
 ## Current Position
 
-Phase: 5 (Insights (Blog) System) — EXECUTING
-Plan: 5 of 5 (next: 05-05 — seed post; NON-AUTONOMOUS — checkpoint:human-action D-14 for Jon's seed-post copy)
-Status: Executing Phase 5
-Last activity: 2026-05-28 -- Phase 5 plan 05-04 complete (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
+Phase: 5 (Insights (Blog) System) — VERIFIED PASSED 2026-05-28
+Plan: 5 of 5 complete (05-05 closed via Jon's three-step pivot — see 05-05-SUMMARY.md)
+Status: Phase 5 done; secure-phase audit next, then transition to Phase 6
+Last activity: 2026-05-28 -- Phase 5 verifier passed (4/4 ROADMAP success criteria; 5th descoped); 14 posts live; footer redesign + linked-disclosure pattern shipped
 
-Progress: [███████░░░] 67% (4 of 7 phases complete; Phase 5: 4 of 5 plans complete — Wave-0 foundation + BlogPostLayout slice + blog-index filtering slice + RSS feed slice landed)
+Progress: [████████░░] 71% (5 of 7 phases complete)
 
-Resume: `/gsd:execute-phase 5` — 05-04 done; 05-05 is non-autonomous (checkpoint:human-action D-14).
-Next plan: 05-05 (seed post; NON-AUTONOMOUS) — scaffold one src/content/blog/<slug>.mdx with draft:true, Jon pastes draft body, Claude formats verbatim + runs lint:legal + surfaces clearance flags + waits for publish/revise/hold sign-off; on publish, flip draft:false + delete placeholder-post.mdx in the same commit (Pitfall 9) + build + push + report preview URL.
+Resume: `gsd-secure-phase 5` — threat-model audit on the shipped Phase 5 surfaces (RSS sanitize-html scrub, Article JSON-LD escape, inline filter script, no-email-in-RSS invariant, rehype-external-links rel=noopener), then transition to Phase 6 (Contact Form).
+Next phase: Phase 6 (Contact Form & Intake) — `/gsd:discuss-phase 6` to gather context.
 
 ## Performance Metrics
 
