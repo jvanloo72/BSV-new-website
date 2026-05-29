@@ -258,6 +258,7 @@ returns a clean security audit.
   3. Every committed image in `dist/` is ≤ 200 KB (verified by a pre-build script); fonts load with `font-display: swap`; CLS is ≤ 0.1; no third-party script ships cookies or session-replay.
   4. The production site is live on its custom domain (bsvlaw.com or the agreed transition domain); legacy bsvlaw.com URLs redirect to the new equivalents; `@vercel/analytics` (cookie-free) is running; production auto-deploys from `main` of `jvanloo72/BSV-new-website`.
   5. `/hc-firm-site:check` returns a fully passing Security section; the Google Rich Results Test passes on a sample page of each JSON-LD type (LegalService, Person, Article, FAQPage); the attorney-advertising disclosure at `/attorney-advertising` reads with the wording Jon confirms during the final content review (the page itself was created and the site-wide footer link wired in Phase 5 on 2026-05-28 via the Kirkland linked-disclosure pattern).
+  6. Defense-in-depth for JSON-LD embedding: `src/components/seo/JsonLd.astro` adds an explicit `.replace(/</g, '<')` to its `JSON.stringify` output, and Jon's privacy policy at `/privacy` is reviewed and approved (or amended). Surfaced by Phase 5 security audit (2026-05-28, FLAG-1).
 
 **Plans**: TBD
 **Security hint**: yes
