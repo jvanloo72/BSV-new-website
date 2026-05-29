@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
+import rehypeExternalLinks from 'rehype-external-links';
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,8 +41,14 @@ export default defineConfig({
   // D-16: exclude the internal /design-system gallery route from the sitemap.
   // (Astro ignores leading-underscore page filenames in src/pages/, so the
   //  planned /_design route became /design-system — see RESEARCH A2 / 02-01 summary.)
+  //
+  // Phase 5 plan 05-01 / RESEARCH Pitfall 8: rehype-external-links rewrites
+  // every external <a> in MDX at build time to carry target="_blank" and
+  // rel="noopener noreferrer", eliminating the tab-jacking class of bug
+  // deterministically. Additive plugin — Astro's built-in shiki/autolink
+  // plugins still apply.
   integrations: [
-    mdx(),
+    mdx({ rehypePlugins: [[rehypeExternalLinks, { target: '_blank', rel: ['noopener', 'noreferrer'] }]] }),
     sitemap({ filter: (page) => page !== 'https://bsvlaw.com/design-system' }),
     icon(),
   ],

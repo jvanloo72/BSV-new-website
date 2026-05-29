@@ -604,6 +604,135 @@ than to bend the whole layout around it.
 
 ---
 
+## 2026-05-28 — Phase 5 — Rule 7.4 lint and client-disclosure clearance gate removed (descopes LEGAL-03, LEGAL-04)
+
+**What was decided:**
+The two pre-publish automated guards added in Phase 4 — `npm run lint:legal`
+(a Rule 7.4 banned-term scanner over `src/content/**/*.mdx`) and the
+`.planning/CLIENT_DISCLOSURE_CLEARANCE.md` register gate — are removed
+entirely from the project. Files deleted: `scripts/lint-legal.mjs`,
+`tests/lint-legal.spec.ts`, `tests/_fixtures/lint-legal-violation.mdx`,
+`tests/clearance.spec.ts`, `.planning/CLIENT_DISCLOSURE_CLEARANCE.md`. Build
+hooks (`prebuild`) and CI step that ran `lint:legal` removed.
+REQUIREMENTS.md LEGAL-03 and LEGAL-04 deleted; LEGAL-09 reworded to drop
+its reference to `lint:legal` — it is now satisfied by the per-post
+disclaimer alone (auto-rendered by `BlogPostLayout`). Client-name
+disclosure decisions move to manual review by Jon (attorney of record)
+before publish.
+
+**Why:**
+Jon decided the automated guards were not pulling their weight. The
+banned-term list was a coarse filter for context-free string matches —
+substantive Rule 7.4 / Rule 7.1 compliance requires the lawyer's judgment
+on each post anyway. The clearance register added bookkeeping overhead
+without changing the reviewing-lawyer's decision flow. Manual review,
+which was always the substantive gate, is now also the operational gate.
+
+**Teaching insight:**
+**Automated pre-publish checks earn their keep only when they catch
+something the human reviewer would miss.** A scanner that matches strings
+without context (like a banned-word list) duplicates the human's eye
+without sharpening it. A register that the human has to keep in sync with
+the content (like a clearance roster) creates two sources of truth where
+one would do. When the human review is non-negotiable anyway, the
+automation should either be precise enough to flag something a human eye
+would skim past, or it should not be in the workflow at all.
+
+---
+
+## 2026-05-28 — Phase 5 — Attorney-advertising notation moved to a linked disclosure page (Kirkland pattern)
+
+**What was decided:**
+The two-sentence attorney-advertising disclosure — "Attorney advertising.
+Prior results do not guarantee a similar outcome." — is no longer rendered
+in the site-wide footer disclaimer. The footer disclaimer was trimmed to
+its three core sentences. A dedicated page at `/attorney-advertising` was
+created with the full disclosure: "Some of the content on this site is
+considered Attorney Advertising under the applicable rules of the State
+of California. Prior results do not guarantee a similar outcome." Every
+page now carries a small "Attorney Advertising" link in the footer-nav
+row (alongside "About") pointing to that page. The disclaimer-crawl
+Playwright test was updated accordingly: it now asserts (a) the trimmed
+footer fragment appears on every route, (b) the legacy AA text is ABSENT
+from every footer, and (c) the "Attorney Advertising" footer link is
+present on every page. REQUIREMENTS.md LEGAL-01 was amended to note the
+linked-disclosure change; LEGAL-05 was marked complete (was Phase 7 /
+Pending; now Phase 5 / Complete). ROADMAP Phase 7 success criterion 5 was
+re-worded to reflect that the AA page already exists.
+
+**Why:**
+Top-tier U.S. law firms (Kirkland & Ellis is the canonical reference)
+serve the disclosure at a dedicated linked page rather than carrying the
+notation in every page's footer. The compliance contract is the same — a
+visitor on any page can reach the disclosure in one click — but the
+chrome on every page reads as a firm's voice rather than a regulatory
+footnote. For BSV, whose lead message is "Team work to get good results,"
+a quieter footer reinforces the brand. The legal substance is unchanged:
+the disclosure is still discoverable from every page (one tab away), and
+California's rules speak to the disclosure existing on the website, not
+to where exactly the words live.
+
+**Teaching insight:**
+**Where a disclosure lives is a design decision; whether the disclosure
+exists is the compliance one.** When a regulatory rule says "the website
+must carry an attorney-advertising disclosure," it speaks to the website,
+not to every page. Linking from every page to one canonical disclosure
+satisfies the rule and frees the per-page chrome to do its real job:
+help the visitor understand who you are and what you do. The trade-off
+is that the disclosure is one click away rather than zero — acceptable
+when (a) the link is prominent enough to find without effort and (b) the
+disclosure page itself is short, plain, and the content the visitor was
+not looking for.
+
+---
+
+## 2026-05-28 — Phase 5 — Footer redesign: site-wide disclaimer retired in favor of four linked pages
+
+**What was decided:**
+The site-wide footer was redesigned: the inline `<Disclaimer id="footer" />`
+render was removed entirely, and the `id: 'footer'` entry was deleted from
+`src/content/disclaimers/disclaimers.json` and from the `DisclaimerId`
+enums in `src/content.config.ts` and `src/components/legal/Disclaimer.astro`.
+The general-disclaimer text moved to a new `/legal-notices` page; the
+attorney-advertising notation moved to the new `/attorney-advertising`
+page (already created earlier the same day); a new `/privacy` page was
+scaffolded as a draft Privacy Policy for Jon's review. The footer now
+shows: the BSV wordmark, the firm's full mailing address, a "Contact Us:"
+email line linking to `info@bsvlaw.com`, a centered link row to all four
+firm-info pages (`About · Attorney Advertising · Privacy Policy ·
+Legal Notices`), and the copyright at the very bottom — all centered.
+The disclaimer-crawl Playwright test now asserts the four-link contract
+on every sitemap route (no longer asserts any footer-disclaimer text
+fragment); `baselayout.spec.ts` mirrors the same change. Per-page
+disclaimers (blog, practice-area, attorney, contact) are unaffected and
+remain independently tested. LEGAL-01 amended; LEGAL-05 unchanged
+(already complete via the linked-disclosure pattern).
+
+**Why:**
+Two reasons. First, applying the Kirkland linked-disclosure pattern to
+the general disclaimer (not just the attorney-advertising notation)
+keeps the footer chrome consistent — all four legal/firm-info surfaces
+are reached by the same row of links. Second, the redesign decouples
+the substance of each disclosure from where it lives — adding a Privacy
+Policy in this turn was cheap because the linked-page pattern was
+already established for the AA notation. The general-disclaimer move
+also unifies how the disclaimer-crawl test thinks about compliance:
+"on every page, the linked footer surfaces are reachable" is a cleaner
+contract than "on every page, this exact text appears verbatim in the
+footer."
+
+**Teaching insight:**
+**A pattern earns its keep by getting reused.** Linking to a single
+disclosure page from every footer was already the right answer for
+attorney advertising. Once that pattern existed, extending it to the
+general disclaimer and the privacy policy was a small edit — and the
+test contract collapsed from "every footer carries this text" to
+"every footer carries these links," which is easier to reason about
+and harder to silently regress. When you find yourself adding a second
+exception to a rule, it's worth asking whether the rule was right.
+
+---
+
 ## How to add a new entry
 
 Each phase appends entries to this file during its build, recording the

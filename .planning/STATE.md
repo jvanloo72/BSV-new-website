@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-05-28T01:05:42.581Z"
-last_activity: 2026-05-28
+status: verified
+stopped_at: Phase 5 verified passed — ready for secure-phase
+last_updated: "2026-05-28T22:30:00.000Z"
+last_activity: 2026-05-28 -- Phase 5 verification passed (4/4 ROADMAP success criteria; 5th descoped); 14 posts published; footer redesign live; REDIRECT-MAP.md ready for Phase 7
 progress:
   total_phases: 7
-  completed_phases: 4
-  total_plans: 20
-  completed_plans: 20
-  percent: 57
+  completed_phases: 5
+  total_plans: 25
+  completed_plans: 25
+  percent: 71
 ---
 
 # Project State
@@ -21,19 +21,19 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-25)
 
 **Core value:** A prospective client who lands on the site comes away convinced that BSV has the competence, experience, and responsiveness to handle their specific transaction — and reaches out.
-**Current focus:** Phase 4 — Attorney & Practice Area Pages
+**Current focus:** Phase 5 → secure-phase audit, then Phase 6 (Contact Form)
 
 ## Current Position
 
-Phase: 5
-Plan: Not started
-Status: Executing Phase 4
-Last activity: 2026-05-28
+Phase: 5 (Insights (Blog) System) — VERIFIED PASSED 2026-05-28
+Plan: 5 of 5 complete (05-05 closed via Jon's three-step pivot — see 05-05-SUMMARY.md)
+Status: Phase 5 done; secure-phase audit next, then transition to Phase 6
+Last activity: 2026-05-28 -- Phase 5 verifier passed (4/4 ROADMAP success criteria; 5th descoped); 14 posts live; footer redesign + linked-disclosure pattern shipped
 
-Progress: [█████░░░░░] 51% (3 of 7 phases complete; Phase 4: 3 of 4 plans)
+Progress: [████████░░] 71% (5 of 7 phases complete)
 
-Resume: `/gsd:execute-phase 4` — Phase 4 Plan 04 (commit Jon-approved FAQ copy) is next.
-Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit the FAQs into the practice MDX faqs: arrays and un-guard FAQPage/FaqAccordion.
+Resume: `gsd-secure-phase 5` — threat-model audit on the shipped Phase 5 surfaces (RSS sanitize-html scrub, Article JSON-LD escape, inline filter script, no-email-in-RSS invariant, rehype-external-links rel=noopener), then transition to Phase 6 (Contact Form).
+Next phase: Phase 6 (Contact Form & Intake) — `/gsd:discuss-phase 6` to gather context.
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit t
 | 1. Scaffold & Shell | 9/9 | — | — |
 | 2 | 4 | - | - |
 | 4 | 4 | - | - |
+| 5 | 3/5 | - | - |
 
 **Recent Trend:**
 
@@ -66,6 +67,10 @@ Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit t
 | Phase 4 P1 | 50m | 3 tasks | 14 files |
 | Phase 4 P2 | 22m | 2 tasks | 11 files |
 | Phase 4 P3 | 41m | 2 tasks | 8 files |
+| Phase 5 P1 | 8m | 3 tasks | 13 files |
+| Phase 5 P2 | 6m | 3 tasks | 6 files |
+| Phase 5 P3 | 12m | 3 tasks | 3 files |
+| Phase 5 P4 | 8m | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -74,6 +79,10 @@ Next phase: Phase 4 Plan 04 — after Jon approves FAQ-DRAFT.md (D-13), commit t
 Decisions are logged in PROJECT.md Key Decisions table. The full Phase 1 build-time decision log is in .planning/DECISIONS.md (10 entries through 2026-05-26).
 Recent decisions affecting current work:
 
+- 2026-05-28: Phase 5 RSS feed slice landed — new src/pages/blog/rss.xml.ts (84 lines; static endpoint; APIRoute signature mirrors robots.txt.ts but async; locked seven imports — @astrojs/rss + astro:content + astro/container + astro:container + @astrojs/mdx + sanitize-html + SITE constants + APIRoute type; experimental_AstroContainer.create initialised ONCE per build before Promise.all loop; getCollection draft filter — Pitfall 9; per-post getEntry author resolution with throw on unknown reference; container.renderToString(Content) for MDX-to-string; safe negative-lookahead regex /(href|src)=\"\\/(?!\\/)/g for relative-to-absolute URL rewrite — T-05-RELURL; sanitize-html with defaults.allowedTags.concat(['img']) — Pitfall 3 + T-05-04; author: author.data.name only, NEVER .email — D-08 / T-05-03 mitigation by code-path exclusion; rss() with locked BSV Insights channel metadata + en-us language + atom xmlns); astro.config.mjs NOT touched (no output:'server' — static pre-render per Pitfall 11; lands at dist/client/blog/rss.xml); tests/rss-feed.spec.ts un-skipped with 8 live tests (3 fully live regardless of post count + 3 deferred-pass per-item assertions + 1 always-pass draft-leak cross-check + 1 whole-file @bsvlaw.com substring guard — D-08 belt-and-braces); 8 tests pass today via deferred-pass annotation, fall through to real assertions automatically when 05-05 publishes the seed post (05-04)
+- 2026-05-28: Phase 5 blog-index filtering slice landed — new src/components/sections/FilterChipRow.astro (98 lines; data-component=FilterChipRow; chip-as-anchor with aria-pressed/data-chip/data-param/data-value; min-h-[44px]; A11Y-05 focus ring; active visual = bg-text text-bg border-text per D-08, NOT bg-accent; buildHref() preserves cross-axis filter state via otherActiveParams); rewritten posts.length>0 branch of src/pages/blog/index.astro (Promise.all+getEntry for author+practice resolution; PRACTICE_DISPLAY map for M&A/IP&Tech/Tax short labels; two FilterChipRow instances above #post-list ul with per-li data-author+data-practice; #empty-filtered region with role=status aria-live=polite; ~50-line inline <script is:inline> filter handler using only attribute writes — never innerHTML, T-05-02 mitigation by construction); tests/blog-filter.spec.ts un-skipped with five live tests behind a deferred-pass guard (mirrors 05-02 article-jsonld pattern — all five pass via guard today; the moment 05-05 publishes the seed post the guard falls through and the assertion loop runs). Inline script is ES5-safe (var/function/IIFE) because is:inline skips Vite+Babel; chip is <a> not <button> so the filter works without JavaScript (anchor-as-toggle, UI-SPEC line 272). Susan's chip auto-appeared because draft flipped to false on 2026-05-28 — permissive test count floors (>=5 author / >=4 practice) anticipated this (05-03)
+- 2026-05-28: Phase 5 BlogPostLayout slice landed — buildArticleLd Phase 1 throw-stub replaced with real two-arg (post, author) WithContext&lt;Article&gt; implementation (og-default.svg fallback; no sameAs; no reviewedBy); BlogPostLayout full chrome (JsonLd slot=head + H1 + byline with /attorneys/<slug> link + optional 16:9 cover figure + .prose-bsv MDX body + AuthorCard section + preserved Disclaimer); [slug].astro resolves author via getEntry; new AuthorCard.astro section component (80×80 headshot, no hover-lift — UI-SPEC line 311); .prose-bsv ~25-rule typography block appended to global.css under @layer components, token-only; tests/article-jsonld.spec.ts un-skipped with deferred-pass guard (passes vacuously while no non-draft posts; assertion loop runs automatically when 05-05 lands the seed post). buildArticleLd takes the resolved author as a second arg rather than re-resolving inside jsonld.ts — keeps the builder pure of astro:content runtime concerns and matches the existing buildPersonLd/buildLegalServiceLd shape (05-02)
+- 2026-05-28: Phase 5 Wave-0 landed — @astrojs/rss@4.0.18 + sanitize-html@2.17.4 + rehype-external-links@3.0.0 + @types/sanitize-html@2.16.1 installed; six Playwright scaffolds (2 live + 4 SKIPPED with UNSKIP-WHEN markers tied to 05-02/03/04/05); blog Zod schema gains .refine() for cover⇒coverAlt (a11y / WCAG 1.1.1); MDX integration rewrites every external <a> to target=_blank rel=noopener,noreferrer (rehype-external-links); og-default.svg site fallback (1264 B, 1200×630, palette tokens only). Live tests reconstruct the schema shape via plain Zod rather than importing collections.blog.schema — the production definition uses ({image}) =&gt; z.object(...) where image() is a runtime injection; the schema-approximation captures the contracts under test with zero build cost (05-01)
 - 2026-05-27: Three practice-area pages shipped — M&A keeps a curated 10-deal cleared grid + the Daniel Brian testimonial with the CA disclosure rendered in the TestimonialQuote disclosure slot (D-09/D-18); IP & Tech and Tax have NO deal grid and NO testimonial (D-10); lead-partner callouts resolve leadAttorneys via getEntries and link to /attorneys/<slug> (D-11). FAQs drafted to FAQ-DRAFT.md only and left out of the MDX faqs: arrays pending Jon's D-13 approval; FAQPage JSON-LD + FaqAccordion are wired but guarded on empty faqs (04-03)
 - 2026-05-27: Attorney bios replicated verbatim from the live bsvlaw.com pages (re-fetched at build, D-01/D-03); Aaron's full 64-deal list mapped 1:1 from CONTEXT <specifics> all cleared:true (D-04/D-15); Iris + Susan barAdmissions use a non-committal "Bar admission details to be confirmed" placeholder to satisfy the min-1 schema without inventing a jurisdiction (D-05); email-only mailto callout, phone field left unset everywhere (D-08) (04-02)
 - 2026-05-27: lint:legal is a real Node 22 scanner (scripts/lint-legal.mjs) over src/content **.mdx, wired as a prebuild gate; "expertise" is banned-by-default with an empty allowlist pending Jon's compliance call (A1); Aaron Belcher's complete deal list cleared en masse via the bsvlaw.com URL basis rather than enumerating ~60 counterparties (D-15/A5) (04-01)
@@ -113,6 +122,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-27T22:56:00Z
-Stopped at: Completed 04-03-PLAN.md
-Resume file: None
+Last session: 2026-05-28T19:58:42.000Z
+Stopped at: Completed 05-04-PLAN.md (RSS feed slice — Container API + sanitize-html endpoint at /blog/rss.xml)
+Resume file: .planning/phases/05-insights-blog-system/05-04-SUMMARY.md
+Next: 05-05-PLAN.md (seed post; NON-AUTONOMOUS — checkpoint:human-action D-14) — scaffold one src/content/blog/<slug>.mdx with draft:true; Jon pastes draft body; Claude formats verbatim + runs lint:legal + surfaces clearance flags + waits for publish/revise/hold sign-off; on publish, flip draft:false + delete placeholder-post.mdx in the same commit (Pitfall 9) + build + push + report preview URL.

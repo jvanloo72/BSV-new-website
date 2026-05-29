@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Belcher, Smolen and Van Loo LLP — Insights">
+  <title>Belcher, Smolen and Van Loo LLP — Insights</title>
+  <!-- Phase 5 plan 05-01: site-default Open Graph / Article JSON-LD image
+       fallback. Used by buildArticleLd() (plan 05-02) when post.data.cover
+       is absent. Palette: --color-bg (#ffffff), --color-text (#111111),
+       --color-accent (#9c3f2a). 1.91:1 aspect (1200x630) matches Google's
+       Article rich-result spec. -->
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <g transform="translate(120 295)">
+    <!-- Accent dot — same vocabulary as the chip-row accent dot in UI-SPEC -->
+    <circle cx="0" cy="-12" r="8" fill="#9c3f2a"/>
+    <!-- Wordmark -->
+    <text x="28" y="0" font-family="Hanken Grotesk, Inter, Helvetica, Arial, sans-serif" font-size="56" font-weight="700" fill="#111111" letter-spacing="-0.5">Belcher, Smolen &amp; Van Loo LLP</text>
+    <!-- "Insights" eyebrow label -->
+    <text x="28" y="62" font-family="Hanken Grotesk, Inter, Helvetica, Arial, sans-serif" font-size="32" font-weight="500" fill="#52525b" letter-spacing="0">Insights</text>
+  </g>
+</svg>

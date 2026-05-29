@@ -1,0 +1,26 @@
+---
+/* Attorney Advertising — single dedicated disclosure page (Kirkland pattern,
+   per 2026-05-28 decision). Replaces the per-page footer notation that
+   previously appeared on every route. The site-wide footer now carries a
+   small "Attorney Advertising" link to this page instead.
+
+   This page satisfies LEGAL-05 (California Rules of Professional Conduct
+   attorney-advertising notation) at one canonical URL, and the linked-
+   disclosure model satisfies the disclosure-on-every-page substance
+   requirement (every page links to it via the footer).
+
+   Token-only Tailwind v4 namespace utilities. Public route. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Attorney Advertising — Belcher, Smolen & Van Loo LLP"
+  description="Attorney advertising disclosure for Belcher, Smolen & Van Loo LLP under the California Rules of Professional Conduct."
+>
+  <section class="mx-auto max-w-prose px-gutter py-section">
+    <h1 class="text-h1 font-bold text-text">Attorney Advertising</h1>
+    <p class="mt-6 text-body-lg text-text">
+      Some of the content on this site is considered Attorney Advertising under the applicable rules of the State of California. Prior results do not guarantee a similar outcome.
+    </p>
+  </section>
+</BaseLayout>

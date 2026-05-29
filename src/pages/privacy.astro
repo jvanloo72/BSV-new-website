@@ -1,0 +1,92 @@
+---
+/* Privacy Policy — draft scaffold (2026-05-28).
+   Reviewable starting point for Jon to finalize before launch. Reflects what
+   the site actually does in v1 (contact form via Resend, cookie-free Vercel
+   Analytics) — NO marketing automation, NO third-party trackers, NO cookies
+   that require consent, NO data resale.
+
+   IMPORTANT: This page is marked DRAFT in the body. Jon must read it through
+   and approve / amend before the site goes live. The body copy below is the
+   suggested baseline; any phrase Jon edits supersedes this draft.
+
+   Token-only Tailwind v4 namespace utilities. Public route. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Privacy Policy — Belcher, Smolen & Van Loo LLP"
+  description="How Belcher, Smolen & Van Loo LLP handles information collected through this website."
+>
+  <section class="mx-auto max-w-prose px-gutter py-section text-body text-text">
+    <h1 class="text-h1 font-bold text-text">Privacy Policy</h1>
+
+    <p class="mt-4 rounded-card border border-border bg-bg-elevated p-4 text-small text-text-muted">
+      <strong class="text-text">Draft — pending review.</strong>
+      This privacy policy is a draft scaffold that {SITE.name} must review and approve before launch. The language below reflects what the site actually does today; final wording is the firm's call.
+    </p>
+
+    <p class="mt-8 text-body-lg">
+      This Privacy Policy describes how {SITE.name} ("BSV", "we", "us") handles information collected through bsvlaw.com (the "Site").
+    </p>
+
+    <h2 class="mt-12 text-h3 font-bold text-text">Information we collect</h2>
+    <p class="mt-3">
+      The only information the Site directly collects from you is what you provide through the contact form. The form fields are:
+    </p>
+    <ul class="mt-3 list-disc space-y-2 pl-6">
+      <li>Your name</li>
+      <li>Your email address</li>
+      <li>Your organization (optional)</li>
+      <li>A short description of the matter you would like to discuss</li>
+    </ul>
+    <p class="mt-3">
+      The Site does not require an account, does not set tracking cookies, and does not use third-party advertising networks.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">How we use it</h2>
+    <p class="mt-3">
+      Information you submit through the contact form is delivered to the firm's controlled inbox (<a href={`mailto:${SITE.email}`} class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2">{SITE.email}</a>) and used only to evaluate your inquiry and respond to you. We do not use contact-form submissions for marketing, do not add submitters to mailing lists, and do not sell or share inquiry content with anyone outside the firm except as required by law or to retain qualified outside counsel where you have asked us to do so.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">How long we keep it</h2>
+    <p class="mt-3">
+      We retain contact-form messages in the firm's email system in accordance with our internal records-retention policy. If we open a matter for you, your information is governed by the engagement agreement and the California Rules of Professional Conduct on attorney-client confidentiality. If we do not open a matter, your information remains in our records solely so that we can recognize a return inquiry and answer any follow-up.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">Third parties</h2>
+    <p class="mt-3">
+      Two service providers help us run the Site:
+    </p>
+    <ul class="mt-3 list-disc space-y-2 pl-6">
+      <li>
+        <strong class="text-text">Resend</strong> — the email service that delivers contact-form submissions from the Site to the firm's inbox. Resend transmits the submission via TLS and does not retain the message content beyond what is required to deliver it.
+      </li>
+      <li>
+        <strong class="text-text">Vercel</strong> — the platform that hosts the Site and provides cookie-free analytics (page views, page paths, anonymized device class). Vercel's analytics do not use cookies and do not track visitors across sites.
+      </li>
+    </ul>
+    <p class="mt-3">
+      We do not use Google Analytics, Facebook Pixel, advertising trackers, session-replay tools, or any other third-party tracker. We do not embed third-party widgets that load external scripts or set cookies.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">No sale of personal information</h2>
+    <p class="mt-3">
+      {SITE.name} does not sell personal information and does not share it with third parties for advertising purposes.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">Requesting deletion</h2>
+    <p class="mt-3">
+      To ask us to delete information you have submitted through the Site, write to <a href={`mailto:${SITE.email}`} class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2">{SITE.email}</a> from the same email address you used to contact us. If we have opened a matter for you, the deletion request is subject to the records-retention obligations the California Rules of Professional Conduct impose on attorneys; we will explain any limits in our reply.
+    </p>
+
+    <h2 class="mt-10 text-h3 font-bold text-text">Contact</h2>
+    <p class="mt-3">
+      Questions about this Privacy Policy, or about how we handle your information, can be sent to <a href={`mailto:${SITE.email}`} class="text-accent underline decoration-1 underline-offset-2 motion-safe:hover:decoration-2">{SITE.email}</a>.
+    </p>
+
+    <p class="mt-12 text-small text-text-muted">
+      <em>Draft last updated: 2026-05-28. Subject to review and approval by {SITE.name} before launch.</em>
+    </p>
+  </section>
+</BaseLayout>

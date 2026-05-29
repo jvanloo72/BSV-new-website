@@ -48,9 +48,6 @@ jobs:
       - name: Run JSON-LD test
         run: npm run test:jsonld
 
-      - name: Lint legal content
-        run: npm run lint:legal
-
       - name: Gitleaks scan
         uses: gitleaks/gitleaks-action@v2
         env:

@@ -17,7 +17,7 @@ export const SITE = {
   shortName: 'BSV Law',
   baseUrl: 'https://bsvlaw.com',
   phone: '+1-415-XXX-XXXX', // Replace before launch; Jon confirms in Phase 7.
-  email: 'intake@bsvlaw.com',
+  email: 'info@bsvlaw.com',
   // About-page body copy only (NOT the footer — see D-37).
   basedIn: 'Based in San Francisco.',
   // Full firm address — drives both the footer NAP and the JSON-LD PostalAddress.

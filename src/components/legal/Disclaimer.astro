@@ -1,7 +1,10 @@
 ---
 import { getEntry } from 'astro:content';
 
-type DisclaimerId = 'footer' | 'contact' | 'blog' | 'practice-area' | 'attorney';
+// 2026-05-28: 'footer' removed from the union — the site-wide footer
+// disclaimer was retired in favor of /legal-notices + /attorney-advertising
+// linked from the footer.
+type DisclaimerId = 'contact' | 'blog' | 'practice-area' | 'attorney';
 
 interface Props {
   id: DisclaimerId;

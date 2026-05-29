@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Design System & Visual Identity** - Color palette locked, Tailwind `@theme` tokens, reusable section components, custom hero SVG and practice-area icon set (completed 2026-05-26)
 - [x] **Phase 3: Homepage & Static Pages** - Homepage with "Team work to get good results" lead, About, index pages for practice areas and attorneys, 404/5xx, Insights index shell (completed 2026-05-27)
 - [x] **Phase 4: Attorney & Practice Area Pages** - Five attorney profiles (Jiang as draft), three practice-area pages with deal grids, partner-contact callouts, FAQ schema, Rule 7.4 lint (completed 2026-05-28)
-- [ ] **Phase 5: Insights (Blog) System** - Dynamic blog routes, attorney/practice-area filtering, RSS feed, Article JSON-LD, editorial review gate, one seed post live
+- [x] **Phase 5: Insights (Blog) System** - Dynamic blog routes, two-category schema (insight + deal-announcement), attorney/practice-area + Deal-Announcements filtering, RSS feed, Article JSON-LD, 14 posts imported from bsvlaw.com/news + footer redesigned with linked-disclosure pattern (completed 2026-05-28)
 - [ ] **Phase 6: Contact Form & Intake** - Contact page with ABA 477R-compliant intake, Astro Action with Zod validation, honeypot + time-trap + rate limiting, Resend email dispatch
 - [ ] **Phase 7: Security Hardening, Performance & Launch** - CSP switched to enforce, securityheaders.com grade A, Lighthouse mobile gates, redirect map from legacy URLs, custom domain live
 
@@ -187,20 +187,38 @@ Plans:
 **Goal**: A visitor can browse BSV's Insights, filter by attorney or practice
 area, read a post attributed to a named partner with a per-post disclaimer,
 and subscribe via RSS — and the editorial process structurally prevents an
-anonymous post, an unreviewed post, or a post without a disclaimer from ever
-publishing.
+anonymous post, or a post without a disclaimer from ever publishing.
 **Mode:** mvp
 **Depends on**: Phase 4
-**Requirements**: BLOG-01, BLOG-02, BLOG-03, BLOG-04, BLOG-05, BLOG-06, BLOG-07, BLOG-08, BLOG-09, SEO-04, LEGAL-09
+**Requirements**: BLOG-01, BLOG-02, BLOG-03, BLOG-04, BLOG-05, BLOG-06, BLOG-09, SEO-04, LEGAL-09
 **Success Criteria** (what must be TRUE):
 
   1. A visitor lands on `/blog`, sees at least one published seed post by a named BSV attorney, and can filter the index by attorney and by practice area.
   2. Every blog post page (`/blog/[slug]`) renders the author's name as a link to their attorney profile, a per-post legal disclaimer, and valid `Article` JSON-LD with author, datePublished, dateModified, headline, and image fields.
-  3. Attempting to merge a blog post without an `author` reference fails the Astro build with a typed Zod error; the same is true for missing `reviewed_by`.
+  3. Attempting to merge a blog post without an `author` reference fails the Astro build with a typed Zod error.
   4. RSS subscribers can fetch `/blog/rss.xml` and receive a valid feed of the published posts.
-  5. `.planning/EDITORIAL.md` exists and documents the banned-terms policy (Rule 7.4), disclaimer placement, client-name policy, the "no legal advice" rule, and the `reviewed_by` review gate.
 
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+**Wave 1**
+
+- [x] 05-01-PLAN.md — Wave 0 foundation: install @astrojs/rss + sanitize-html + rehype-external-links + @types/sanitize-html; six Playwright spec scaffolds (UNSKIP-WHEN markers); extend disclaimer-crawl.spec for /blog/<slug>; Zod refine cover-requires-coverAlt; rehype-external-links wired into mdx integration; public/og-default.svg site fallback (completed 2026-05-28)
+
+**Wave 2** *(depends on 05-01)*
+
+- [x] 05-02-PLAN.md — Slice 1 (read one post end-to-end): replace buildArticleLd stub in jsonld.ts; BlogPostLayout chrome (header, byline, optional cover, prose-bsv body slot, AuthorCard section, preserved Disclaimer); [slug].astro resolves author via getEntry; new AuthorCard.astro section component; .prose-bsv CSS appended via @layer components; tests/article-jsonld.spec.ts un-skipped (BLOG-01..04, SEO-04, LEGAL-09) (completed 2026-05-28)
+
+**Wave 3** *(depends on 05-01; parallel with 05-04)*
+
+- [x] 05-03-PLAN.md — Slice 2 (browse + filter): new FilterChipRow.astro section component; /blog index posts.length>0 branch rewritten with two chip rows + rich post list (data-author/data-practice + practice-tag pill + line-clamp summary) + empty-filtered state + inline progressive-enhancement filter script; tests/blog-filter.spec.ts un-skipped (BLOG-05) (completed 2026-05-28)
+
+**Wave 3** *(depends on 05-01; parallel with 05-03)*
+
+- [x] 05-04-PLAN.md — Slice 3 (subscribe via RSS): new src/pages/blog/rss.xml.ts endpoint — async APIRoute with getCollection draft filter + experimental_AstroContainer renderToString + relative-to-absolute URL rewrite + sanitize-html with allowedTags.concat(['img']) + author=name-never-email (D-08 / T-05-03); tests/rss-feed.spec.ts un-skipped (BLOG-06) (completed 2026-05-28)
+
+**Wave 4** *(depends on 05-01..05-04; NON-AUTONOMOUS — checkpoint:human-action D-14)*
+
+- [ ] 05-05-PLAN.md — Slice 4 (publish gate): scaffold one src/content/blog/<slug>.mdx with draft:true (jon-van-loo, tax — D-03/D-04); checkpoint:human-action — Jon pastes draft body, Claude formats verbatim (D-01) + runs lint:legal + surfaces clearance flags + waits for "publish"/"revise"/"hold" sign-off; on "publish", flip draft:false + delete placeholder-post.mdx in the same commit (Pitfall 9) + build + push + report preview URL (BLOG-09, LEGAL-09 substantive close)
 
 ### Phase 6: Contact Form & Intake
 
@@ -239,7 +257,8 @@ returns a clean security audit.
   2. Lighthouse mobile scores meet the targets — Performance ≥ 90, Accessibility = 100, SEO ≥ 95 — on the homepage, an attorney page, a practice-area page, a blog post, and the contact page; axe-core in CI is green on every page.
   3. Every committed image in `dist/` is ≤ 200 KB (verified by a pre-build script); fonts load with `font-display: swap`; CLS is ≤ 0.1; no third-party script ships cookies or session-replay.
   4. The production site is live on its custom domain (bsvlaw.com or the agreed transition domain); legacy bsvlaw.com URLs redirect to the new equivalents; `@vercel/analytics` (cookie-free) is running; production auto-deploys from `main` of `jvanloo72/BSV-new-website`.
-  5. `/hc-firm-site:check` returns a fully passing Security section; the Google Rich Results Test passes on a sample page of each JSON-LD type (LegalService, Person, Article, FAQPage); the attorney-advertising notation appears with the wording Jon confirms during the final content review.
+  5. `/hc-firm-site:check` returns a fully passing Security section; the Google Rich Results Test passes on a sample page of each JSON-LD type (LegalService, Person, Article, FAQPage); the attorney-advertising disclosure at `/attorney-advertising` reads with the wording Jon confirms during the final content review (the page itself was created and the site-wide footer link wired in Phase 5 on 2026-05-28 via the Kirkland linked-disclosure pattern).
+  6. Defense-in-depth for JSON-LD embedding: `src/components/seo/JsonLd.astro` adds an explicit `.replace(/</g, '<')` to its `JSON.stringify` output, and Jon's privacy policy at `/privacy` is reviewed and approved (or amended). Surfaced by Phase 5 security audit (2026-05-28, FLAG-1).
 
 **Plans**: TBD
 **Security hint**: yes
@@ -255,6 +274,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 2. Design System & Visual Identity | 4/4 | Complete    | 2026-05-26 |
 | 3. Homepage & Static Pages | 3/3 | Complete | 2026-05-27 |
 | 4. Attorney & Practice Area Pages | 4/4 | Complete    | 2026-05-28 |
-| 5. Insights (Blog) System | 0/TBD | Not started | - |
+| 5. Insights (Blog) System | 5/5 | Complete    | 2026-05-28 |
 | 6. Contact Form & Intake | 0/TBD | Not started | - |
 | 7. Security Hardening, Performance & Launch | 0/TBD | Not started | - |

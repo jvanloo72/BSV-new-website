@@ -1,0 +1,21 @@
+---
+/* Legal Notices — single dedicated page (2026-05-28).
+   Holds the general-disclaimer text that previously rendered in the site-wide
+   footer. The site-wide footer now links here instead of carrying the
+   disclaimer inline (Kirkland linked-disclosure pattern, applied to the
+   general disclaimer in addition to the attorney-advertising notation).
+   Token-only Tailwind v4 namespace utilities. Public route. */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Legal Notices — Belcher, Smolen & Van Loo LLP"
+  description="General legal notices for the Belcher, Smolen & Van Loo LLP website."
+>
+  <section class="mx-auto max-w-prose px-gutter py-section">
+    <h1 class="text-h1 font-bold text-text">Legal Notices</h1>
+    <p class="mt-6 text-body-lg text-text">
+      The information on this website is for general informational purposes only and does not constitute legal advice. Receipt of this information does not create an attorney-client relationship. You should not act or rely on any information on this website without seeking the advice of an attorney.
+    </p>
+  </section>
+</BaseLayout>

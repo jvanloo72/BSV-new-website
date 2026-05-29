@@ -60,22 +60,43 @@ const practiceAreas = defineCollection({
   }),
 });
 
-// D-06 — blog (author + reviewedBy are REQUIRED editorial gates)
+// D-06 — blog (category-aware: 'insight' posts require an attorney author +
+// practiceArea; 'deal-announcement' posts are firm-attributed and must NOT
+// set author or practiceArea). Schema introduced 2026-05-28 to support
+// importing ~14 historical bsvlaw.com/news posts, most of which are
+// firm-attributed deal announcements rather than named-attorney insights.
+//
+// Refinement contracts:
+//   - cover ⇒ coverAlt non-empty           (WCAG 2.1 SC 1.1.1, Phase 5 05-01)
+//   - category=insight ⇒ author + practiceArea present   (FOUND-04, BLOG-02)
+//   - category=deal-announcement ⇒ author + practiceArea ABSENT (firm-only)
 const blog = defineCollection({
   loader: glob({ pattern: '**/[^_]*.mdx', base: './src/content/blog' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     slug: z.string(),
-    author: reference('attorneys'),
-    practiceArea: reference('practiceAreas'),
+    category: z.enum(['insight', 'deal-announcement']),
+    author: reference('attorneys').optional(),
+    practiceArea: reference('practiceAreas').optional(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     summary: z.string(),
-    reviewedBy: z.string().min(1),
     cover: image().optional(),
     coverAlt: z.string().optional(),
     draft: z.boolean().default(false),
-  }),
+  })
+  .refine(
+    (data) => !data.cover || (data.coverAlt !== undefined && data.coverAlt.length > 0),
+    { message: 'coverAlt is required when cover is set', path: ['coverAlt'] },
+  )
+  .refine(
+    (data) => data.category !== 'insight' || (data.author !== undefined && data.practiceArea !== undefined),
+    { message: 'insight posts require both author and practiceArea', path: ['author'] },
+  )
+  .refine(
+    (data) => data.category !== 'deal-announcement' || (data.author === undefined && data.practiceArea === undefined),
+    { message: 'deal-announcement posts must NOT set author or practiceArea (firm-attributed)', path: ['author'] },
+  ),
 });
 
 // D-07 — testimonials
@@ -92,10 +113,15 @@ const testimonials = defineCollection({
 });
 
 // D-08 — disclaimers (single JSON file, multiple entries)
+// 2026-05-28: 'footer' removed from the enum — the site-wide footer
+// disclaimer was retired in favor of dedicated /legal-notices and
+// /attorney-advertising pages linked from the footer (Kirkland
+// linked-disclosure pattern). Per-page disclaimers (contact, blog,
+// practice-area, attorney) are unchanged.
 const disclaimers = defineCollection({
   loader: file('src/content/disclaimers/disclaimers.json'),
   schema: z.object({
-    id: z.enum(['footer', 'contact', 'blog', 'practice-area', 'attorney']),
+    id: z.enum(['contact', 'blog', 'practice-area', 'attorney']),
     text: z.string(),
     version: z.string(),
   }),
